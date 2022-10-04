@@ -1,0 +1,139 @@
+{
+    "@context": "http://schema.org",
+    "@id": "https://sameboats.org/authors",
+    "@type": "ItemList",
+    "itemListElement": [
+        {
+            "@id": "https://sameboats.org/authors/egrobeson",
+            "@type": "Person",
+            "color": [
+                2,
+                62,
+                255,
+                195
+            ],
+            "name": "Eslanda Goode Robeson"
+        },
+        {
+            "@id": "https://sameboats.org/authors/kbrathwaite",
+            "@type": "Person",
+            "color": [
+                255,
+                124,
+                0,
+                195
+            ],
+            "name": "Kamau Brathwaite"
+        },
+        {
+            "@id": "https://sameboats.org/authors/glamming",
+            "@type": "Person",
+            "color": [
+                26,
+                201,
+                56,
+                195
+            ],
+            "name": "George Lamming"
+        },
+        {
+            "@id": "https://sameboats.org/authors/acesaire",
+            "@type": "Person",
+            "color": [
+                232,
+                0,
+                11,
+                195
+            ],
+            "name": "Aimé Césaire"
+        },
+        {
+            "@id": "https://sameboats.org/authors/kdunham",
+            "@type": "Person",
+            "color": [
+                139,
+                43,
+                226,
+                195
+            ],
+            "name": "Katherine Dunham"
+        },
+        {
+            "@id": "https://sameboats.org/authors/dali",
+            "@type": "Person",
+            "color": [
+                159,
+                72,
+                0,
+                195
+            ],
+            "name": "Duse Mohamed Ali"
+        },
+        {
+            "@id": "https://sameboats.org/authors/cmckay",
+            "@type": "Person",
+            "color": [
+                241,
+                76,
+                193,
+                195
+            ],
+            "name": "Claude McKay"
+        },
+        {
+            "@id": "https://sameboats.org/authors/wlam",
+            "@type": "Person",
+            "color": [
+                163,
+                163,
+                163,
+                195
+            ],
+            "name": "Wifredo Lam"
+        },
+        {
+            "@id": "https://sameboats.org/authors/clrjames",
+            "@type": "Person",
+            "color": [
+                255,
+                196,
+                0,
+                195
+            ],
+            "name": "C.L.R. James"
+        },
+        {
+            "@id": "https://sameboats.org/authors/rdepestre",
+            "@type": "Person",
+            "color": [
+                0,
+                215,
+                255,
+                195
+            ],
+            "name": "René Depestre"
+        },
+        {
+            "@id": "https://sameboats.org/authors/webdubois",
+            "@type": "Person",
+            "color": [
+                0,
+                28,
+                127,
+                195
+            ],
+            "name": "W.E.B. Dubois"
+        },
+        {
+            "@id": "https://sameboats.org/authors/mconde",
+            "@type": "Person",
+            "color": [
+                177,
+                64,
+                13,
+                195
+            ],
+            "name": "Maryse Condé"
+        }
+    ]
+}

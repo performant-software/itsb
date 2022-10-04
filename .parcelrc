@@ -1,0 +1,16 @@
+{
+    "extends": "@parcel/config-default",
+    "resolvers": [
+        "@parcel/resolver-glob",
+        "..."
+    ],
+    "compressors": {
+        "*.{html,css,js,jsx,map}": [
+            "...",
+            "@parcel/compressor-gzip"
+        ]
+    },
+    "transformers": {
+      "*.json": ["@parcel/transformer-raw"]
+    }
+}

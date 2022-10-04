@@ -1,0 +1,30 @@
+{
+  "name": "itsb",
+  "version": "1.0.0",
+  "description": "In The Same Boats",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@deck.gl/core": "^8.8.9",
+    "@deck.gl/layers": "^8.8.9",
+    "@deck.gl/react": "^8.8.9",
+    "@peripleo/peripleo": "file:../peripleo",
+    "d3-scale": "^4.0.2",
+    "date-fns": "^2.29.3",
+    "maplibre-gl": "^2.4.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-map-gl": "^7.0.19",
+    "react-range": "^1.8.14"
+  },
+  "devDependencies": {
+    "@parcel/compressor-brotli": "^2.7.0",
+    "@parcel/compressor-gzip": "^2.7.0",
+    "@parcel/resolver-glob": "^2.7.0",
+    "parcel": "^2.7.0",
+    "process": "^0.11.10"
+  }
+}

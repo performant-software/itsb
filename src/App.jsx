@@ -209,6 +209,13 @@ export function App() {
         );
     }, [mode, intersections]);
 
+    // Search really works in a different way than in the previous
+    // Peripleo setups. This project needs a much more graph-based
+    // approach then the other projets, which were records-based.
+    // ("Get me all nodes connected to X that match a criterion"
+    // vs. "Get me all nodes that match this criterion")
+    // TODO make it possible to inject a custom search provider?
+
     // render
     return (
         <BrowserStoreProvider>

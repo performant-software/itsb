@@ -6,8 +6,6 @@
 
 Currently requires Peripleo to be installed in `../peripleo` relative to the root of this project.
 
-You may also have to point the packages it shares with this project (`react`, `react-dom`, and `react-map-gl`) to this project's `node_modules` in Peripleo's `package.json` before installing Peripleo.
-
 ### Data generation
 
 To generate JSON Linked Data from CSV files:
@@ -27,10 +25,10 @@ npm install
 
 ### Run in development
 
-To start a hot-module-reloading build served over `localhost:1234`:
+To start a hot-module-reloading build served over `localhost:5173`:
 
 ```sh
-npx parcel src/index.html
+npm start
 ```
 
 ### Build for production
@@ -38,5 +36,13 @@ npx parcel src/index.html
 To generate a static build output to `/dist`:
 
 ```sh
-npx parcel build src/index.html
+npm run build
 ```
+
+You can also preview the built bundle using:
+
+```sh
+npm run preview
+```
+
+In this mode, Vite will launch a development server which serves the built assets from the `/dist` folder.

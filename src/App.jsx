@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import Peripleo, { BrowserStoreProvider } from "@peripleo/peripleo";
+import Peripleo, { BrowserStore } from "@peripleo/peripleo";
+import { ITSBStore, AuthorSelect, MonthRangeInput } from "./components";
 import DeckGL from "@deck.gl/react";
 import { ArcLayer, GeoJsonLayer, ScatterplotLayer } from "@deck.gl/layers";
 import Map from "react-map-gl";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { endOfToday } from "date-fns";
-import AuthorSelect from "./components/AuthorSelect";
-import MonthRangeInput from "./components/MonthRangeInput";
 import { getColor } from "./utils/Author";
 import { changeDate, addOrSubtractMonths } from "./utils/Date";
 import {
@@ -218,52 +217,55 @@ export function App() {
 
     // render
     return (
-        <BrowserStoreProvider>
+        <>
             <Peripleo>
-                <DeckGL
-                    initialViewState={{
-                        latitude: 20,
-                        longitude: 10,
-                        zoom: 1.3,
-                        pitch: 0,
-                        bearing: 0,
-                    }}
-                    controller={true}
-                    layers={
-                        mode === "trajectories"
-                            ? trajectoriesLayers
-                            : intersectionsLayers
-                    }
-                    getTooltip={({ object }) => {
-                        if (mode === "trajectories")
-                            return object?.properties?.title;
-                        else {
-                            // TODO: Clicking should open this in a separate panel
-                            if (object?.figures) {
-                                const people = Object.entries(object.figures)
-                                    .map(([k, v]) => {
-                                        const authorName =
-                                            authors?.itemListElement?.find(
-                                                (a) => a["@id"] === k,
-                                            )?.name || "[?]";
-                                        return `${authorName}: ${v}`;
-                                        // right now this is just showing likelihoods, for debugging
-                                    })
-                                    .join("\n");
-                                return `${object.properties?.title}\n\n${people}`;
-                            }
+                <ITSBStore>
+                    <DeckGL
+                        initialViewState={{
+                            latitude: 20,
+                            longitude: 10,
+                            zoom: 1.3,
+                            pitch: 0,
+                            bearing: 0,
+                        }}
+                        controller={true}
+                        layers={
+                            mode === "trajectories"
+                                ? trajectoriesLayers
+                                : intersectionsLayers
                         }
-                    }}
-                    height="calc(100vh - 50px)"
-                    width="75%"
-                    style={{ marginLeft: "25%", marginTop: "50px" }}
-                >
-                    <Map
-                        mapLib={maplibregl}
-                        mapStyle="https://api.maptiler.com/maps/outdoor/style.json?key=cqqmcLw28krG9Fl7V3kg"
-                    />
-                </DeckGL>
+                        getTooltip={({ object }) => {
+                            if (mode === "trajectories")
+                                return object?.properties?.title;
+                            else {
+                                // TODO: Clicking should open this in a separate panel
+                                if (object?.figures) {
+                                    const people = Object.entries(object.figures)
+                                        .map(([k, v]) => {
+                                            const authorName =
+                                                authors?.itemListElement?.find(
+                                                    (a) => a["@id"] === k,
+                                                )?.name || "[?]";
+                                            return `${authorName}: ${v}`;
+                                            // right now this is just showing likelihoods, for debugging
+                                        })
+                                        .join("\n");
+                                    return `${object.properties?.title}\n\n${people}`;
+                                }
+                            }
+                        }}
+                        height="calc(100vh - 50px)"
+                        width="75%"
+                        style={{ marginLeft: "25%", marginTop: "50px" }}
+                    >
+                        <Map
+                            mapLib={maplibregl}
+                            mapStyle="https://api.maptiler.com/maps/outdoor/style.json?key=cqqmcLw28krG9Fl7V3kg"
+                        />
+                    </DeckGL>
+                </ITSBStore>
             </Peripleo>
+
             <MonthRangeInput
                 dateRange={dateRange}
                 min={startDate}
@@ -286,6 +288,7 @@ export function App() {
                     )
                 }
             />
+
             <fieldset id="mode-select" style={{ marginTop: "10px" }}>
                 <input
                     type="radio"
@@ -306,6 +309,7 @@ export function App() {
                 ></input>
                 <label htmlFor="intersections">Intersections</label>
             </fieldset>
+
             <AuthorSelect
                 authors={authors}
                 selectedAuthors={selectedAuthors}
@@ -324,6 +328,6 @@ export function App() {
                     }
                 }}
             />
-        </BrowserStoreProvider>
+        </>
     );
 }

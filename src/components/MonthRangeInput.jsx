@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 
-const MonthRangeInput = ({ dateRange, min, max, onChange, onClick }) => {
+export const MonthRangeInput = ({ dateRange, min, max, onChange, onClick }) => {
     const minFormatted = format(min, "yyyy-MM");
     const maxFormatted = format(max, "yyyy-MM");
     let low = minFormatted;
@@ -47,5 +47,3 @@ const MonthRangeInput = ({ dateRange, min, max, onChange, onClick }) => {
         </fieldset>
     );
 };
-
-export default MonthRangeInput;

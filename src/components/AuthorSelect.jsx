@@ -1,4 +1,4 @@
-const AuthorSelect = ({ authors, selectedAuthors, onChange }) => (
+export const AuthorSelect = ({ authors, selectedAuthors, onChange }) => (
     <fieldset id="author-select" style={{ marginTop: "30px" }}>
         {authors?.itemListElement &&
             authors.itemListElement.map((author) => (
@@ -22,5 +22,3 @@ const AuthorSelect = ({ authors, selectedAuthors, onChange }) => (
             ))}
     </fieldset>
 );
-
-export default AuthorSelect;

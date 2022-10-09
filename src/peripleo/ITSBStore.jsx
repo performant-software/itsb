@@ -1,10 +1,11 @@
 import createGraph from 'ngraph.graph';
+import { StoreContext } from '@peripleo/peripleo';
 
 /** 
  * Experimenting with a custom store, while we're still 
  * figuring out a good way to model this in Peripleo.
  */
-export class SameBoatsStore {
+export class ITSBStore {
 
   constructor() {
     this.graph = createGraph();
@@ -42,4 +43,9 @@ export class SameBoatsStore {
     return linkedNodes.map(t => t.node.data);
   }
 
+}
+
+export const ITSBStoreProvider = props => {
+  const store = new ITSBStore();
+  return <StoreContext.Provider value={store}>{props.children}</StoreContext.Provider>
 }

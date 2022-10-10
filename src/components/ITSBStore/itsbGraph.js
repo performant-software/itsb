@@ -1,11 +1,6 @@
 import createGraph from 'ngraph.graph';
-import { StoreContext } from '@peripleo/peripleo';
 
-/** 
- * Experimenting with a custom store, while we're still 
- * figuring out a good way to model this in Peripleo.
- */
-export class ITSBStore {
+export class ITSBGraph {
 
   constructor() {
     this.graph = createGraph();
@@ -25,14 +20,18 @@ export class ITSBStore {
     // - Waypoints linked to waypoints (directional?)
   }
 
+
   /**
    * Queries - trying to keep as generic and close
    * to current Peripleo store as possible!
    */
-  getNode = id =>
-    this.graph.getNode(normalizeURI(id))?.data;
+  getNode = id => {
+    // TODO returns Node or undefined;
+  }
 
   getConnectedNodes = id => {
+    // TODO returns a Promise<Node[]>
+    /*
     const linkedNodes = [];
 
     this.graph.forEachLinkedNode(id, (node, link) => {
@@ -41,11 +40,7 @@ export class ITSBStore {
     });
 
     return linkedNodes.map(t => t.node.data);
+    */
   }
 
-}
-
-export const ITSBStoreProvider = props => {
-  const store = new ITSBStore();
-  return <StoreContext.Provider value={store}>{props.children}</StoreContext.Provider>
 }

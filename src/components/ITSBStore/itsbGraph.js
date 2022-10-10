@@ -24,6 +24,8 @@ export class ITSBGraph {
   init = (authors, places, itineraries) => {
     this.graph.clear();
 
+    this.graph.beginUpdate();
+
     // Authors and places can be treated the same way
     const authorNodes = authors.map(normalizeNode);
     const placeNodes = places.map(normalizeNode);
@@ -34,17 +36,53 @@ export class ITSBGraph {
     // Itineraries are split to waypoint nodes
     const waypointNodes = itineraries.reduce((waypoints, it) => {
       return [...waypoints, ...splitItinerary(it)]
-    }, []);
+    }, []).filter(wp => { 
+      const isValid = this.exists(wp.author, wp.place);
 
-    waypointNodes.forEach(n => this.graph.addNode(n.id, n));
+      if (!isValid)
+        console.warn('Skipping unconnected node', wp);
+
+      return isValid;
+    });
+
+    waypointNodes.forEach(wp => this.graph.addNode(wp.id,wp));
+
+    // Link waypoints to authors
+    waypointNodes.forEach(wp => {
+      const sourceId = wp.id;
+      const targetId = wp.author;
+      this.graph.addLink(sourceId, targetId);
+    });
+
+    // Link waypoints to places
+    waypointNodes.forEach(wp => {
+      const sourceId = wp.id;
+      const targetId = wp.place;
+      this.graph.addLink(sourceId, targetId);
+    });
+
+    // Link waypoints in sequence
+    waypointNodes.reduce((previous, wp) => {
+      if (previous) {
+        const sourceId = previous.id;
+        const targetId = wp.id;
+        this.graph.addLink(sourceId, targetId);
+      }
+
+      return wp;
+    }, null);
+
+    this.graph.endUpdate();
   }
 
   listNodesWithProperty = (key, value) => {
     const nodes = [];
 
-    this.graph.forEachNode(({ data }) => {
-      if (data[key] === value)
-        nodes.push(data);
+    this.graph.forEachNode(n => {
+      // if (!n.data)
+      //   console.log(n.id, n);
+      if (n.data[key] === value)
+        nodes.push(n.data);
     });
 
     return nodes;
@@ -67,8 +105,10 @@ export class ITSBGraph {
     });
   }
 
-  listWaypoints = () => {
-
+  exists() {
+    if (arguments.length > 0) {
+      return [...arguments].every(id => this.getNode(id));
+    }
   }
 
   getNode = id =>

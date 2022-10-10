@@ -26,7 +26,7 @@ describe('ITSBGraph', () => {
   });
 
   it('should load itineraries correctly', () => {
-    const graph = initGraph([], [], itineraries.first.items);
+    const graph = initGraph(authors.itemListElement, places.features, itineraries.first.items);
     const expected = graph.listItineraries();
     expect(expected.length).toBe(12);
   });

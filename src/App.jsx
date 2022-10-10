@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import Peripleo, { BrowserStore } from "@peripleo/peripleo";
 import { ITSBStore, AuthorSelect, MonthRangeInput } from "./components";
-import DeckGL from "@deck.gl/react";
-import { ArcLayer, GeoJsonLayer, ScatterplotLayer } from "@deck.gl/layers";
-import Map from "react-map-gl";
-import maplibregl from "maplibre-gl";
+// import DeckGL from "@deck.gl/react";
+// import { ArcLayer, GeoJsonLayer, ScatterplotLayer } from "@deck.gl/layers";
+// import Map from "react-map-gl";
+// import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { endOfToday } from "date-fns";
 import { getColor } from "./utils/Author";
@@ -16,6 +16,10 @@ import {
 } from "./utils/Intersections";
 import { filterTrajectories, getTrajectoryCoords } from "./utils/Trajectories";
 import { filterFeatures } from "./utils/Place";
+
+import authors from '../data/authors.json';
+import places from '../data/places.json';
+import itineraries from '../data/itineraries.json';
 
 export function App() {
     // set up states
@@ -109,6 +113,7 @@ export function App() {
     // effects for map layer updates
     useEffect(() => {
         if (placesFiltered) {
+            /*
             const geoJsonLayer = new GeoJsonLayer({
                 id: "geojson-layer",
                 data: placesFiltered,
@@ -152,6 +157,7 @@ export function App() {
                     }),
             );
             setTrajectoriesLayers([...arcLayers, geoJsonLayer]);
+            */
         }
     }, [selectedAuthors, placesFiltered, trajectoryCoords]);
     useEffect(() => {
@@ -160,7 +166,7 @@ export function App() {
             intersections,
             places: placesFiltered,
         });
-        // three layers, one for each likelihood, starting with outermost (least likely)
+        /* three layers, one for each likelihood, starting with outermost (least likely)
         setIntersectionsLayers(
             [1, 2, 3].map((idx) => {
                 const data = Object.values(intersectionsForViz)
@@ -205,7 +211,7 @@ export function App() {
                     getLineColor: (d) => [200, 100, 0, 144],
                 });
             }),
-        );
+        );*/
     }, [mode, intersections]);
 
     // Search really works in a different way than in the previous
@@ -219,7 +225,11 @@ export function App() {
     return (
         <>
             <Peripleo>
-                <ITSBStore>
+                <ITSBStore
+                    authors={authors.itemListElement}
+                    places={places.features}
+                    itineraries={itineraries.first.items}>
+                    {/*
                     <DeckGL
                         initialViewState={{
                             latitude: 20,
@@ -263,6 +273,7 @@ export function App() {
                             mapStyle="https://api.maptiler.com/maps/outdoor/style.json?key=cqqmcLw28krG9Fl7V3kg"
                         />
                     </DeckGL>
+                    */}
                 </ITSBStore>
             </Peripleo>
 

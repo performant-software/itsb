@@ -5,7 +5,7 @@ import { ITSBGraphProvider } from './ITSBGraphProvider';
 export const ITSBStore = props => {
 
   return (
-    <ITSBGraphProvider>
+    <ITSBGraphProvider {...props}>
       <ITSBSearchHandler>
         {props.children}
       </ITSBSearchHandler>

@@ -103,6 +103,8 @@ export class ITSBGraph {
     const waypoints = Object.entries(groupedByAuthor).map(([author, waypoints]) => {
       return { author, waypoints };
     });
+
+    return waypoints;
   }
 
   exists() {

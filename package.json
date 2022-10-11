@@ -16,6 +16,7 @@
     "@deck.gl/layers": "^8.8.9",
     "@deck.gl/react": "^8.8.9",
     "@peripleo/peripleo": "file:../peripleo",
+    "@tanstack/react-query": "^4.10.3",
     "d3-scale": "^4.0.2",
     "date-fns": "^2.29.3",
     "maplibre-gl": "^2.4.0",

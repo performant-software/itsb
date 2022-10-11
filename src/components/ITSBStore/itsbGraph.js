@@ -99,8 +99,8 @@ export class ITSBGraph {
 
     const groupedByAuthor = groupBy(allWaypoints, 'author');
 
-    return Object.entries(groupedByAuthor).map(([author, waypoints]) => {
-      // TODO sort waypoints by 'when'
+    // TODO sort by sequence!
+    const waypoints = Object.entries(groupedByAuthor).map(([author, waypoints]) => {
       return { author, waypoints };
     });
   }

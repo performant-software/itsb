@@ -17,7 +17,7 @@ export const ITSBGraphProvider = props => {
     
   return (
     <GraphContext.Provider value={graph}>
-      {props.children}
+      {graph && props.children}
     </GraphContext.Provider>
   )
   

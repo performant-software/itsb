@@ -16,6 +16,10 @@ const toArc = (waypoints, graph) => {
   return trajectory;
 }
 
+/**
+ * The SearchHandler handles one thing: translating a Search
+ * into a list of results by querying the graph.
+ */
 export const ITSBSearchHandler = props => {
 
   const [search, setSearchState] = useRecoilState(searchState);
@@ -24,17 +28,21 @@ export const ITSBSearchHandler = props => {
 
   useEffect(() => {
     if (search.status === SearchStatus.PENDING) {
-      console.log('Running search');
-
-      // Main task of the SearchHandler ist to turn itineraries
-      // into map-able GeoJSON
+      // TODO support actual search (not just 'listAll')
       const itineraries = graph.listItineraries(true)
         .map(({ author, waypoints }) => {
           const arc = toArc(waypoints, graph);
           return { author, trajectory: arc };
         });
 
-      
+      setSearchState({
+        args: search.args,
+        status: SearchStatus.OK,
+        result: {
+          total: itineraries.length,
+          items: itineraries
+        }
+      })
     }
   }, [search]);
 

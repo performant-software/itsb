@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import Peripleo, { Map } from "@peripleo/peripleo"
 import { ITSBStore } from "./components"
+import { ItineraryLayer } from "./components/ItineraryLayer/ItineraryLayer";
 
 const fetchData = url => () => fetch(url).then(res => res.json());
 
@@ -20,7 +21,10 @@ export function App() {
         itineraries={itinerariesQuery.data?.first.items}>
 
         <Map.MapLibreDeckGL
-          mapStyle="https://api.maptiler.com/maps/voyager/style.json?key=cqqmcLw28krG9Fl7V3kg">
+          mapStyle="https://api.maptiler.com/maps/voyager/style.json?key=cqqmcLw28krG9Fl7V3kg"
+          defaultBounds={[[-15.764914, 33.847608], [35.240991, 58.156214]]}>
+
+          <ItineraryLayer />
 
         </Map.MapLibreDeckGL>
 

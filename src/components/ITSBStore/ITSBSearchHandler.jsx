@@ -42,7 +42,7 @@ export const ITSBSearchHandler = props => {
           total: itineraries.length,
           items: itineraries
         }
-      })
+      });
     }
   }, [search]);
 
@@ -51,6 +51,32 @@ export const ITSBSearchHandler = props => {
     setSearchState({ args: {}, status: SearchStatus.PENDING });
   }, [graph]);
 
-  return props.children;
+  // Just a hack for testing!
+  const randomSearch = () => {
+    const i = graph.listItineraries(true);
+
+    const random = [
+      i[Math.floor(Math.random() * i.length)]
+    ].map(({ author, waypoints }) => {
+      const arc = toArc(waypoints, graph);
+      return { author, trajectory: arc };
+    });
+
+    setSearchState({
+      args: search.args,
+      status: SearchStatus.OK,
+      result: {
+        total: 1,
+        items: random
+      }
+    });
+  }
+
+  return (
+    <>
+      <button onClick={randomSearch} className="random-search">Random Itinerary</button>
+      {props.children}
+    </>
+  )
 
 }

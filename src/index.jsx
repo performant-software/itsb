@@ -5,6 +5,8 @@ import { App } from './App';
 
 const queryClient = new QueryClient();
 
+import './index.css';
+
 ReactDOM.createRoot(document.getElementById('app')).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>

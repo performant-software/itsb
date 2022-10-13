@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Peripleo, { BrowserStoreProvider } from "@peripleo/peripleo";
+import Peripleo from "@peripleo/peripleo";
 import DeckGL from "@deck.gl/react";
 import { ArcLayer, GeoJsonLayer, ScatterplotLayer } from "@deck.gl/layers";
 import Map from "react-map-gl";
@@ -211,7 +211,7 @@ export function App() {
 
     // render
     return (
-        <BrowserStoreProvider>
+        <>
             <Peripleo>
                 <DeckGL
                     initialViewState={{
@@ -317,6 +317,6 @@ export function App() {
                     }
                 }}
             />
-        </BrowserStoreProvider>
+        </>
     );
 }

@@ -45,28 +45,28 @@ export class ITSBGraph {
       return isValid;
     });
 
-    waypointNodes.forEach(wp => this.graph.addNode(wp.id,wp));
+    waypointNodes.forEach(wp => this.graph.addNode(wp.id, wp));
 
     // Link waypoints to authors
     waypointNodes.forEach(wp => {
       const sourceId = wp.id;
       const targetId = wp.author;
-      this.graph.addLink(sourceId, targetId);
+      this.graph.addLink(sourceId, targetId, { relation: 'visitedBy' });
     });
 
     // Link waypoints to places
     waypointNodes.forEach(wp => {
       const sourceId = wp.id;
       const targetId = wp.place;
-      this.graph.addLink(sourceId, targetId);
+      this.graph.addLink(sourceId, targetId, { relation: 'locatedAt' });
     });
 
     // Link waypoints in sequence
     waypointNodes.reduce((previous, wp) => {
-      if (previous) {
-        const sourceId = previous.id;
-        const targetId = wp.id;
-        this.graph.addLink(sourceId, targetId);
+      if (previous && previous.author === wp.author) {
+        const sourceId = wp.id;
+        const targetId = previous.id;
+        this.graph.addLink(sourceId, targetId, { relation: 'previous'});
       }
 
       return wp;
@@ -79,8 +79,6 @@ export class ITSBGraph {
     const nodes = [];
 
     this.graph.forEachNode(n => {
-      // if (!n.data)
-      //   console.log(n.id, n);
       if (n.data[key] === value)
         nodes.push(n.data);
     });
@@ -94,17 +92,41 @@ export class ITSBGraph {
   listPlaces = () =>
     this.listNodesWithProperty('type', 'Feature');
 
+
+  sortWaypoints = waypoints => {
+    // TODO does not work with time filters yet!
+    const first = waypoints.find(wp => {
+      const outbound = [];
+
+      this.graph.forEachLinkedNode(wp.id, (node, link) => {
+        outbound.push(link);
+      }, true);
+
+      return outbound.length == 2;
+    });
+
+    const walkWaypoints = (waypoint, sorted = []) => {
+      let next;
+
+      this.graph.forEachLinkedNode(waypoint.id, (node, link) => {
+        if (link.data.relation == 'previous' && link.toId === waypoint.id)
+          next = node.data;
+      }, false);
+
+      return next ? walkWaypoints(next, [...sorted, next]) : sorted;
+    }
+
+    // Traverse the graph
+    return walkWaypoints(first);    
+  }
+
   listItineraries = () => {
-    const allWaypoints = this.listNodesWithProperty('relation', 'waypoint');
+    const allWaypoints = this.listNodesWithProperty('type', 'waypoint');
 
     const groupedByAuthor = groupBy(allWaypoints, 'author');
 
-    // TODO sort by sequence!
-    const waypoints = Object.entries(groupedByAuthor).map(([author, waypoints]) => {
-      return { author, waypoints };
-    });
-
-    return waypoints;
+    return Object.entries(groupedByAuthor).map(([author, waypoints]) =>
+      ({ author, waypoints: this.sortWaypoints(waypoints) }));
   }
 
   exists() {

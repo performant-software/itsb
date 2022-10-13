@@ -25,6 +25,7 @@ export const splitItinerary = it => {
     ...value,
     author: authorId,
     place: value.id,
+    type: 'waypoint',
     id: `${itineraryId}/wp/${idx}`
   }));
 }

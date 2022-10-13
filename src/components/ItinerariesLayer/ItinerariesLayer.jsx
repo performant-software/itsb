@@ -4,7 +4,7 @@ import { ArcLayer } from '@deck.gl/layers';
  * The task of the ItineraryLayer is to take a search result,
  * and turn the itinerary trajectories into DeckGL layers.
  */
-export const ItineraryLayer = data => {
+export const ItinerariesLayer = data => {
 
   return data.map(({ author, trajectory}) => new ArcLayer({
     id: `${author}/trajectory`, 

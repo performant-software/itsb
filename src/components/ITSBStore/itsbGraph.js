@@ -1,5 +1,10 @@
 import createGraph from 'ngraph.graph';
-import { normalizeNode, splitItinerary, groupBy } from './utils';
+import { 
+  normalizeNode,  
+  groupBy, 
+  sortWaypoints,
+  splitItinerary
+} from './utils';
 
 /**
  * A domain graph model for ITSB with the following 
@@ -92,41 +97,13 @@ export class ITSBGraph {
   listPlaces = () =>
     this.listNodesWithProperty('type', 'Feature');
 
-
-  sortWaypoints = waypoints => {
-    // TODO does not work with time filters yet!
-    const first = waypoints.find(wp => {
-      const outbound = [];
-
-      this.graph.forEachLinkedNode(wp.id, (node, link) => {
-        outbound.push(link);
-      }, true);
-
-      return outbound.length == 2;
-    });
-
-    const walkWaypoints = (waypoint, sorted = []) => {
-      let next;
-
-      this.graph.forEachLinkedNode(waypoint.id, (node, link) => {
-        if (link.data.relation == 'previous' && link.toId === waypoint.id)
-          next = node.data;
-      }, false);
-
-      return next ? walkWaypoints(next, [...sorted, next]) : sorted;
-    }
-
-    // Traverse the graph
-    return walkWaypoints(first);    
-  }
-
   listItineraries = () => {
     const allWaypoints = this.listNodesWithProperty('type', 'waypoint');
 
     const groupedByAuthor = groupBy(allWaypoints, 'author');
 
     return Object.entries(groupedByAuthor).map(([author, waypoints]) =>
-      ({ author, waypoints: this.sortWaypoints(waypoints) }));
+      ({ author, waypoints: sortWaypoints(waypoints, this.graph) }));
   }
 
   exists() {
@@ -137,19 +114,5 @@ export class ITSBGraph {
 
   getNode = id =>
     this.graph.getNode(id)?.data;
-
-  getConnectedNodes = id => {
-    // TODO returns a Promise<Node[]>
-    /*
-    const linkedNodes = [];
-
-    this.graph.forEachLinkedNode(id, (node, link) => {
-      if (node.data)
-        linkedNodes.push({ node, link });
-    });
-
-    return linkedNodes.map(t => t.node.data);
-    */
-  }
 
 }

@@ -31,6 +31,35 @@ export const splitItinerary = it => {
 }
 
 /** 
+ * Sorts waypoints in sequence by traversing the graph
+ * WARNING: does not yet work with time-filtered itineraries!
+ */
+export const sortWaypoints = (waypoints, graph) => {
+  const startPoint = waypoints.find(wp => {
+    const outboundLinks = [];
+
+    graph.forEachLinkedNode(wp.id, (_, link) => {
+      outboundLinks.push(link);
+    }, true);
+
+    return outboundLinks.length == 2;
+  });
+
+  const traverseItinerary = (waypoint, sorted = []) => {
+    let nextNode;
+
+    graph.forEachLinkedNode(waypoint.id, (node, link) => {
+      if (link.data.relation == 'previous' && link.toId === waypoint.id)
+        nextNode = node.data;
+    }, false);
+
+    return nextNode ? traverseItinerary(nextNode, [...sorted, nextNode]) : sorted;
+  }
+
+  return traverseItinerary(startPoint);    
+}
+
+/** 
  * Generic method to group an array of objects by key
  * 
  * https://stackoverflow.com/questions/14446511/most-efficient-method-to-groupby-on-an-array-of-objects

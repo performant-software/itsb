@@ -10,9 +10,7 @@ import { useSearch } from '../../../../store';
 import { mapViewState } from '../../../state';
 import { DeckGLLayer, ViewState} from '../../../types';
 
-import { ItinerariesLayer } from './ItinerariesLayer';
-
-// import 'maplibre-gl/dist/maplibre-gl.css';
+import 'maplibre-gl/dist/maplibre-gl.css';
 
 type MapLibreDeckGLProps = {
 
@@ -65,15 +63,11 @@ export const MapLibreDeckGL = (props: MapLibreDeckGLProps) => {
   const data = search?.result && search.status === 'OK' && search.result.items.length > 0 ?
     search.result.items : null;
 
-  /*
   const layers = props.layers && data ? props.layers.reduce((all, next) => {
     const l = next(data);
     return Array.isArray(l) ?
       [...all, ...l] : [...all, l];
   }, [] as Object[]) : [];
-  */
-
-  const layers = data ? ItinerariesLayer(data) : [];
 
   return (
     <div 

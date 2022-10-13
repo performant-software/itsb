@@ -6,7 +6,7 @@ import { MapHover } from '../../../types';
 import { useGraph, useSearch } from '../../../../store';
 import { PopupContainer, TooltipContainer } from '../..';
 
-// import 'maplibre-gl/dist/maplibre-gl.css';
+import 'maplibre-gl/dist/maplibre-gl.css';
 
 type MapLibreProps = {
 

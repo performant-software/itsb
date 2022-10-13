@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { searchState, SearchStatus } from '@peripleo/peripleo';
-import { useGraph } from '@peripleo/peripleo';
+import { searchState, SearchStatus } from '../../peripleo/store';
+import { useGraph } from '../../peripleo/store';
 
 const toArc = (waypoints, graph) => {
   const trajectory = [];

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import Peripleo, { Map, Controls, ZoomControl } from "@peripleo/peripleo"
+import Peripleo, { Map, Controls, ZoomControl } from "./peripleo"
 import { ITSBStore, ItinerariesLayer } from "./components"
 
 const fetchData = url => () => fetch(url).then(res => res.json());

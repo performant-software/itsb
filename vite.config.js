@@ -9,7 +9,7 @@ export default defineConfig({
     }
   },  
   optimizeDeps: {
-    exclude: ['@peripleo/peripleo']
+
   },
   server: {
     open: '/public/index.html'

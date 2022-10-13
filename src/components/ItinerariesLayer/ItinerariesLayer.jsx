@@ -14,7 +14,7 @@ export const ItinerariesLayer = (resultItems, graph) => {
       data: trajectory,
       pickable: false,
       getWidth: 2,
-      getHeight: 0.01,
+      getHeight: 0.1,
       greatCircle: true,
       getSourcePosition: d => d.from.coordinates,
       getTargetPosition: d => d.to.coordinates,

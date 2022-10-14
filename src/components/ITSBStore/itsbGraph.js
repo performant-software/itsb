@@ -80,6 +80,9 @@ export class ITSBGraph {
     this.graph.endUpdate();
   }
 
+  getNode = id =>
+    this.graph.getNode(id)?.data;
+
   listNodesWithProperty = (key, value) => {
     const nodes = [];
 
@@ -111,8 +114,5 @@ export class ITSBGraph {
       return [...arguments].every(id => this.getNode(id));
     }
   }
-
-  getNode = id =>
-    this.graph.getNode(id)?.data;
 
 }

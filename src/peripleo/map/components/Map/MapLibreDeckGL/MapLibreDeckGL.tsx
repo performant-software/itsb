@@ -78,7 +78,7 @@ export const MapLibreDeckGL = (props: MapLibreDeckGLProps) => {
         <DeckGL
           viewState={viewState}
           onViewStateChange={(e: { viewState: ViewState }) => {
-            setViewState({ ...e.viewState, zoom: Math.max(e.viewState.zoom, 2)} );
+            setViewState({ ...e.viewState, zoom: Math.max(e.viewState.zoom, 1.6)} );
           }}
           controller={{ scrollZoom: { speed: 0.25, smooth: true }}}
           layers={layers}>

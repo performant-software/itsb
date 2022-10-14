@@ -1,6 +1,6 @@
 
 import React, { useMemo } from 'react';
-import { GraphContext } from '../../peripleo/store';
+import { GraphContext } from '@peripleo/peripleo';
 import { ITSBGraph } from './itsbGraph';
 
 export const ITSBGraphProvider = props => {

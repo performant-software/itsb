@@ -1,4 +1,4 @@
-import { ArcLayer } from '@deck.gl/layers';
+import { ArcLayer } from '@peripleo/peripleo/deck.gl/layers';
 
 /**
  * The task of the ItineraryLayer is to take a search result,

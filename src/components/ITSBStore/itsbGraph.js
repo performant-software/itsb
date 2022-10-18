@@ -1,6 +1,7 @@
 import createGraph from 'ngraph.graph';
 import { 
   normalizeNode,  
+  filterByTime,
   groupBy, 
   sortWaypoints,
   splitItinerary
@@ -100,10 +101,13 @@ export class ITSBGraph {
   listPlaces = () =>
     this.listNodesWithProperty('type', 'Feature');
 
-  listItineraries = () => {
+  listItineraries = (dateRange) => {
     const allWaypoints = this.listNodesWithProperty('type', 'waypoint');
 
-    const groupedByAuthor = groupBy(allWaypoints, 'author');
+    const filtered = dateRange ? 
+      filterByTime(allWaypoints, dateRange) : allWaypoints;
+
+    const groupedByAuthor = groupBy(filtered, 'author');
 
     return Object.entries(groupedByAuthor).map(([author, waypoints]) =>
       ({ author, waypoints: sortWaypoints(waypoints, this.graph) }));

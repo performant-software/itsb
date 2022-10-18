@@ -29,8 +29,12 @@ export const ITSBSearchHandler = props => {
     if (search.status === SearchStatus.PENDING) {
       const authors = 
         search.args.filters?.find(f => f.name === 'authors')?.values || [];
+
+      const dateRange = 
+        search.args.filters?.find(f => f.name === 'daterange')?.range;
       
-      const itineraries = graph.listItineraries()
+      // TODO this could be optimized by filtering authors first!
+      const itineraries = graph.listItineraries(dateRange)
         .filter(it => authors.includes(it.author))
         .map(({ author, waypoints }) => {
           const arc = toArc(waypoints, graph);

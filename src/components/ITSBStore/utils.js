@@ -35,14 +35,21 @@ export const splitItinerary = it => {
  * WARNING: does not yet work with time-filtered itineraries!
  */
 export const sortWaypoints = (waypoints, graph) => {
+  const ids = new Set(waypoints.map(wp => wp.id));
+
+  // The start point is the WP with either no previous
+  // WP, or no previous WP in the ID set. (The ID set)
+  // only includes those WPs that fall within the 
+  // selected time range
   const startPoint = waypoints.find(wp => {
-    const outboundLinks = [];
+    let previous;
 
     graph.forEachLinkedNode(wp.id, (_, link) => {
-      outboundLinks.push(link);
+      if (link.data.relation === 'previous')
+        previous = link.toId;
     }, true);
 
-    return outboundLinks.length == 2;
+    return !previous || !ids.has(previous);
   });
 
   const traverseItinerary = (waypoint, sorted = []) => {
@@ -68,3 +75,24 @@ export const groupBy = (xs, key) => xs.reduce((rv, x) => {
   (rv[x[key]] = rv[x[key]] || []).push(x);
   return rv;
 }, {});
+
+export const filterByTime = (waypoints, dateRange) => {
+  const [ startDate, endDate ] = dateRange;
+
+  // check if a timespan (object with {start} or {end})
+  // is in a date range (array of Dates of length 2)
+  const timespanInRange = timespan => {
+    if (timespan.start) {
+      const date = new Date(timespan.start.earliest || timespan.start.in);
+      return date >= startDate && date <= endDate;
+    } else {
+      const date = new Date(timespan.end.latest || timespan.end.in);
+      return date >= startDate && date <= endDate;
+    }
+  }
+
+  return waypoints.filter(waypoint => 
+    waypoint.when.timespans
+      .map(timespanInRange)
+      .every(Boolean)); // i.e. all timespans evaluate to true  
+}

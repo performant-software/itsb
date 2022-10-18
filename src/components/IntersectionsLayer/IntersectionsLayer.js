@@ -1,9 +1,15 @@
 import { ScatterplotLayer } from '@peripleo/peripleo/deck.gl';
 import { scaleLinear } from 'd3-scale';
+import { getPlacesAndCounts } from './intersections';
 
 export const intersectionsScale = scaleLinear().domain([0, 10]).range([0, 36]);
 
-export const IntersectionsLayer = (resultItems, graph) => {
+export const IntersectionsLayer = (intersections, graph) => {
+
+  const intersectionsForViz = getPlacesAndCounts({
+    intersections,
+    places: placesFiltered,
+  });
 
   // three layers, one for each likelihood, starting with outermost (least likely)
   return [1, 2, 3].map(idx => {

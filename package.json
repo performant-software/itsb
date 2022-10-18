@@ -14,6 +14,7 @@
   "dependencies": {
     "@peripleo/peripleo": "file:../peripleo",
     "@tanstack/react-query": "^4.10.3",
+    "d3-scale": "^4.0.2",
     "date-fns": "^2.29.3",
     "ngraph.graph": "^20.0.0",
     "react": "^18.2.0",

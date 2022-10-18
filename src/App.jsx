@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import Peripleo, { Map, Controls, ZoomControl } from "@peripleo/peripleo"
-import { AuthorSelect, ITSBStore, ItinerariesLayer } from "./components"
+import { AuthorSelect, ITSBStore, ItinerariesLayer, MonthRangeInput } from "./components"
 
 const fetchData = url => () => fetch(url).then(res => res.json());
 
@@ -20,6 +20,7 @@ export function App() {
         itineraries={itinerariesQuery.data?.first.items}>
 
         <aside>
+          <MonthRangeInput />
           <AuthorSelect />
         </aside>
 

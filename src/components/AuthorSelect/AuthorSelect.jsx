@@ -8,8 +8,8 @@ export const AuthorSelect = () => {
 
   const { search, setFilter } = useSearch();
 
-  const selected = search.args.filters ? 
-    search.args.filters.find(f => f.name === 'authors')?.values : [];
+  const selected = 
+    search.args.filters?.find(f => f.name === 'authors')?.values || [];
 
   const toggleAuthor = id => () => {
     const updated = selected.includes(id) ?

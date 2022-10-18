@@ -27,8 +27,8 @@ export const ITSBSearchHandler = props => {
 
   useEffect(() => {
     if (search.status === SearchStatus.PENDING) {
-      const authors = search.args.filters ? 
-        search.args.filters.find(f => f.name === 'authors')?.values : [];
+      const authors = 
+        search.args.filters?.find(f => f.name === 'authors')?.values || [];
       
       const itineraries = graph.listItineraries()
         .filter(it => authors.includes(it.author))

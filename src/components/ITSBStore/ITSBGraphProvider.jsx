@@ -1,17 +1,19 @@
 
-import React, { useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GraphContext } from '@peripleo/peripleo';
 import { ITSBGraph } from './itsbGraph';
 
 export const ITSBGraphProvider = props => {
 
-  const graph = useMemo(() => {
+  const [ graph, setGraph ] = useState();
+
+  useEffect(() => {
     const { authors, places, itineraries } = props;
 
     if (authors && places && itineraries) {
       const g = new ITSBGraph();
       g.init(authors, places, itineraries);
-      return g;
+      setGraph(g);
     }
   }, [ props.authors, props.places, props.itineraries ]);
     

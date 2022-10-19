@@ -4,6 +4,8 @@ import { ITSBGraphProvider } from './ITSBGraphProvider';
 
 export const ITSBStore = props => {
 
+  console.log('store', props);
+
   return (
     <ITSBGraphProvider {...props}>
       <ITSBSearchHandler>

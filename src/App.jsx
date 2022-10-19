@@ -1,41 +1,57 @@
-import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect } from 'react';
 import Peripleo, { Map, Controls, ZoomControl } from "@peripleo/peripleo"
 import { AuthorSelect, ITSBStore, ItinerariesLayer, IntersectionsLayer, MonthRangeInput } from "./components"
 
-const fetchData = url => () => fetch(url).then(res => res.json());
+const fetchData = url => fetch(url).then(res => res.json());
 
 export function App() {
 
-  const authorQuery = useQuery(['authors'], fetchData('../data/authors.json'));
+  const [ authors, setAuthors ] = useState();
+  
+  const [ places, setPlaces ] = useState();
 
-  const placesQuery = useQuery(['places'], fetchData('../data/places.json'));
+  const [ itineraries, setItineraries ] = useState();
 
-  const itinerariesQuery = useQuery(['itineraries'], fetchData('../data/itineraries.json'));
+  useEffect(() => {
+    Promise.all([
+      fetchData('../data/authors.json'),
+      fetchData('../data/places.json'),
+      fetchData('../data/itineraries.json')
+    ]).then(([ authors, places, itineraries ]) => {
+      setAuthors(authors);
+      setPlaces(places);
+      setItineraries(itineraries);
+    });
+  }, []);
+
+  const loaded = authors && places && itineraries;
 
   return (
     <Peripleo>
-      <ITSBStore
-        authors={authorQuery.data?.itemListElement}
-        places={placesQuery.data?.features}
-        itineraries={itinerariesQuery.data?.first.items}>
+      {loaded &&
+        <ITSBStore
+          authors={authors.itemListElement}
+          places={places.features}
+          itineraries={itineraries.first.items}>
 
-        <aside>
-          <MonthRangeInput />
-          <AuthorSelect />
-        </aside>
+          <aside>
+            <MonthRangeInput />
+            <AuthorSelect />
+          </aside>
 
-        <main>
-          <Map.MapLibreDeckGL
-            mapStyle="https://api.maptiler.com/maps/voyager/style.json?key=cqqmcLw28krG9Fl7V3kg"
-            defaultBounds={[[-15.764914, 33.847608], [35.240991, 58.156214]]}
-            layers={[ ItinerariesLayer, IntersectionsLayer ]} />
+          <main>
+            <Map.MapLibreDeckGL
+              mapStyle="https://api.maptiler.com/maps/voyager/style.json?key=cqqmcLw28krG9Fl7V3kg"
+              defaultBounds={[[-15.764914, 33.847608], [35.240991, 58.156214]]}
+              layers={[ ItinerariesLayer, IntersectionsLayer ]} />
 
-          <Controls>
-            <ZoomControl />
-          </Controls>
-        </main>
+            <Controls>
+              <ZoomControl />
+            </Controls>
+          </main>
 
-      </ITSBStore>
+        </ITSBStore>
+      }
     </Peripleo>
   )
 

@@ -1,6 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Peripleo, { Map, Controls, ZoomControl } from "@peripleo/peripleo"
-import { AuthorSelect, ITSBStore, ItinerariesLayer, IntersectionsLayer, MonthRangeInput } from "./components"
+import { 
+  AuthorSelect, 
+  ITSBStore, 
+  ItinerariesLayer, 
+  IntersectionsLayer, 
+  MapModeSwitch,
+  MonthRangeInput } from "./components"
 
 const fetchData = url => fetch(url).then(res => res.json());
 
@@ -11,6 +17,13 @@ export function App() {
   const [ places, setPlaces ] = useState();
 
   const [ itineraries, setItineraries ] = useState();
+
+  const [ mode, setMode ] = useState('trajectories');
+
+  const layer = useMemo(() => 
+    mode === 'trajectories' ? ItinerariesLayer : IntersectionsLayer, [ mode ]);
+
+  console.log(layer);
 
   useEffect(() => {
     Promise.all([
@@ -35,7 +48,12 @@ export function App() {
           itineraries={itineraries.first.items}>
 
           <aside>
+            <MapModeSwitch
+              mode={mode}
+              onSetMode={setMode} />
+
             <MonthRangeInput />
+            
             <AuthorSelect />
           </aside>
 
@@ -43,7 +61,7 @@ export function App() {
             <Map.MapLibreDeckGL
               mapStyle="https://api.maptiler.com/maps/voyager/style.json?key=cqqmcLw28krG9Fl7V3kg"
               defaultBounds={[[-15.764914, 33.847608], [35.240991, 58.156214]]}
-              layers={[ ItinerariesLayer, IntersectionsLayer ]} />
+              layers={[ layer ]} />
 
             <Controls>
               <ZoomControl />

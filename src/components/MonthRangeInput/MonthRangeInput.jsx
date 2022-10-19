@@ -8,7 +8,7 @@ const fmt = date => format(date, 'yyyy-MM');
 const minDate = new Date(1850, 0, 1);
 const maxDate = endOfToday();
 
-export const MonthRangeInput = (/*{ dateRange, min, max, onChange, onClick } */) => {
+export const MonthRangeInput = () => {
 
   const { search, setFilter } = useSearch();
 

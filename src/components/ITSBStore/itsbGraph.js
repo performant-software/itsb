@@ -95,6 +95,17 @@ export class ITSBGraph {
     return nodes;
   }
 
+  getLinksOfType = (nodeId, relation) => {
+    const links = [];
+
+    this.graph.forEachLinkedNode(nodeId, (node, link) => {
+      if (link.data.relation === relation)
+        links.push(link);
+    }, false);
+
+    return links;
+  }
+
   listAuthors = () =>
     this.listNodesWithProperty('@type', 'Person');
 
@@ -111,6 +122,24 @@ export class ITSBGraph {
 
     return Object.entries(groupedByAuthor).map(([author, waypoints]) =>
       ({ author, waypoints: sortWaypoints(waypoints, this.graph) }));
+  }
+
+  getNextWaypoint = waypoint => {
+    const neighbours = this.getLinksOfType(waypoint.id, 'previous');
+
+    // Get inbound previous link
+    const inbound = neighbours.find(n => n.toId === waypoint.id);
+    return inbound && this.getNode(inbound.fromId);
+  }
+
+  getPreviousWaypoint = waypoint => {
+    console.log('PREV');
+    const neighbours = this.getLinksOfType(waypoint.id, 'previous');
+    console.log(neighbours);
+
+    // Get output previous link
+    const outbound = neighbours.find(n => n.fromId === waypoint.id);
+    return outbound && this.getNode(outbound.toId);
   }
 
   exists() {

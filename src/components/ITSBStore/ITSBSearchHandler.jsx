@@ -2,19 +2,6 @@ import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { searchState, SearchStatus, useGraph } from '@peripleo/peripleo';
 
-const toArc = (waypoints, graph) => {
-  const trajectory = [];
-
-  for (let i=1; i<waypoints.length; i++) {
-    trajectory.push({
-      from: graph.getNode(waypoints[i-1].place).geometry,
-      to: graph.getNode(waypoints[i].place).geometry
-    });
-  }
-
-  return trajectory;
-}
-
 /**
  * The SearchHandler handles one thing: translating a Search
  * into a list of results by querying the graph.
@@ -35,11 +22,7 @@ export const ITSBSearchHandler = props => {
       
       // TODO this could be optimized by filtering authors first!
       const itineraries = graph.listItineraries(dateRange)
-        .filter(it => authors.includes(it.author))
-        .map(({ author, waypoints }) => {
-          const arc = toArc(waypoints, graph);
-          return { author, trajectory: arc };
-        });
+        .filter(it => authors.includes(it.author));
 
       setSearchState({
         args: search.args,

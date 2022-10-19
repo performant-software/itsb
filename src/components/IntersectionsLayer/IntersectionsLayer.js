@@ -1,16 +1,23 @@
 import { ScatterplotLayer } from '@peripleo/peripleo/deck.gl';
 import { scaleLinear } from 'd3-scale';
-import { getPlacesAndCounts } from './intersections';
+import { Presence } from './presence';
 
 export const intersectionsScale = scaleLinear().domain([0, 10]).range([0, 36]);
 
-export const IntersectionsLayer = (intersections, graph) => {
+export const IntersectionsLayer = (itineraries, graph) => {
 
+  const presence = new Presence(itineraries, graph);
+  console.log(presence.presence);
+
+  return [];
+  /*
   const intersectionsForViz = getPlacesAndCounts({
     intersections,
     places: placesFiltered,
   });
+  */
 
+  /*
   // three layers, one for each likelihood, starting with outermost (least likely)
   return [1, 2, 3].map(idx => {
 
@@ -60,5 +67,6 @@ export const IntersectionsLayer = (intersections, graph) => {
       getLineColor: d => [200, 100, 0, 144],
     });
   });
+  */
 
 }

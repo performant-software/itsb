@@ -133,9 +133,7 @@ export class ITSBGraph {
   }
 
   getPreviousWaypoint = waypoint => {
-    console.log('PREV');
     const neighbours = this.getLinksOfType(waypoint.id, 'previous');
-    console.log(neighbours);
 
     // Get output previous link
     const outbound = neighbours.find(n => n.fromId === waypoint.id);

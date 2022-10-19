@@ -81,12 +81,12 @@ const inferInterval = (waypoint, graph) => {
     const next = graph.getNextWaypoint(waypoint);
 
     if (next) {
-      const nextStart = getStart(next) || getEnd;
+      const nextStart = getStart(next) || getEnd(next);
       if (nextStart) {
-        if (isAfter(nextStart, thisStart)) {
-          return { waypoint, start: thisStart, end: nextStart, likelihood: 2 };
-        } else {
+        if (isAfter(thisStart, nextStart)) {
           console.warn('Invalid time interval', thisStart, 'to', nextStart);
+        } else {
+          return { waypoint, start: thisStart, end: nextStart, likelihood: 2 };
         }
       }
     }
@@ -98,16 +98,16 @@ const inferInterval = (waypoint, graph) => {
       const previousStart = getStart(previous);
 
       if (previousEnd) {
-        if (isAfter(thisEnd, previousEnd)) {
-          return { waypoint, start: previousEnd, end: thisEnd, likelihood: 2 };
-        } else {
+        if (isAfter(previousEnd, thisEnd)) {
           console.warn('Invalid time interval', previousEnd, 'to', thisEnd);
+        } else {
+          return { waypoint, start: previousEnd, end: thisEnd, likelihood: 2 };
         }
       } else if (previousStart) {
-        if (isAfter(thisEnd, previousStart)) {
-          return { waypoint, start: previousStart, end: thisEnd, likelihood: 1 };
-        } else {
+        if (isAfter(previousStart, thisEnd)) {
           console.warn('Invalid time interval', previousStart, 'to', thisEnd);
+        } else {
+          return { waypoint, start: previousStart, end: thisEnd, likelihood: 1 };
         }
       }
     }

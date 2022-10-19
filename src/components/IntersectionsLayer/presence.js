@@ -65,8 +65,3 @@ export class Presence {
 }
 
 
-/*
-
-
-*/
-

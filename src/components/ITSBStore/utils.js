@@ -31,8 +31,7 @@ export const splitItinerary = it => {
 }
 
 /** 
- * Sorts waypoints in sequence by traversing the graph
- * WARNING: does not yet work with time-filtered itineraries!
+ * Sorts waypoints in sequence by traversing the graph.
  */
 export const sortWaypoints = (waypoints, graph) => {
   const ids = new Set(waypoints.map(wp => wp.id));

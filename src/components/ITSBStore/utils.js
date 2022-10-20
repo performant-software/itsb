@@ -75,23 +75,23 @@ export const groupBy = (xs, key) => xs.reduce((rv, x) => {
   return rv;
 }, {});
 
-export const filterByTime = (waypoints, dateRange) => {
+// check if a timespan (object with {start} or {end})
+// is in a date range (array of Dates of length 2)
+export const timespanInRange = (timespan, dateRange) => {
   const [ startDate, endDate ] = dateRange;
 
-  // check if a timespan (object with {start} or {end})
-  // is in a date range (array of Dates of length 2)
-  const timespanInRange = timespan => {
-    if (timespan.start) {
-      const date = new Date(timespan.start.earliest || timespan.start.in);
-      return date >= startDate && date <= endDate;
-    } else {
-      const date = new Date(timespan.end.latest || timespan.end.in);
-      return date >= startDate && date <= endDate;
-    }
+  if (timespan.start) {
+    const date = new Date(timespan.start.earliest || timespan.start.in);
+    return date >= startDate && date <= endDate;
+  } else {
+    const date = new Date(timespan.end.latest || timespan.end.in);
+    return date >= startDate && date <= endDate;
   }
+}
 
+export const filterByTime = (waypoints, dateRange) => {
   return waypoints.filter(waypoint => 
     waypoint.when.timespans
-      .map(timespanInRange)
+      .map(t => timespanInRange(t, dateRange))
       .every(Boolean)); // i.e. all timespans evaluate to true  
 }

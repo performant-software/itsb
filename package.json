@@ -5,27 +5,25 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "main": "src/index.jsx",
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@deck.gl/core": "^8.8.9",
-    "@deck.gl/layers": "^8.8.9",
-    "@deck.gl/react": "^8.8.9",
     "@peripleo/peripleo": "file:../peripleo",
     "d3-scale": "^4.0.2",
     "date-fns": "^2.29.3",
-    "maplibre-gl": "^2.4.0",
+    "ngraph.graph": "^20.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-map-gl": "^7.0.19",
-    "react-range": "^1.8.14"
+    "recoil": "^0.7.6"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^2.1.0",
+    "process": "^0.11.10",
     "vite": "^3.1.3",
-    "process": "^0.11.10"
+    "vitest": "^0.24.0"
   }
 }

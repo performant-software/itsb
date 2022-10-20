@@ -1,0 +1,18 @@
+:root {
+  --sidebar-bg: #e4f3ff;
+}
+
+aside {
+  width: 300px;
+  padding: 20px 10px;
+  background-color: var(--sidebar-bg);
+  height: 100%;
+}
+
+main {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 300px;
+}

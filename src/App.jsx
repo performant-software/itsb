@@ -26,9 +26,9 @@ export function App() {
 
   useEffect(() => {
     Promise.all([
-      fetchData('../data/authors.json'),
-      fetchData('../data/places.json'),
-      fetchData('../data/itineraries.json')
+      fetchData('data/authors.json'),
+      fetchData('data/places.json'),
+      fetchData('data/itineraries.json')
     ]).then(([ authors, places, itineraries ]) => {
       setAuthors(authors);
       setPlaces(places);

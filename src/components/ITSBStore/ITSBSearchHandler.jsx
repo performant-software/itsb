@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
-import { searchState, SearchStatus, useGraph } from '@peripleo/peripleo';
+import { SearchStatus, useGraph, useSearch } from '@peripleo/peripleo';
 
 /**
  * The SearchHandler handles one thing: translating a Search
@@ -8,7 +7,7 @@ import { searchState, SearchStatus, useGraph } from '@peripleo/peripleo';
  */
 export const ITSBSearchHandler = props => {
 
-  const [search, setSearchState] = useRecoilState(searchState);
+  const { search, setSearchState } = useSearch();
 
   const graph = useGraph();
 

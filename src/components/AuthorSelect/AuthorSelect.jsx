@@ -16,11 +16,11 @@ export const AuthorSelect = () => {
   };
 
   return (
-    <ul className='author-select'>
+    <ul className="author-select">
       {authors.map((author) => (
         <li key={author.id}>
           <input
-            type='checkbox'
+            type="checkbox"
             id={`${author.id}-checkbox`}
             name={author.id}
             checked={selected.includes(author.id)}

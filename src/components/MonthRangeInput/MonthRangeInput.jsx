@@ -35,18 +35,18 @@ export const MonthRangeInput = () => {
 
   return (
     <fieldset style={{ textAlign: 'center' }}>
-      <button name='start-up' onClick={increment(from, +1)}>
+      <button name="start-up" onClick={increment(from, +1)}>
         Up
       </button>
 
-      <button name='start-down' onClick={increment(from, -1)}>
+      <button name="start-down" onClick={increment(from, -1)}>
         Down
       </button>
 
       <input
-        type='month'
-        id='start-date'
-        name='start-date'
+        type="month"
+        id="start-date"
+        name="start-date"
         min={fmt(minDate)}
         max={fmt(maxDate)}
         value={fmt(from)}
@@ -54,20 +54,20 @@ export const MonthRangeInput = () => {
       />
 
       <input
-        type='month'
-        id='end-date'
-        name='end-date'
+        type="month"
+        id="end-date"
+        name="end-date"
         min={fmt(minDate)}
         max={fmt(maxDate)}
         value={fmt(to)}
         onChange={onChangeDate(to)}
       />
 
-      <button name='end-up' onClick={increment(to, +1)}>
+      <button name="end-up" onClick={increment(to, +1)}>
         Up
       </button>
 
-      <button name='end-down' onClick={increment(to, -1)}>
+      <button name="end-down" onClick={increment(to, -1)}>
         Down
       </button>
     </fieldset>

@@ -5,18 +5,18 @@ export default defineConfig({
   plugins: [react(), splitVendorChunkPlugin()],
   resolve: {
     alias: {
-      'mapbox-gl': 'maplibre-gl'
-    }
-  },  
+      'mapbox-gl': 'maplibre-gl',
+    },
+  },
   optimizeDeps: {
-    exclude: ['@peripleo/peripleo']
+    exclude: ['@peripleo/peripleo'],
   },
   server: {
-    open: '/public/index.html'
+    open: '/public/index.html',
   },
   build: {
     rollupOptions: {
-      input: 'index.html'
-    }
-  }
-})
+      input: 'index.html',
+    },
+  },
+});

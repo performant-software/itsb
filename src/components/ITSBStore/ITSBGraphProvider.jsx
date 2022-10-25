@@ -1,11 +1,9 @@
-
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { GraphContext } from '@peripleo/peripleo';
 import { ITSBGraph } from './itsbGraph';
 
-export const ITSBGraphProvider = props => {
-
-  const [ graph, setGraph ] = useState();
+export const ITSBGraphProvider = (props) => {
+  const [graph, setGraph] = useState();
 
   useEffect(() => {
     const { authors, places, itineraries } = props;
@@ -15,12 +13,7 @@ export const ITSBGraphProvider = props => {
       g.init(authors, places, itineraries);
       setGraph(g);
     }
-  }, [ props.authors, props.places, props.itineraries ]);
-    
-  return (
-    <GraphContext.Provider value={graph}>
-      {graph && props.children}
-    </GraphContext.Provider>
-  )
-  
-}
+  }, [props.authors, props.places, props.itineraries]);
+
+  return <GraphContext.Provider value={graph}>{graph && props.children}</GraphContext.Provider>;
+};

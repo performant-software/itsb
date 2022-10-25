@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import Peripleo, { Map, Controls, ZoomControl } from '@peripleo/peripleo';
 import {
   AuthorSelect,
@@ -6,39 +6,31 @@ import {
   ITSBTooltip,
   ItinerariesLayer,
   IntersectionsLayer,
-  MapModeSwitch,
   MonthRangeInput,
-} from './components';
+} from '../../components';
+import { useLoaderData, useMatch } from 'react-router-dom';
+import './MapPage.css';
 
 const fetchData = (url) => fetch(url).then((res) => res.json());
 
-export function App() {
-  const [authors, setAuthors] = useState();
+export const mapLoader = async () =>
+  await Promise.all([
+    fetchData('data/authors.json'),
+    fetchData('data/places.json'),
+    fetchData('data/itineraries.json'),
+  ]);
 
-  const [places, setPlaces] = useState();
-
-  const [itineraries, setItineraries] = useState();
-
-  const [mode, setMode] = useState('trajectories');
-
-  const layer = useMemo(
-    () => (mode === 'trajectories' ? ItinerariesLayer : IntersectionsLayer),
-    [mode]
-  );
-
-  useEffect(() => {
-    Promise.all([
-      fetchData('data/authors.json'),
-      fetchData('data/places.json'),
-      fetchData('data/itineraries.json'),
-    ]).then(([authors, places, itineraries]) => {
-      setAuthors(authors);
-      setPlaces(places);
-      setItineraries(itineraries);
-    });
-  }, []);
+export function MapPage() {
+  const [authors, places, itineraries] = useLoaderData();
 
   const loaded = authors && places && itineraries;
+
+  const isTrajectories = useMatch('trajectories');
+
+  const layer = useMemo(
+    () => (isTrajectories ? ItinerariesLayer : IntersectionsLayer),
+    [isTrajectories]
+  );
 
   return (
     <Peripleo>
@@ -49,14 +41,11 @@ export function App() {
           itineraries={itineraries.first.items}
         >
           <aside>
-            <MapModeSwitch mode={mode} onSetMode={setMode} />
-
             <MonthRangeInput />
-
             <AuthorSelect />
           </aside>
 
-          <main>
+          <main id="map">
             <Map.MapLibreDeckGL
               mapStyle="https://api.maptiler.com/maps/outdoor/style.json?key=cqqmcLw28krG9Fl7V3kg"
               defaultBounds={[

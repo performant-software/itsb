@@ -1,0 +1,46 @@
+/* header nav list */
+header nav ul {
+  display: flex;
+  list-style: none;
+  background-color: var(--navbar-bg);
+  margin: 0;
+  padding: 0;
+}
+header nav ul li a {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--navbar-bg);
+  color: var(--navbar-link);
+  text-decoration: none;
+  height: 64px;
+  padding: 0 30px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+header nav ul li a:hover,
+header nav ul li a.active {
+  color: var(--gold);
+}
+
+/* home link */
+header nav ul li a.home {
+  background-color: var(--gold);
+  color: var(--navbar-bg);
+}
+header nav ul li a.home:hover {
+  text-decoration: underline;
+}
+/* home icon */
+header nav ul li a.home::before {
+  content: '';
+  display: block;
+  min-width: 24px;
+  width: 24px;
+  height: 24px;
+  margin-right: 1rem;
+  background: url('/img/itsb_icon.svg');
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+}

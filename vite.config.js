@@ -12,7 +12,7 @@ export default defineConfig({
     exclude: ['@peripleo/peripleo'],
   },
   server: {
-    open: '/public/index.html',
+    open: '/',
   },
   build: {
     rollupOptions: {

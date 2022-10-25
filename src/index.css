@@ -1,18 +1,16 @@
 :root {
+  --gold: #fcb040;
+  --navbar-bg: black;
+  --navbar-link: white;
   --sidebar-bg: #e4f3ff;
 }
 
-aside {
-  width: 300px;
-  padding: 20px 10px;
-  background-color: var(--sidebar-bg);
-  height: 100%;
+#app {
+  overflow: auto;
 }
 
-main {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 300px;
+main:not(#map) {
+  padding: 30px;
+  max-width: 60ch;
+  margin: 0 auto;
 }

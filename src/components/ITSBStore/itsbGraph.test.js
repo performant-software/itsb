@@ -6,15 +6,14 @@ import places from '../../../data/places.json';
 import itineraries from '../../../data/itineraries.json';
 
 const initGraph = (authors, places, itineraries) => {
-  const graph = new ITSBGraph()
-  graph.init(authors, places, itineraries)
+  const graph = new ITSBGraph();
+  graph.init(authors, places, itineraries);
   return graph;
-}
+};
 
 describe('ITSBGraph', () => {
-
   it('should load authors correctly', () => {
-    const graph = initGraph(authors.itemListElement, [], [])
+    const graph = initGraph(authors.itemListElement, [], []);
     const expected = graph.listAuthors();
     expect(expected.length).toBe(12);
   });
@@ -38,13 +37,13 @@ describe('ITSBGraph', () => {
 
     // https://sameboats.org/authors/acesaire/itineraries/1/wp/27
     const a = waypoints[26];
-    
+
     // https://sameboats.org/authors/acesaire/itineraries/1/wp/177
     const b = waypoints[176]; // last in sequence
 
     const next = graph.getNextWaypoint(a);
     expect(next.id).toBe('https://sameboats.org/authors/acesaire/itineraries/1/wp/28');
-    
+
     const undef = graph.getNextWaypoint(b);
     expect(undef).toBeUndefined();
   });
@@ -56,14 +55,13 @@ describe('ITSBGraph', () => {
 
     // https://sameboats.org/authors/acesaire/itineraries/1/wp/27
     const a = waypoints[26];
-    
-    const b = graph.getNode('https://sameboats.org/authors/acesaire/itineraries/1/wp/0')
+
+    const b = graph.getNode('https://sameboats.org/authors/acesaire/itineraries/1/wp/0');
 
     const next = graph.getPreviousWaypoint(a);
     expect(next.id).toBe('https://sameboats.org/authors/acesaire/itineraries/1/wp/26');
-    
+
     const undef = graph.getPreviousWaypoint(b);
     expect(undef).toBeUndefined();
   });
-
 });

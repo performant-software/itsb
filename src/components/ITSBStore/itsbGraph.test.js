@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest';
 import { ITSBGraph } from './itsbGraph';
 
-import authors from '../../../data/authors.json';
-import places from '../../../data/places.json';
-import itineraries from '../../../data/itineraries.json';
+import authors from '../../../public/data/authors.json';
+import places from '../../../public/data/places.json';
+import itineraries from '../../../public/data/itineraries.json';
 
 const initGraph = (authors, places, itineraries) => {
   const graph = new ITSBGraph();

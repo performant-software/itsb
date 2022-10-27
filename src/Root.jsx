@@ -1,11 +1,21 @@
-import { Outlet } from 'react-router-dom';
-import { Header } from './components';
+import { Outlet, useLoaderData } from 'react-router-dom';
+import { Header, ITSBStore } from './components';
+import Peripleo from '@peripleo/peripleo';
 
 export function Root() {
+  const [authors, places, itineraries] = useLoaderData();
   return (
     <>
       <Header />
-      <Outlet />
+      <Peripleo>
+        <ITSBStore
+          authors={authors.itemListElement}
+          places={places.features}
+          itineraries={itineraries.first.items}
+        >
+          <Outlet />
+        </ITSBStore>
+      </Peripleo>
     </>
   );
 }

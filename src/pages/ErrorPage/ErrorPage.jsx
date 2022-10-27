@@ -7,7 +7,7 @@ export function ErrorPage() {
     <>
       <Header />
       <main id="error">
-        <h2>{`${error.status} ${error.statusText}`}</h2>
+        <h2>{`${error.status || 500} ${error.statusText || 'Internal Server Error'}`}</h2>
         <p>This page could not be displayed.</p>
       </main>
     </>

@@ -1,4 +1,4 @@
-import { Header } from '../Header';
+import { Header } from '../../components';
 import { useRouteError } from 'react-router-dom';
 
 export function ErrorPage() {

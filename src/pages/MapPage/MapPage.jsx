@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import Peripleo, { Map, Controls, ZoomControl } from '@peripleo/peripleo';
 import {
   AuthorSelect,
@@ -27,10 +26,7 @@ export function MapPage() {
 
   const isTrajectories = useMatch('trajectories');
 
-  const layer = useMemo(
-    () => (isTrajectories ? ItinerariesLayer : IntersectionsLayer),
-    [isTrajectories]
-  );
+  const layer = isTrajectories ? ItinerariesLayer : IntersectionsLayer;
 
   return (
     <Peripleo>

@@ -5,17 +5,15 @@ import Peripleo from '@peripleo/peripleo';
 export function Root() {
   const [authors, places, itineraries] = useLoaderData();
   return (
-    <>
+    <Peripleo>
       <Header />
-      <Peripleo>
-        <ITSBStore
-          authors={authors.itemListElement}
-          places={places.features}
-          itineraries={itineraries.first.items}
-        >
-          <Outlet context={{ loaded: authors && places && itineraries }} />
-        </ITSBStore>
-      </Peripleo>
-    </>
+      <ITSBStore
+        authors={authors.itemListElement}
+        places={places.features}
+        itineraries={itineraries.first.items}
+      >
+        <Outlet context={{ loaded: authors && places && itineraries }} />
+      </ITSBStore>
+    </Peripleo>
   );
 }

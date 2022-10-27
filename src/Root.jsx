@@ -13,7 +13,7 @@ export function Root() {
           places={places.features}
           itineraries={itineraries.first.items}
         >
-          <Outlet />
+          <Outlet context={{ loaded: authors && places && itineraries }} />
         </ITSBStore>
       </Peripleo>
     </>

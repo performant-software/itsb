@@ -6,13 +6,11 @@ import {
   IntersectionsLayer,
   MonthRangeInput,
 } from '../../components';
-import { useMatch, useRouteLoaderData } from 'react-router-dom';
+import { useMatch, useOutletContext } from 'react-router-dom';
 import './MapPage.css';
 
 export function MapPage() {
-  const [authors, places, itineraries] = useRouteLoaderData('root');
-
-  const loaded = authors && places && itineraries;
+  const { loaded } = useOutletContext();
 
   const isTrajectories = useMatch('trajectories');
 

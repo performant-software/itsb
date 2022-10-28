@@ -1,4 +1,6 @@
 import createGraph from 'ngraph.graph';
+import Fuse from 'fuse.js';
+import diacritics from 'diacritics';
 import { normalizeNode, filterByTime, groupBy, sortWaypoints, splitItinerary } from './utils';
 
 /**
@@ -18,6 +20,28 @@ import { normalizeNode, filterByTime, groupBy, sortWaypoints, splitItinerary } f
 export class ITSBGraph {
   constructor() {
     this.graph = createGraph();
+
+    this.fulltextIndex = new Fuse([], {
+      ignoreLocation: true,
+      threshold: 0.25,
+      keys: [
+        'name', // author name
+        'properties.title', // place title
+        'citations.label', // waypoint citations
+        'relation.label', // waypoint notes
+      ],
+
+      // Remove diacritics for search
+      getFn: (obj, path) => {
+        const value = Fuse.config.getFn(obj, path);
+
+        if (Array.isArray(value)) {
+          return value.map(diacritics.remove);
+        } else if (value) {
+          return diacritics.remove(value);
+        }
+      },
+    });
   }
 
   init = (authors, places, itineraries) => {
@@ -29,7 +53,10 @@ export class ITSBGraph {
     const authorNodes = authors.map(normalizeNode);
     const placeNodes = places.map(normalizeNode);
 
-    [...authorNodes, ...placeNodes].forEach((n) => this.graph.addNode(n.id, n));
+    [...authorNodes, ...placeNodes].forEach((n) => {
+      this.graph.addNode(n.id, n);
+      this.fulltextIndex.add(n);
+    });
 
     // Itineraries are split to waypoint nodes
     const waypointNodes = itineraries
@@ -44,7 +71,10 @@ export class ITSBGraph {
         return isValid;
       });
 
-    waypointNodes.forEach((wp) => this.graph.addNode(wp.id, wp));
+    waypointNodes.forEach((wp) => {
+      this.graph.addNode(wp.id, wp);
+      this.fulltextIndex.add(wp);
+    });
 
     // Link waypoints to authors
     waypointNodes.forEach((wp) => {
@@ -117,6 +147,12 @@ export class ITSBGraph {
     }));
   };
 
+  getItineraryForAuthor = (authorId) =>
+    this.getLinksOfType(authorId, 'visitedBy').map((link) => this.getNode(link.fromId));
+
+  getWaypointsAt = (placeId) =>
+    this.getLinksOfType(placeId, 'locatedAt').map((link) => this.getNode(link.fromId));
+
   getNextWaypoint = (waypoint) => {
     const neighbours = this.getLinksOfType(waypoint.id, 'previous');
 
@@ -138,4 +174,7 @@ export class ITSBGraph {
       return [...arguments].every((id) => this.getNode(id));
     }
   }
+
+  search = (query) =>
+    this.fulltextIndex.search(diacritics.remove(query)).map((result) => result.item);
 }

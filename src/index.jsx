@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { ErrorPage, HomePage, MapPage } from './pages';
+import { ErrorPage, HomePage, MapPage, SearchPage } from './pages';
 import { Root } from './Root';
 
 import './index.css';
@@ -31,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: 'trajectories',
         element: <MapPage />,
+      },
+      {
+        path: 'search',
+        element: <SearchPage />,
       },
     ],
   },

@@ -70,9 +70,9 @@ project_dir = os.path.dirname(cwd)
 PLACES_CSV_LOCATION = f"{cwd}/in/places/"
 MOVEMENTS_CSV_LOCATION = f"{cwd}/in/movements/"
 
-AUTHOR_ID_JSON = f"{project_dir}/data/authors.json"
-ITINERARIES_JSON = f"{project_dir}/data/itineraries.json"
-PLACES_JSON = f"{project_dir}/data/places.json"
+AUTHOR_ID_JSON = f"{project_dir}/public/data/authors.json"
+ITINERARIES_JSON = f"{project_dir}/public/data/itineraries.json"
+PLACES_JSON = f"{project_dir}/public/data/places.json"
 
 LOGFILE = f"{cwd}/logs/process_log.txt"
 GEONAMES_USERNAME = "alyv"
@@ -265,6 +265,7 @@ def process_movements(csv_path, places):
 
                     # store dates in {when: {timespans}}
                     movement["when"] = {"timespans": []}
+                    start = None
 
                     # Date representation:
                     # - Earliest Presence  | {start: {earliest}}
@@ -274,31 +275,31 @@ def process_movements(csv_path, places):
 
                     # get the start date
                     if row["Arrival"] != "":  # start is arrival
-                        movement["when"]["timespans"].append(
-                            {"start": {"in": row["Arrival"]}}
-                        )
+                        start = {"start": {"in": row["Arrival"]}}
+                        movement["when"]["timespans"].append(start)
                         # log bad arrival date
                         validate_date(row, row_index, author_name, "Arrival")
-
                     elif row["Earliest Presence"] != "":  # start is earliest presence
-                        movement["when"]["timespans"].append(
-                            {"start": {"earliest": row["Earliest Presence"]}}
-                        )
+                        start = {"start": {"earliest": row["Earliest Presence"]}}
+                        movement["when"]["timespans"].append(start)
                         # log bad earliest presence date
                         validate_date(row, row_index, author_name, "Earliest Presence")
 
                     # get the end date
                     if row["Departure"] != "":  # end is departure
-                        movement["when"]["timespans"].append(
-                            {"end": {"in": row["Departure"]}}
-                        )
+                        end = {"end": {"in": row["Departure"]}}
+                        if start:
+                            movement["when"]["timespans"][0] = start | end
+                        else:
+                            movement["when"]["timespans"].append(end)
                         # log bad departure date
                         validate_date(row, row_index, author_name, "Departure")
-
                     elif row["Latest Presence"] != "":  # end is latest presence
-                        movement["when"]["timespans"].append(
-                            {"end": {"latest": row["Latest Presence"]}}
-                        )
+                        end = {"end": {"latest": row["Latest Presence"]}}
+                        if start:
+                            movement["when"]["timespans"][0] = start | end
+                        else:
+                            movement["when"]["timespans"].append(end)
                         # log bad latest presence date
                         validate_date(row, row_index, author_name, "Latest Presence")
 

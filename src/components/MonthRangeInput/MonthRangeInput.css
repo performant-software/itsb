@@ -1,11 +1,21 @@
 fieldset#month-range-input {
   display: flex;
+  flex-flow: column;
   align-items: center;
   justify-content: center;
-  padding: 5px 0 20px;
+  padding: 5px 0 10px;
   margin: 0 0 10px;
   border: none;
   border-bottom: 1px solid black;
+}
+fieldset#month-range-input > div:first-child {
+  display: flex;
+  flex-flow: row nowrap;
+  margin: 0 0 10px;
+}
+fieldset#month-range-input span.error {
+  color: red;
+  font-size: 0.9rem;
 }
 fieldset#month-range-input button {
   font-family: inherit;
@@ -19,6 +29,11 @@ fieldset#month-range-input button {
   padding: 0;
   display: flex;
   background: transparent;
+  pointer-events: all;
+}
+fieldset#month-range-input button:disabled {
+  cursor: default;
+  pointer-events: none;
 }
 fieldset#month-range-input button.down {
   padding: 2px 0 0;
@@ -44,4 +59,7 @@ input[type='month']:first-of-type {
 }
 input[type='month']:last-of-type {
   margin: 0 10px 0 5px;
+}
+input[type='month'].invalid {
+  border: 1px solid red;
 }

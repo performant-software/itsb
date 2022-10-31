@@ -1,7 +1,7 @@
 name: unit-tests
 on: [push]
 jobs:
-  jest-unit-tests:
+  vitest-unit-tests:
     name: unit tests
     runs-on: ubuntu-latest
     steps:

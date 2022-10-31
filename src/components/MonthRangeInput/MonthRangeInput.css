@@ -1,0 +1,47 @@
+fieldset#month-range-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 0 20px;
+  margin: 0 0 10px;
+  border: none;
+  border-bottom: 1px solid black;
+}
+fieldset#month-range-input button {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0 0;
+  overflow: visible;
+  text-transform: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  background: transparent;
+}
+fieldset#month-range-input button.down {
+  padding: 2px 0 0;
+}
+fieldset#month-range-input button.up {
+  padding: 0 0 2px;
+}
+
+div.button-container {
+  display: flex;
+  flex-flow: column;
+}
+input[type='month'] {
+  width: 120px;
+  text-align: center;
+  font-size: 0.75rem;
+  font-family: Courier, monospace;
+  height: 26px;
+  border: 1px solid gray;
+}
+input[type='month']:first-of-type {
+  margin: 0 5px 0 10px;
+}
+input[type='month']:last-of-type {
+  margin: 0 10px 0 5px;
+}

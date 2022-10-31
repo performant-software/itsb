@@ -1,5 +1,7 @@
-import { format, endOfToday, addMonths } from 'date-fns';
+import { addMonths, endOfMonth, endOfToday, format, startOfMonth } from 'date-fns';
+import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
 import { useSearch } from '@peripleo/peripleo';
+import './MonthRangeInput.css';
 
 // Shorthand
 const fmt = (date) => format(date, 'yyyy-MM');
@@ -24,25 +26,25 @@ export const MonthRangeInput = () => {
 
   const onChangeDate = (date) => (evt) => {
     const { value } = evt.target;
-
     const updated =
       date === from
-        ? [new Date(`${value}-01T00:00:00`), to]
-        : [from, new Date(`${value}-01T00:00:00`)];
+        ? [startOfMonth(new Date(`${value}-02T00:00:00`)), to]
+        : [from, endOfMonth(new Date(`${value}-02T00:00:00`))];
 
     setFilter({ name: 'daterange', range: updated });
   };
 
   return (
-    <fieldset style={{ textAlign: 'center' }}>
-      <button name="start-up" onClick={increment(from, +1)}>
-        Up
-      </button>
+    <fieldset id="month-range-input">
+      <div className="button-container">
+        <button className="up" name="start-up" onClick={increment(from, +1)}>
+          <FaChevronUp />
+        </button>
 
-      <button name="start-down" onClick={increment(from, -1)}>
-        Down
-      </button>
-
+        <button className="down" name="start-down" onClick={increment(from, -1)}>
+          <FaChevronDown />
+        </button>
+      </div>
       <input
         type="month"
         id="start-date"
@@ -52,7 +54,7 @@ export const MonthRangeInput = () => {
         value={fmt(from)}
         onChange={onChangeDate(from)}
       />
-
+      &ndash;
       <input
         type="month"
         id="end-date"
@@ -62,14 +64,15 @@ export const MonthRangeInput = () => {
         value={fmt(to)}
         onChange={onChangeDate(to)}
       />
+      <div className="button-container">
+        <button className="up" name="end-up" onClick={increment(to, +1)}>
+          <FaChevronUp />
+        </button>
 
-      <button name="end-up" onClick={increment(to, +1)}>
-        Up
-      </button>
-
-      <button name="end-down" onClick={increment(to, -1)}>
-        Down
-      </button>
+        <button className="down" name="end-down" onClick={increment(to, -1)}>
+          <FaChevronDown />
+        </button>
+      </div>
     </fieldset>
   );
 };

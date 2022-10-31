@@ -34,6 +34,16 @@ export const MonthRangeInput = () => {
     setFilter({ name: 'daterange', range: updated });
   };
 
+  const onKeyDown = (date) => (evt) => {
+    if (evt.currentTarget.type === 'text') {
+      if (evt.key === 'ArrowUp') {
+        increment(date, 1)();
+      } else if (evt.key === 'ArrowDown') {
+        increment(date, -1)();
+      }
+    }
+  };
+
   return (
     <fieldset id="month-range-input">
       <div className="button-container">
@@ -53,6 +63,7 @@ export const MonthRangeInput = () => {
         max={fmt(maxDate)}
         value={fmt(from)}
         onChange={onChangeDate(from)}
+        onKeyDown={onKeyDown(from)}
       />
       &ndash;
       <input
@@ -63,6 +74,7 @@ export const MonthRangeInput = () => {
         max={fmt(maxDate)}
         value={fmt(to)}
         onChange={onChangeDate(to)}
+        onKeyDown={onKeyDown(to)}
       />
       <div className="button-container">
         <button className="up" name="end-up" onClick={increment(to, +1)}>

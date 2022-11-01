@@ -1,7 +1,32 @@
+import { Link } from 'react-router-dom';
+import './HomePage.css';
+
 export function HomePage() {
   return (
     <main id="home">
       <h2>Welcome</h2>
+      <aside>
+        <h3>Trajectories</h3>
+        <p>
+          This visualization presents an interactive narrative overview of one or more
+          individuals&apos; movements through space over time. The timeline function allows for the
+          researcher to consider specific periods or phases, individually or in comparison with
+          other figures.
+          <Link to="/trajectories" aria-label="trajectories visualization">
+            Go
+          </Link>
+        </p>
+        <h3>Intersections</h3>
+        <p>
+          This visualization presents an interactive snapshot overview of the world map that
+          reflects the presence of Afro-Atlantic figures in particular geographical locations at
+          particular points in time. Clicking on a given city which figures were present in that
+          place and when they were there.
+          <Link to="/intersections" aria-label="intersections visualization">
+            Go
+          </Link>
+        </p>
+      </aside>
       <p>
         <strong>In the Same Boats</strong> is a work of multimodal scholarship designed to encourage
         the collaborative production of humanistic knowledge within scholarly communities. The
@@ -15,7 +40,6 @@ export function HomePage() {
         crossings&mdash;literally and metaphorically <strong>in the same boats</strong>&mdash;as
         they circulate throughout the Americas, Africa, Europe, and beyond.
       </p>
-
       <p>
         One of the greatest challenges for postcolonial scholars of Africa and its diasporas is that
         of navigating nation-language frontiers that are the legacies of colonialism. The

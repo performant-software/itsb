@@ -1,4 +1,4 @@
-aside {
+aside#map-control {
   width: 300px;
   padding: 20px 10px;
   background-color: var(--sidebar-bg);

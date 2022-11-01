@@ -1,0 +1,24 @@
+main#home aside {
+  float: right;
+  width: 30%;
+  max-width: 60ch;
+  margin-left: 1.5rem;
+}
+main#home aside p {
+  font-size: 0.9rem;
+}
+main#home aside h3 {
+  margin-top: 0;
+}
+main#home aside a {
+  float: right;
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--navbar-bg);
+}
+main#home aside a:hover {
+  text-decoration: underline;
+}
+main#home aside a::after {
+  content: ' >';
+}

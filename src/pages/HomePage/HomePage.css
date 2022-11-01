@@ -22,3 +22,6 @@ main#home aside a:hover {
 main#home aside a::after {
   content: ' >';
 }
+main#home a {
+  color: var(--navbar-bg);
+}

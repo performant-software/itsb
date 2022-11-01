@@ -74,6 +74,9 @@ export function HomePage() {
         students, and educators to flesh out and enrich the scholarly record toward the constitution
         of a 20th century Afro-Atlantic Republic of Arts and Letters.
       </p>
+      <p>
+        <Link to="instructions">Learn how it works…</Link>
+      </p>
     </main>
   );
 }

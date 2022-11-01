@@ -4,9 +4,9 @@ import './HomePage.css';
 export function HomePage() {
   return (
     <main id="home">
-      <h2>Welcome</h2>
+      <h1>Welcome</h1>
       <aside>
-        <h3>Trajectories</h3>
+        <h2>Trajectories</h2>
         <p>
           This visualization presents an interactive narrative overview of one or more
           individuals&apos; movements through space over time. The timeline function allows for the
@@ -16,7 +16,7 @@ export function HomePage() {
             Go
           </Link>
         </p>
-        <h3>Intersections</h3>
+        <h2>Intersections</h2>
         <p>
           This visualization presents an interactive snapshot overview of the world map that
           reflects the presence of Afro-Atlantic figures in particular geographical locations at

@@ -10,7 +10,14 @@ export function InstructionsPage() {
         them to others by selecting them.
       </p>
       <ol>
-        <li>Select a range of time by clicking on the date range in the left column.</li>
+        <li>
+          Select a range of time using the date range filter in the left column. You can click the
+          up and down buttons to adjust the start and end date by month. You can also adjust the
+          months by clicking on the text box containing each date and either typing the month and
+          year, or using the up and down arrow keys on your keyboard. On certain browsers (Chrome,
+          Edge) you may be able to click a calendar icon to choose each month and year on a
+          calendar.
+        </li>
         <li>Select one or more authors from the list in the left column.</li>
         <li>
           Once the map has been drawn, you can hover over any dot on the map to read a pop-up note

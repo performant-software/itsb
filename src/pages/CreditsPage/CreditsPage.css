@@ -1,0 +1,16 @@
+main#credits dl dd + dt {
+  margin-top: 1rem;
+}
+main#credits dl dt {
+  font-weight: bold;
+}
+main#credits dl dd {
+  margin-left: 0;
+  font-style: italic;
+}
+p.acknowledgements {
+  font-style: italic;
+}
+p.acknowledgements strong {
+  font-style: normal;
+}

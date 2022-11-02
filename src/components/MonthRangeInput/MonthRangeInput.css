@@ -11,6 +11,7 @@ fieldset#month-range-input {
 fieldset#month-range-input > div:first-child {
   display: flex;
   flex-flow: row nowrap;
+  align-items: center;
   margin: 0 0 10px;
 }
 fieldset#month-range-input span.error {

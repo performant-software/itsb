@@ -1,5 +1,5 @@
 aside {
-  width: 300px;
+  width: 330px;
   padding: 20px 10px;
   background-color: var(--sidebar-bg);
   height: calc(100% - 64px - 40px);
@@ -10,5 +10,5 @@ main#map {
   top: 64px;
   right: 0;
   bottom: 0;
-  left: 320px;
+  left: 350px;
 }

@@ -52,7 +52,7 @@ export const sortWaypoints = (waypoints, graph) => {
     return !previous || !ids.has(previous);
   });
 
-  const traverseItinerary = (waypoint, sorted = []) => {
+  const traverseItinerary = (waypoint, sorted = [waypoint]) => {
     let nextNode;
 
     graph.forEachLinkedNode(
@@ -66,7 +66,7 @@ export const sortWaypoints = (waypoints, graph) => {
     return nextNode ? traverseItinerary(nextNode, [...sorted, nextNode]) : sorted;
   };
 
-  return traverseItinerary(startPoint);
+  return traverseItinerary(startPoint).filter((w) => ids.has(w.id));
 };
 
 /**
@@ -80,17 +80,20 @@ export const groupBy = (xs, key) =>
     return rv;
   }, {});
 
-// check if a timespan (object with {start} or {end})
+// check if a timespan (object with {start} and/or {end})
 // is in a date range (array of Dates of length 2)
 export const timespanInRange = (timespan, dateRange) => {
   const [startDate, endDate] = dateRange;
-
-  if (timespan.start) {
+  if (timespan.start && timespan.end) {
+    const timespanStart = new Date(timespan.start.earliest || timespan.start.in);
+    const timespanEnd = new Date(timespan.end.latest || timespan.end.in);
+    return timespanStart >= new Date(startDate) && timespanEnd <= new Date(endDate);
+  } else if (timespan.start) {
     const date = new Date(timespan.start.earliest || timespan.start.in);
-    return date >= startDate && date <= endDate;
-  } else {
+    return date >= new Date(startDate) && date <= new Date(endDate);
+  } else if (timespan.end) {
     const date = new Date(timespan.end.latest || timespan.end.in);
-    return date >= startDate && date <= endDate;
+    return date >= new Date(startDate) && date <= new Date(endDate);
   }
 };
 

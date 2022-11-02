@@ -52,7 +52,7 @@ export const sortWaypoints = (waypoints, graph) => {
     return !previous || !ids.has(previous);
   });
 
-  const traverseItinerary = (waypoint, sorted = []) => {
+  const traverseItinerary = (waypoint, sorted = [waypoint]) => {
     let nextNode;
 
     graph.forEachLinkedNode(
@@ -63,7 +63,9 @@ export const sortWaypoints = (waypoints, graph) => {
       false
     );
 
-    return nextNode ? traverseItinerary(nextNode, [...sorted, nextNode]) : sorted;
+    return nextNode && ids.has(nextNode.id)
+      ? traverseItinerary(nextNode, [...sorted, nextNode])
+      : sorted;
   };
 
   return traverseItinerary(startPoint);

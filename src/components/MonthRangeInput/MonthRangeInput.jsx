@@ -1,5 +1,13 @@
-import { useState } from 'react';
-import { addMonths, endOfMonth, endOfToday, format, isMatch, startOfMonth } from 'date-fns';
+import { useEffect, useState } from 'react';
+import {
+  addMonths,
+  endOfMonth,
+  endOfToday,
+  format,
+  isBefore,
+  isMatch,
+  startOfMonth,
+} from 'date-fns';
 import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
 import { useSearch } from '@peripleo/peripleo';
 import './MonthRangeInput.css';
@@ -7,32 +15,49 @@ import './MonthRangeInput.css';
 // Shorthand
 const fmtString = 'yyyy-MM';
 const fmt = (date) => format(date, fmtString);
-const isValid = (date) => date.length === fmtString.length && isMatch(date, fmtString);
 const monthStart = (formattedDate) => startOfMonth(new Date(`${formattedDate}-02T00:00:00`));
 const monthEnd = (formattedDate) => endOfMonth(new Date(`${formattedDate}-02T00:00:00`));
+const isValid = (date) => date.length === fmtString.length && isMatch(date, fmtString);
+const isRangeValid = (from, to) => isBefore(monthStart(from), monthEnd(to));
 
 // TODO lookup min date from graph!
-const minDate = new Date(1850, 0, 1);
-const maxDate = endOfToday();
+const minDate = fmt(new Date(1850, 0, 1));
+const maxDate = fmt(endOfToday());
 
 export const MonthRangeInput = () => {
   const { search, setFilter } = useSearch();
-  const [from, to] = search.args.filters?.find((f) => f.name === 'daterange')?.range || [
+  const filterState = search.args.filters?.find((f) => f.name === 'daterange')?.range || [
     minDate,
     maxDate,
   ];
 
+  // Get initial value of the input from existing filter state
   const [monthInputValue, setMonthInputValue] = useState({
-    from: fmt(from),
-    to: fmt(to),
+    from: filterState[0],
+    to: filterState[1],
   });
 
+  /*
+   * As a side effect, when monthInputValue changes, validate the input and if valid,
+   * update the filter state.
+   */
+  useEffect(() => {
+    const { from, to } = monthInputValue;
+    if (from && to && isValid(from) && isValid(to) && isRangeValid(from, to)) {
+      setFilter({ name: 'daterange', range: [from, to] });
+    }
+  }, [monthInputValue]);
+
+  /*
+   * Given a number, return a curried event handler function that will increment the
+   * targeted date by that number.
+   */
   const increment = (inc) => (evt) => {
     const { name } = evt.currentTarget;
+    // use target name to determine whether to increment start or end date
     if (name.startsWith('start')) {
       setMonthInputValue((prevState) => {
         const newFrom = addMonths(monthStart(prevState.from), inc);
-        setFilter({ name: 'daterange', range: [newFrom, to] });
         return {
           from: fmt(newFrom),
           to: prevState.to,
@@ -41,7 +66,6 @@ export const MonthRangeInput = () => {
     } else if (name.startsWith('end')) {
       setMonthInputValue((prevState) => {
         const newTo = addMonths(monthEnd(prevState.to), inc);
-        setFilter({ name: 'daterange', range: [from, newTo] });
         return {
           from: prevState.from,
           to: fmt(newTo),
@@ -67,17 +91,11 @@ export const MonthRangeInput = () => {
         from: value,
         to: prevState.to,
       }));
-      if (isValid(value)) {
-        setFilter({ name: 'daterange', range: [monthStart(value), to] });
-      }
     } else if (name === 'end-date') {
       setMonthInputValue((prevState) => ({
         from: prevState.from,
         to: value,
       }));
-      if (isValid(value)) {
-        setFilter({ name: 'daterange', range: [from, monthEnd(value)] });
-      }
     }
   };
 
@@ -107,8 +125,8 @@ export const MonthRangeInput = () => {
           type="month"
           id="start-date"
           name="start-date"
-          min={fmt(minDate)}
-          max={fmt(maxDate)}
+          min={minDate}
+          max={maxDate}
           value={monthInputValue.from}
           onChange={onChangeDate}
           onKeyDown={isValid(monthInputValue.from) ? onKeyDown : () => {}}
@@ -119,8 +137,8 @@ export const MonthRangeInput = () => {
           type="month"
           id="end-date"
           name="end-date"
-          min={fmt(minDate)}
-          max={fmt(maxDate)}
+          min={minDate}
+          max={maxDate}
           value={monthInputValue.to}
           onChange={onChangeDate}
           onKeyDown={isValid(monthInputValue.to) ? onKeyDown : () => {}}
@@ -149,6 +167,9 @@ export const MonthRangeInput = () => {
       <div>
         {(!isValid(monthInputValue.from) || !isValid(monthInputValue.to)) && (
           <span className="error">Dates must be in the format YYYY-MM.</span>
+        )}
+        {!isRangeValid(monthInputValue.from, monthInputValue.to) && (
+          <span className="error">Start date must be before or equal to end date.</span>
         )}
       </div>
     </fieldset>

@@ -1,8 +1,11 @@
+main#home {
+  line-height: 1.5;
+}
 main#home aside {
   float: right;
   width: 30%;
   max-width: 60ch;
-  margin-left: 1.5rem;
+  margin-left: 3rem;
 }
 main#home aside p {
   font-size: 0.9rem;

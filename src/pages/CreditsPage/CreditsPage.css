@@ -1,5 +1,8 @@
+main#credits dl {
+  margin: 0.5rem 2rem 1rem;
+}
 main#credits dl dd + dt {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 main#credits dl dt {
   font-weight: bold;
@@ -7,6 +10,12 @@ main#credits dl dt {
 main#credits dl dd {
   margin-left: 0;
   font-style: italic;
+}
+main#credits h2 {
+  margin: 1.5rem 0 0;
+}
+main#credits h3 {
+  margin: 0.75rem 0 0;
 }
 p.acknowledgements {
   font-style: italic;

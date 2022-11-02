@@ -63,12 +63,10 @@ export const sortWaypoints = (waypoints, graph) => {
       false
     );
 
-    return nextNode && ids.has(nextNode.id)
-      ? traverseItinerary(nextNode, [...sorted, nextNode])
-      : sorted;
+    return nextNode ? traverseItinerary(nextNode, [...sorted, nextNode]) : sorted;
   };
 
-  return traverseItinerary(startPoint);
+  return traverseItinerary(startPoint).filter((w) => ids.has(w.id));
 };
 
 /**

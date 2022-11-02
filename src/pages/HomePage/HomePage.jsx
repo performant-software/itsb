@@ -12,20 +12,16 @@ export function HomePage() {
           individuals&apos; movements through space over time. The timeline function allows for the
           researcher to consider specific periods or phases, individually or in comparison with
           other figures.
-          <Link to="/trajectories" aria-label="trajectories visualization">
-            Go
-          </Link>
         </p>
+        <Link to="/trajectories">View trajectories</Link>
         <h2>Intersections</h2>
         <p>
           This visualization presents an interactive snapshot overview of the world map that
           reflects the presence of Afro-Atlantic figures in particular geographical locations at
           particular points in time. Clicking on a given city which figures were present in that
           place and when they were there.
-          <Link to="/intersections" aria-label="intersections visualization">
-            Go
-          </Link>
         </p>
+        <Link to="/intersections">View intersections</Link>
       </aside>
       <p>
         <strong>In the Same Boats</strong> is a work of multimodal scholarship designed to encourage

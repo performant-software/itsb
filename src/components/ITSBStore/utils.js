@@ -1,4 +1,4 @@
-/** Just makes sure there's an 'id' prop on the node **/
+/** Just makes sure there's an 'id' prop on the node */
 export const normalizeNode = (n) => {
   if (n.id) return n;
 
@@ -10,7 +10,7 @@ export const normalizeNode = (n) => {
   return n;
 };
 
-/** Convert one itinerary to n waypoint nodes **/
+/** Convert one itinerary to n waypoint nodes */
 export const splitItinerary = (it) => {
   const itineraryId = it.id;
   const authorId = it.target[0].id;

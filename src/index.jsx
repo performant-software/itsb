@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { ErrorPage, HomePage, MapPage, SearchPage } from './pages';
+import { CreditsPage, ErrorPage, HomePage, InstructionsPage, MapPage, SearchPage } from './pages';
 import { Root } from './Root';
 
 import './index.css';
@@ -24,6 +24,14 @@ const router = createBrowserRouter([
     path: '/',
     children: [
       { index: true, element: <HomePage /> },
+      {
+        path: 'credits',
+        element: <CreditsPage />,
+      },
+      {
+        path: 'instructions',
+        element: <InstructionsPage />,
+      },
       {
         path: 'intersections',
         element: <MapPage />,

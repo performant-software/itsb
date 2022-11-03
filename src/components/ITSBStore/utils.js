@@ -153,35 +153,61 @@ export const filterWaypointsByTime = (waypoints, dateRange) => {
 };
 
 /**
- * Returns the start date of this waypoint. Note that this
+ * Returns the start time of this waypoint. The method returns
+ * the verbatim string value from the waypoint object. Note that this
  * method will return null, if the waypoint has no start specified.
  *
  * @param {*} waypoint
  * @returns the start date, if any
  */
-export const getWaypointStart = (waypoint) => {
+export const getWaypointStartValue = (waypoint) => {
   if (!waypoint.when?.timespans) return;
 
   if (waypoint.when.timespans.length === 0) return;
 
   const startSpan = waypoint.when.timespans.find((t) => t.start)?.start;
-  return startSpan && new Date(startSpan.in || startSpan.earliest || startSpan.latest);
+  return startSpan ? startSpan.in || startSpan.earliest || startSpan.latest : null;
 };
 
 /**
- * Returns the end date of this waypoint. Note that this
+ * Returns the end time of this waypoint. The method returns
+ * the verbatim string value from the waypoint object. Note that this
  * method will return null, if the waypoint has no end specified.
  *
  * @param {*} waypoint
  * @returns the end date, if any
  */
-export const getWaypointEnd = (waypoint) => {
+export const getWaypointEndValue = (waypoint) => {
   if (!waypoint.when?.timespans) return;
 
   if (waypoint.when.timespans.length === 0) return;
 
   const endSpan = waypoint.when.timespans.find((t) => t.end)?.end;
-  return endSpan && new Date(endSpan.in || endSpan.latest || endSpan.earliest);
+  return endSpan ? endSpan.in || endSpan.latest || endSpan.earliest : null;
+};
+
+/**
+ * Returns the start of this waypoint as a Date object. Note that this
+ * method will return null, if the waypoint has no start specified.
+ *
+ * @param {*} waypoint
+ * @returns the start date, if any
+ */
+export const getWaypointStartDate = (waypoint) => {
+  const startVal = getWaypointStartValue(waypoint);
+  return startVal ? new Date(startVal) : null;
+};
+
+/**
+ * Returns the end date of this waypoint as a Date object. Note that this
+ * method will return null, if the waypoint has no end specified.
+ *
+ * @param {*} waypoint
+ * @returns the end date, if any
+ */
+export const getWaypointEndDate = (waypoint) => {
+  const endVal = getWaypointEndValue(waypoint);
+  return endVal ? new Date(endVal) : null;
 };
 
 /**
@@ -197,13 +223,31 @@ export const getWaypointEnd = (waypoint) => {
  * @returns a valid start/end interval or null
  */
 export const getWaypointInterval = (waypoint) => {
-  const start = getWaypointStart(waypoint);
-  const end = getWaypointEnd(waypoint);
+  const start = getWaypointStartDate(waypoint);
+  const end = getWaypointEndDate(waypoint);
 
   if (start || end) {
     return [
       start || end, // Start date, but fallback to end if none
       end || start, // End date, but fallback to start if none
     ];
+  }
+};
+
+/**
+ * Returns a formatted string representation of the time
+ * interval of this waypoint.
+ *
+ * @param {*} waypoint
+ * @returns formatted string representation
+ */
+export const formatInterval = (waypoint) => {
+  const startVal = getWaypointStartValue(waypoint);
+  const endVal = getWaypointEndValue(waypoint);
+
+  if (startVal && endVal) {
+    return `${startVal} – ${endVal}`;
+  } else if (startVal || endVal) {
+    return startVal || endVal;
   }
 };

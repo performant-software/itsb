@@ -1,5 +1,5 @@
 import { isAfter } from 'date-fns';
-import { getWaypointEnd, getWaypointStart } from '../ITSBStore/utils';
+import { getWaypointEndDate, getWaypointStartDate } from '../ITSBStore/utils';
 
 /**
  * Time interval inference for waypoints. See below for Alex Gil's original
@@ -33,8 +33,8 @@ export const getTimeInterval = (waypoint, graph) => {
 
   if (waypoint.when.timespans.length === 0) return;
 
-  const start = getWaypointStart(waypoint);
-  const end = getWaypointEnd(waypoint);
+  const start = getWaypointStartDate(waypoint);
+  const end = getWaypointEndDate(waypoint);
 
   if (start && end) {
     if (isAfter(start, end)) {
@@ -50,15 +50,15 @@ export const getTimeInterval = (waypoint, graph) => {
 const inferInterval = (waypoint, graph) => {
   // Since this fn is internal, and only called from getTimeInterval,
   // we already know that max ONE of these is true!
-  const thisStart = getWaypointStart(waypoint);
-  const thisEnd = getWaypointEnd(waypoint);
+  const thisStart = getWaypointStartDate(waypoint);
+  const thisEnd = getWaypointEndDate(waypoint);
 
   if (thisStart) {
     // New York example: use next WP to infer time here
     const next = graph.getNextWaypoint(waypoint);
 
     if (next) {
-      const nextStart = getWaypointStart(next) || getWaypointEnd(next);
+      const nextStart = getWaypointStartDate(next) || getWaypointEndDate(next);
       if (nextStart) {
         if (isAfter(thisStart, nextStart)) {
           console.warn('Invalid time interval', thisStart, 'to', nextStart);
@@ -71,8 +71,8 @@ const inferInterval = (waypoint, graph) => {
     const previous = graph.getPreviousWaypoint(waypoint);
 
     if (previous) {
-      const previousEnd = getWaypointEnd(previous);
-      const previousStart = getWaypointStart(previous);
+      const previousEnd = getWaypointEndDate(previous);
+      const previousStart = getWaypointStartDate(previous);
 
       if (previousEnd) {
         if (isAfter(previousEnd, thisEnd)) {

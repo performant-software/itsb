@@ -1,0 +1,36 @@
+main#home aside {
+  float: right;
+  width: 30%;
+  max-width: 60ch;
+  margin-left: 3rem;
+}
+main#home aside p {
+  font-size: 0.9rem;
+}
+main#home aside h2:first-child {
+  margin-top: 0;
+}
+main#home aside a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 10px;
+  margin-bottom: 1.5rem;
+  border-radius: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--navbar-link);
+  background-color: var(--navbar-bg);
+}
+main#home aside a:hover,
+main#home aside a:focus,
+main#home aside a:active {
+  color: var(--gold);
+}
+main#home aside a::after {
+  content: '\2192';
+  margin-left: 5px;
+}
+main#home a {
+  color: var(--navbar-bg);
+}

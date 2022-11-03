@@ -19,7 +19,7 @@ export function MapPage() {
   return (
     loaded && (
       <>
-        <aside>
+        <aside id="map-control">
           <MonthRangeInput />
           <AuthorSelect />
         </aside>

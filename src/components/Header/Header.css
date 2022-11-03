@@ -26,7 +26,8 @@ header nav ul li a.active {
 
 /* home link */
 header nav ul li:first-child {
-  width: 25vw;
+  min-width: 350px;
+  width: 350px;
 }
 header nav ul li a.home {
   background-color: var(--gold);

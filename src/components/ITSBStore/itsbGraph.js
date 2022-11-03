@@ -1,7 +1,13 @@
 import createGraph from 'ngraph.graph';
 import Fuse from 'fuse.js';
 import diacritics from 'diacritics';
-import { normalizeNode, filterByTime, groupBy, sortWaypoints, splitItinerary } from './utils';
+import {
+  filterWaypointsByTime,
+  groupBy,
+  normalizeNode,
+  sortWaypointsBySequence,
+  splitItinerary,
+} from './utils';
 
 /**
  * A domain graph model for ITSB with the following
@@ -60,8 +66,8 @@ export class ITSBGraph {
 
     // Itineraries are split to waypoint nodes
     const waypointNodes = itineraries
-      .reduce((waypoints, it) => {
-        return [...waypoints, ...splitItinerary(it)];
+      .reduce((allWaypoints, it) => {
+        return [...allWaypoints, ...splitItinerary(it)];
       }, [])
       .filter((wp) => {
         const isValid = this.exists(wp.author, wp.place);
@@ -137,13 +143,13 @@ export class ITSBGraph {
   listItineraries = (dateRange) => {
     const allWaypoints = this.listNodesWithProperty('type', 'waypoint');
 
-    const filtered = dateRange ? filterByTime(allWaypoints, dateRange) : allWaypoints;
+    const filtered = dateRange ? filterWaypointsByTime(allWaypoints, dateRange) : allWaypoints;
 
     const groupedByAuthor = groupBy(filtered, 'author');
 
     return Object.entries(groupedByAuthor).map(([author, waypoints]) => ({
       author,
-      waypoints: sortWaypoints(waypoints, this.graph),
+      waypoints: sortWaypointsBySequence(waypoints, this.graph),
     }));
   };
 

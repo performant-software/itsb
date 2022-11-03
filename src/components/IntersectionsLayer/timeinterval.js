@@ -1,4 +1,5 @@
 import { isAfter } from 'date-fns';
+import { getWaypointEnd, getWaypointStart } from '../ITSBStore/utils';
 
 /**
  * Time interval inference for waypoints. See below for Alex Gil's original
@@ -32,8 +33,8 @@ export const getTimeInterval = (waypoint, graph) => {
 
   if (waypoint.when.timespans.length === 0) return;
 
-  const start = getStart(waypoint);
-  const end = getEnd(waypoint);
+  const start = getWaypointStart(waypoint);
+  const end = getWaypointEnd(waypoint);
 
   if (start && end) {
     if (isAfter(start, end)) {
@@ -46,36 +47,18 @@ export const getTimeInterval = (waypoint, graph) => {
   }
 };
 
-const getStart = (waypoint) => {
-  if (!waypoint.when?.timespans) return;
-
-  if (waypoint.when.timespans.length === 0) return;
-
-  const startSpan = waypoint.when.timespans.find((t) => t.start)?.start;
-  return startSpan && new Date(startSpan.in || startSpan.earliest || startSpan.latest);
-};
-
-const getEnd = (waypoint) => {
-  if (!waypoint.when?.timespans) return;
-
-  if (waypoint.when.timespans.length === 0) return;
-
-  const endSpan = waypoint.when.timespans.find((t) => t.end)?.end;
-  return endSpan && new Date(endSpan.in || endSpan.latest || endSpan.earliest);
-};
-
 const inferInterval = (waypoint, graph) => {
   // Since this fn is internal, and only called from getTimeInterval,
   // we already know that max ONE of these is true!
-  const thisStart = getStart(waypoint);
-  const thisEnd = getEnd(waypoint);
+  const thisStart = getWaypointStart(waypoint);
+  const thisEnd = getWaypointEnd(waypoint);
 
   if (thisStart) {
     // New York example: use next WP to infer time here
     const next = graph.getNextWaypoint(waypoint);
 
     if (next) {
-      const nextStart = getStart(next) || getEnd(next);
+      const nextStart = getWaypointStart(next) || getWaypointEnd(next);
       if (nextStart) {
         if (isAfter(thisStart, nextStart)) {
           console.warn('Invalid time interval', thisStart, 'to', nextStart);
@@ -88,8 +71,8 @@ const inferInterval = (waypoint, graph) => {
     const previous = graph.getPreviousWaypoint(waypoint);
 
     if (previous) {
-      const previousEnd = getEnd(previous);
-      const previousStart = getStart(previous);
+      const previousEnd = getWaypointEnd(previous);
+      const previousStart = getWaypointStart(previous);
 
       if (previousEnd) {
         if (isAfter(previousEnd, thisEnd)) {

@@ -3,8 +3,6 @@ import { formatInterval } from '../../components/ITSBStore/utils';
 export const SearchResult = (props) => {
   const { data, graph } = props;
 
-  console.log(data);
-
   return (
     <div className={data.type}>
       {data.type === 'waypoint' && (

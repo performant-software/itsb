@@ -48,59 +48,61 @@ const countPresent = (place, likelihood) => {
   return count;
 };
 
-export const IntersectionsLayer = (config) => (itineraries, graph) => {
-  const presence = new Presence(itineraries, graph);
+export const IntersectionsLayer =
+  ({ onSelect, selected }) =>
+  (itineraries, graph) => {
+    const presence = new Presence(itineraries, graph);
 
-  const data = toMapData(presence, graph);
+    const data = toMapData(presence, graph);
 
-  // three layers, one for each likelihood, starting with outermost (least likely)
-  return [1, 2, 3].map(
-    (idx) =>
-      new ScatterplotLayer({
-        id: `scatterplot-${idx}`,
-        data,
-        pickable: true,
-        onClick: ({ object }) => config.onSelect(object),
-        opacity: 0.8,
-        stroked: true,
-        filled: true,
-        radiusScale: 6,
-        radiusMinPixels: 4,
-        radiusMaxPixels: 2000,
-        lineWidthMinPixels: 1,
-        getPosition: (d) => d.geometry.coordinates,
-        getRadius: (d) => {
-          // center circle = likelihood of 3
-          let count = countPresent(d, 3);
+    // three layers, one for each likelihood, starting with outermost (least likely)
+    return [1, 2, 3].map(
+      (idx) =>
+        new ScatterplotLayer({
+          id: `scatterplot-${idx}`,
+          data,
+          pickable: true,
+          onClick: ({ object }) => onSelect(object),
+          opacity: 0.8,
+          stroked: true,
+          filled: true,
+          radiusScale: 6,
+          radiusMinPixels: 4,
+          radiusMaxPixels: 2000,
+          lineWidthMinPixels: 1,
+          getPosition: (d) => d.geometry.coordinates,
+          getRadius: (d) => {
+            // center circle = likelihood of 3
+            let count = countPresent(d, 3);
 
-          if (idx < 3) {
-            // middle circle += likelihood of 2
-            count += countPresent(d, 2);
-          }
+            if (idx < 3) {
+              // middle circle += likelihood of 2
+              count += countPresent(d, 2);
+            }
 
-          if (idx === 1) {
-            // outermost circle += likelihood of 1
-            count += countPresent(d, 1);
-          }
+            if (idx === 1) {
+              // outermost circle += likelihood of 1
+              count += countPresent(d, 1);
+            }
 
-          const radius = 1000;
-          return intersectionsScale(count) * radius;
-        },
+            const radius = 1000;
+            return intersectionsScale(count) * radius;
+          },
 
-        getFillColor: () => {
-          // lower opacity for lower likelihood
-          let opacity = 255;
+          getFillColor: (g) => {
+            // lower opacity for lower likelihood
+            let opacity = 255;
 
-          if (idx == 2) {
-            opacity = 0.5 * 255;
-          } else if (idx == 1) {
-            opacity = 0.25 * 255;
-          }
+            if (idx == 2) {
+              opacity = 0.5 * 255;
+            } else if (idx == 1) {
+              opacity = 0.25 * 255;
+            }
 
-          return [252, 176, 64, opacity];
-        },
+            return selected.id === g.id ? [65, 105, 225, opacity] : [252, 176, 64, opacity];
+          },
 
-        getLineColor: () => [200, 100, 0, 144],
-      })
-  );
-};
+          getLineColor: (g) => (selected.id === g.id ? [0, 0, 0, 144] : [200, 100, 0, 144]),
+        })
+    );
+  };

@@ -12,20 +12,21 @@ import { useMatch, useOutletContext } from 'react-router-dom';
 import './MapPage.css';
 
 /**
+ * The page component for the map visualizations.
  *
+ * @returns {React.Component} React map functional component
  */
 export function MapPage() {
   const { loaded } = useOutletContext();
 
   const [selectedIntersection, setSelectedIntersection] = useState();
+  const onSelectIntersection = (place) => setSelectedIntersection(place);
 
   const isTrajectories = useMatch('trajectories');
 
-  const onSelectIntersection = (place) => setSelectedIntersection(place);
-
   const layer = isTrajectories
     ? ItinerariesLayer()
-    : IntersectionsLayer({ onSelect: onSelectIntersection });
+    : IntersectionsLayer({ onSelect: onSelectIntersection, selected: selectedIntersection });
 
   return (
     loaded && (

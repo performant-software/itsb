@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { Map, Controls, ZoomControl } from '@peripleo/peripleo';
 import {
   AuthorSelect,
   ITSBTooltip,
   ItinerariesLayer,
+  IntersectionDetails,
   IntersectionsLayer,
   MonthRangeInput,
 } from '../../components';
@@ -15,12 +17,11 @@ import './MapPage.css';
 export function MapPage() {
   const { loaded } = useOutletContext();
 
+  const [selectedIntersection, setSelectedIntersection] = useState();
+
   const isTrajectories = useMatch('trajectories');
 
-  const onSelectIntersection = (place) => {
-    // Just for testing, for now
-    console.log('selected intersection', place);
-  };
+  const onSelectIntersection = (place) => setSelectedIntersection(place);
 
   const layer = isTrajectories
     ? ItinerariesLayer()
@@ -49,6 +50,12 @@ export function MapPage() {
             <ZoomControl />
           </Controls>
         </main>
+
+        {!isTrajectories && (
+          <aside id="intersection-details">
+            <IntersectionDetails at={selectedIntersection} />
+          </aside>
+        )}
       </>
     )
   );

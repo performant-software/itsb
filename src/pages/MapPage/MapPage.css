@@ -8,7 +8,16 @@ aside#map-control {
 main#map {
   position: absolute;
   top: 64px;
-  right: 0;
+  right: 330px;
   bottom: 0;
   left: 350px;
+}
+
+aside#intersection-details {
+  position: absolute;
+  top: 64px;
+  right: 0;
+  width: 330px;
+  background-color: var(--sidebar-bg);
+  height: calc(100% - 64px);
 }

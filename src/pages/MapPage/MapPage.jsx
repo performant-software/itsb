@@ -9,12 +9,22 @@ import {
 import { useMatch, useOutletContext } from 'react-router-dom';
 import './MapPage.css';
 
+/**
+ *
+ */
 export function MapPage() {
   const { loaded } = useOutletContext();
 
   const isTrajectories = useMatch('trajectories');
 
-  const layer = isTrajectories ? ItinerariesLayer : IntersectionsLayer;
+  const onSelectIntersection = (place) => {
+    // Just for testing, for now
+    console.log('selected intersection', place);
+  };
+
+  const layer = isTrajectories
+    ? ItinerariesLayer()
+    : IntersectionsLayer({ onSelect: onSelectIntersection });
 
   return (
     loaded && (

@@ -36,15 +36,6 @@ const toMapData = (p, graph) => {
   });
 
   return data.filter((p) => Object.keys(p.present).length > 0);
-
-  /*
-  [{
-    ...place,
-    present: {
-      [author]: [likelyhoods]
-    }
-  }]
-  */
 };
 
 const countPresent = (place, likelihood) => {
@@ -57,7 +48,7 @@ const countPresent = (place, likelihood) => {
   return count;
 };
 
-export const IntersectionsLayer = (itineraries, graph) => {
+export const IntersectionsLayer = (config) => (itineraries, graph) => {
   const presence = new Presence(itineraries, graph);
 
   const data = toMapData(presence, graph);
@@ -69,6 +60,7 @@ export const IntersectionsLayer = (itineraries, graph) => {
         id: `scatterplot-${idx}`,
         data,
         pickable: true,
+        onClick: ({ object }) => config.onSelect(object),
         opacity: 0.8,
         stroked: true,
         filled: true,

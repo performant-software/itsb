@@ -40,7 +40,7 @@ function getUniquePlaces(resultItems, graph) {
  *
  * @returns {Array<Layer>} Array of DeckGL layers to map
  */
-export const ItinerariesLayer = (resultItems, graph) => {
+export const ItinerariesLayer = () => (resultItems, graph) => {
   return [
     new GeoJsonLayer({
       id: 'trajectories-places',

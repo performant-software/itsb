@@ -157,16 +157,25 @@ export const filterWaypointsByTime = (waypoints, dateRange) => {
  * the verbatim string value from the waypoint object. Note that this
  * method will return null, if the waypoint has no start specified.
  *
+ * Optionally, a `qualifier` (in, latest, earliest) can be provided. In
+ * this case, the method will return the value for this specific qualifier,
+ * if it exists, or null otherwise.
+ *
  * @param {*} waypoint
+ * @param {boolean} qualifier an optional qualifier
  * @returns the start date, if any
  */
-export const getWaypointStartValue = (waypoint) => {
+export const getWaypointStartValue = (waypoint, qualifier = null) => {
   if (!waypoint.when?.timespans) return;
 
   if (waypoint.when.timespans.length === 0) return;
 
   const startSpan = waypoint.when.timespans.find((t) => t.start)?.start;
-  return startSpan ? startSpan.in || startSpan.earliest || startSpan.latest : null;
+  return startSpan
+    ? qualifier
+      ? startSpan[qualifier]
+      : startSpan.in || startSpan.earliest || startSpan.latest
+    : null;
 };
 
 /**
@@ -174,16 +183,26 @@ export const getWaypointStartValue = (waypoint) => {
  * the verbatim string value from the waypoint object. Note that this
  * method will return null, if the waypoint has no end specified.
  *
+ * Optionally, a `qualifier` (in, latest, earliest) can be provided. In
+ * this case, the method will return the value for this specific qualifier,
+ * if it exists, or null otherwise.
+ *
  * @param {*} waypoint
+ * @param {boolean} qualifier an optional qualifier
  * @returns the end date, if any
  */
-export const getWaypointEndValue = (waypoint) => {
+export const getWaypointEndValue = (waypoint, qualifier = null) => {
   if (!waypoint.when?.timespans) return;
 
   if (waypoint.when.timespans.length === 0) return;
 
   const endSpan = waypoint.when.timespans.find((t) => t.end)?.end;
-  return endSpan ? endSpan.in || endSpan.latest || endSpan.earliest : null;
+
+  return endSpan
+    ? qualifier
+      ? endSpan[qualifier]
+      : endSpan.in || endSpan.latest || endSpan.earliest
+    : null;
 };
 
 /**

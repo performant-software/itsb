@@ -2,18 +2,15 @@ aside#map-control {
   flex: 0 0 330px;
   padding: 20px 10px;
   background-color: var(--sidebar-bg);
-  height: 100%;
 }
 
 main#map {
   position: relative;
   flex-grow: 1;
-  height: 100%;
 }
 
 aside#intersection-details {
   flex: 0 0 330px;
-  height: 100%;
   background-color: #fff;
   overflow-y: scroll;
 }

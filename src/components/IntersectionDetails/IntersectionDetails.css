@@ -9,17 +9,17 @@
   font-weight: normal;
 }
 
-.intersection-details ul {  
+.intersection-details ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .intersection-details li {
-  width: 50%;
   padding-bottom: 1.25em;
   box-sizing: border-box;
-  float: left;
 }
 .intersection-details li span {
   display: block;
@@ -46,7 +46,3 @@
 .likelihood-1 {
   opacity: 0.45;
 }
-
-
-
-

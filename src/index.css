@@ -5,7 +5,9 @@
   --sidebar-bg: #e4f3ff;
 }
 
-html, body, #app {
+html,
+body,
+#app {
   width: 100%;
   height: 100%;
 }
@@ -24,6 +26,7 @@ html, body, #app {
   position: relative;
   display: flex;
   flex-direction: row;
+  max-height: calc(100vh - 64px);
 }
 
 main:not(#map) {

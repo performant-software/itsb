@@ -19,21 +19,32 @@ export const IntersectionDetails = (props) => {
     return [...all, ...waypoints.filter((wp) => wp.place === at.id)];
   }, []);
 
-  const getLikelihood = (waypoint) => estimateInterval(waypoint, graph).likelihood;
+  const getLikelihood = (waypoint) => estimateInterval(waypoint, graph)?.likelihood;
 
   return (
-    at && (
-      <div className="intersection-details">
-        <h1>{at.properties.title}</h1>
-        <ul>
-          {waypointsAtThisPlace.map((wp) => (
-            <li key={wp.id} className={`likelihood-${getLikelihood(wp)}`}>
-              <span className="wp-author">{graph.getNode(wp.author).name}</span>{' '}
-              <span className="wp-interval">{formatInterval(wp)}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    )
+    <div className="intersection-details">
+      {at ? (
+        <>
+          <h1>{at.properties.title}</h1>
+          <ul>
+            {waypointsAtThisPlace.map((wp) => (
+              <li key={wp.id} className={`likelihood-${getLikelihood(wp)}`}>
+                <span className="wp-author">{graph.getNode(wp.author).name}</span>{' '}
+                <span className="wp-interval">{formatInterval(wp)}</span>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : (
+        <>
+          <h1>Select a city</h1>
+          <p>Enable authors in the left panel to find their possible points of intersection.</p>
+          <p>
+            As cities of intersection appear on the map, click on a city to see the dates and
+            likelihood of each author&apos;s presence.
+          </p>
+        </>
+      )}
+    </div>
   );
 };

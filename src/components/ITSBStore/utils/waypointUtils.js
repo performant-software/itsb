@@ -1,52 +1,4 @@
 /**
- * Just makes sure there's an 'id' prop on the graph node.
- */
-export const normalizeNode = (n) => {
-  if (n.id) return n;
-
-  n.id = n['@id'];
-  delete n['@id'];
-
-  if (!n.id) throw { message: 'Missing node ID', node: n };
-
-  return n;
-};
-
-/**
- * Generic method to group an array of objects by key
- *
- * https://stackoverflow.com/questions/14446511/most-efficient-method-to-groupby-on-an-array-of-objects
- */
-export const groupBy = (xs, key) =>
-  xs.reduce((rv, x) => {
-    (rv[x[key]] = rv[x[key]] || []).push(x);
-    return rv;
-  }, {});
-
-/**
- * Split one itinerary to n waypoint nodes. The method
- * also sorts waypoints by time, to ensure correct sequence.
- */
-export const splitItinerary = (it) => {
-  const itineraryId = it.id;
-  const authorId = it.target[0].id;
-  const waypointList = it.body.value;
-
-  // Work around a conceptual difference between LP and our
-  // graph model: 'id' in LP refers to the place; but it
-  // identifies the waypoint node itself in our graph!
-  const waypoints = waypointList.map((value, idx) => ({
-    ...value,
-    author: authorId,
-    place: value.id,
-    type: 'waypoint',
-    id: `${itineraryId}/wp/${idx}`,
-  }));
-
-  return sortWaypointsByTime(waypoints);
-};
-
-/**
  * The method sorts waypoints according to the time
  * given in the `when` element.
  *
@@ -124,7 +76,7 @@ export const sortWaypointsBySequence = (waypoints, graph) => {
  * Helper to check if a timespan (object with {start} and/or {end})
  * is in a date range (array of Dates of length 2)
  */
-export const isTimespanInRange = (timespan, dateRange) => {
+const isTimespanInRange = (timespan, dateRange) => {
   const [startDate, endDate] = dateRange;
   if (timespan.start && timespan.end) {
     const timespanStart = new Date(timespan.start.earliest || timespan.start.in);

@@ -1,5 +1,5 @@
 import { eachMonthOfInterval } from 'date-fns';
-import { getTimeInterval } from './timeinterval';
+import { getTimeInterval } from '../ITSBStore';
 
 /**
  * Presence is essentially a 3D array:

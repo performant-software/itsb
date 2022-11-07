@@ -4,7 +4,7 @@ import {
   getWaypointEndValue,
   getWaypointStartDate,
   getWaypointStartValue,
-} from '../ITSBStore/utils';
+} from './waypointUtils';
 
 /**
  * Time interval inference for waypoints, according to the meeting with Alex Gil

@@ -1,24 +1,19 @@
 aside#map-control {
-  width: 330px;
+  flex: 0 0 330px;
   padding: 20px 10px;
   background-color: var(--sidebar-bg);
-  height: calc(100% - 64px - 40px);
+  height: 100%;
 }
 
 main#map {
-  position: absolute;
-  top: 64px;
-  right: 330px;
-  bottom: 0;
-  left: 350px;
+  position: relative;
+  flex-grow: 1;
+  height: 100%;
 }
 
 aside#intersection-details {
-  position: absolute;
-  top: 64px;
-  right: 0;
-  width: 330px;
+  flex: 0 0 330px;
+  height: 100%;
   background-color: #fff;
-  height: calc(100% - 64px);
   overflow-y: scroll;
 }

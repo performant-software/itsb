@@ -99,10 +99,10 @@ export const IntersectionsLayer =
               opacity = 0.25 * 255;
             }
 
-            return selected.id === g.id ? [65, 105, 225, opacity] : [252, 176, 64, opacity];
+            return selected?.id === g.id ? [65, 105, 225, opacity] : [252, 176, 64, opacity];
           },
 
-          getLineColor: (g) => (selected.id === g.id ? [0, 0, 0, 144] : [200, 100, 0, 144]),
+          getLineColor: (g) => (selected?.id === g.id ? [0, 0, 0, 144] : [200, 100, 0, 144]),
         })
     );
   };

@@ -1,5 +1,7 @@
 import { useGraph, useSearch } from '@peripleo/peripleo';
-import { formatInterval } from '../../components/ITSBStore/utils';
+import { estimateInterval, formatInterval } from '../../components/ITSBStore/utils';
+
+import './IntersectionDetails.css';
 
 export const IntersectionDetails = (props) => {
   const { at } = props;
@@ -17,14 +19,17 @@ export const IntersectionDetails = (props) => {
     return [...all, ...waypoints.filter((wp) => wp.place === at.id)];
   }, []);
 
+  const getLikelihood = (waypoint) => estimateInterval(waypoint, graph).likelihood;
+
   return (
     at && (
       <div className="intersection-details">
         <h1>{at.properties.title}</h1>
         <ul>
           {waypointsAtThisPlace.map((wp) => (
-            <li key={wp.id}>
-              {graph.getNode(wp.author).name} {formatInterval(wp)}
+            <li key={wp.id} className={`likelihood-${getLikelihood(wp)}`}>
+              <span className="wp-author">{graph.getNode(wp.author).name}</span>{' '}
+              <span className="wp-interval">{formatInterval(wp)}</span>
             </li>
           ))}
         </ul>

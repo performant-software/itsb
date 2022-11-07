@@ -1,5 +1,5 @@
 import { eachMonthOfInterval } from 'date-fns';
-import { getTimeInterval } from '../ITSBStore';
+import { estimateInterval } from '../ITSBStore';
 
 /**
  * Presence is essentially a 3D array:
@@ -37,7 +37,7 @@ export class Presence {
     // Get months and likelihoods for this author
     // being in a given place
     waypoints.forEach((waypoint) => {
-      const interval = getTimeInterval(waypoint, this.graph);
+      const interval = estimateInterval(waypoint, this.graph);
       if (interval) {
         const months = eachMonthOfInterval(interval);
         this.addToPresence(waypoint.place, author, months, interval.likelihood);

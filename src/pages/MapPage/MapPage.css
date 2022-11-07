@@ -18,6 +18,7 @@ aside#intersection-details {
   top: 64px;
   right: 0;
   width: 330px;
-  background-color: var(--sidebar-bg);
+  background-color: #fff;
   height: calc(100% - 64px);
+  overflow-y: scroll;
 }

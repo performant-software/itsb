@@ -39,7 +39,7 @@ import {
  * known LATEST date at the previous waypoint, we assign the interval (LATEST previous, END DATE)
  * a likelihood of 1.
  */
-export const getTimeInterval = (waypoint, graph) => {
+export const estimateInterval = (waypoint, graph) => {
   if (!waypoint.when?.timespans) return;
 
   if (waypoint.when.timespans.length === 0) return;
@@ -59,7 +59,7 @@ export const getTimeInterval = (waypoint, graph) => {
 };
 
 const inferInterval = (waypoint, graph) => {
-  // Since this fn is internal, and only called from getTimeInterval,
+  // Since this fn is internal, and only called from estimateTimeInterval,
   // we already know that max ONE of these is true!
   const thisStart = getWaypointStartDate(waypoint);
   const thisEnd = getWaypointEndDate(waypoint);

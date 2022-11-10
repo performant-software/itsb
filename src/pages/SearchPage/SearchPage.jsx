@@ -8,6 +8,11 @@ const MIN_LENGTH = 3;
 
 import './SearchPage.css';
 
+/**
+ * Search page for ITSB, using Peripleo search and filtering.
+ *
+ * @returns {React.Component} Search page React functional component
+ */
 export function SearchPage() {
   const { loaded } = useOutletContext();
 
@@ -56,26 +61,28 @@ export function SearchPage() {
   return (
     loaded && (
       <main id="search">
-        <form action="#" name="search" onSubmit={(evt) => evt.preventDefault()}>
-          <input
-            type="text"
-            placeholder="Search authors, cities, notes and citations."
-            onChange={onChange}
-          />
-        </form>
+        <div>
+          <form action="#" name="search" onSubmit={(evt) => evt.preventDefault()}>
+            <input
+              type="text"
+              placeholder="Search authors, cities, notes and citations."
+              onChange={onChange}
+            />
+          </form>
 
-        <div id="search-results">
-          {results.length === 0 ? (
-            <p>Begin typing above.</p>
-          ) : (
-            <ul>
-              {results.map((result) => (
-                <li key={result.id}>
-                  <SearchResult data={result} graph={graph} />
-                </li>
-              ))}
-            </ul>
-          )}
+          <div id="search-results">
+            {results.length === 0 ? (
+              <p>Begin typing above.</p>
+            ) : (
+              <ul>
+                {results.map((result) => (
+                  <li key={result.id}>
+                    <SearchResult data={result} graph={graph} />
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
       </main>
     )

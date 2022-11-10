@@ -28,9 +28,26 @@ body,
   flex-direction: row;
   max-height: calc(100vh - 64px);
 }
-
 main:not(#map) {
-  padding: 30px calc(100vw - 60ch - 350px) 30px 0;
+  overflow-y: auto;
+  width: 100%;
+}
+main:not(#map) h1 {
+  font-size: 2rem;
+  margin-block-start: 1.5rem;
+  margin-block-end: 1.5rem;
+}
+main:not(#map) h2 {
+  font-size: 1.5rem;
+  margin-block-start: 0.83rem;
+  margin-block-end: 0.83rem;
+}
+main:not(#map) h3 {
+  font-size: 1.17rem;
+}
+main:not(#map) > article,
+main#search > div {
+  padding: 30px 30px 30px 0;
   width: 60ch;
   max-width: 60ch;
   margin: 0 0 0 350px;
@@ -39,8 +56,9 @@ main:not(#map) {
 }
 /* center content layout on large displays */
 @media (min-width: 1660px) {
-  main:not(#map) {
-    padding: 30px calc((100vw - 60ch) / 2) 30px calc((100vw - 60ch) / 2);
-    margin: 0;
+  main:not(#map) > article,
+  main#search > div {
+    padding: 30px;
+    margin: 0 auto;
   }
 }

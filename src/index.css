@@ -30,15 +30,17 @@ body,
 }
 
 main:not(#map) {
-  padding: 30px 30px 30px 0;
+  padding: 30px calc(100vw - 60ch - 350px) 30px 0;
+  width: 60ch;
   max-width: 60ch;
   margin: 0 0 0 350px;
   line-height: 1.5;
+  overflow-y: auto;
 }
 /* center content layout on large displays */
 @media (min-width: 1660px) {
   main:not(#map) {
-    padding: 30px;
-    margin: 0 auto;
+    padding: 30px calc((100vw - 60ch) / 2) 30px calc((100vw - 60ch) / 2);
+    margin: 0;
   }
 }

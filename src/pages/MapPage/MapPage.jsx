@@ -20,13 +20,14 @@ export function MapPage() {
   const { loaded } = useOutletContext();
 
   const [selectedIntersection, setSelectedIntersection] = useState();
-  const onSelectIntersection = (place) => setSelectedIntersection(place);
 
   const isTrajectories = useMatch('trajectories');
 
   const layer = isTrajectories
     ? ItinerariesLayer()
-    : IntersectionsLayer({ onSelect: onSelectIntersection, selected: selectedIntersection });
+    : IntersectionsLayer({ selected: selectedIntersection });
+
+  const onClick = ({ object }) => setSelectedIntersection(object);
 
   return (
     loaded && (
@@ -45,6 +46,7 @@ export function MapPage() {
             ]}
             layers={[layer]}
             tooltip={ITSBTooltip}
+            onClick={onClick}
           />
 
           <Controls>

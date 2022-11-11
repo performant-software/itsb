@@ -49,7 +49,7 @@ const countPresent = (place, likelihood) => {
 };
 
 export const IntersectionsLayer =
-  ({ onSelect, selected }) =>
+  ({ selected }) =>
   (itineraries, graph) => {
     const presence = new Presence(itineraries, graph);
 
@@ -62,7 +62,6 @@ export const IntersectionsLayer =
           id: `scatterplot-${idx}`,
           data,
           pickable: true,
-          onClick: ({ object }) => onSelect(object),
           opacity: 0.8,
           stroked: true,
           filled: true,

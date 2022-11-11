@@ -41,6 +41,9 @@
     "**/*.{js,jsx}": [
       "npx prettier --write",
       "npx eslint --fix"
+    ],
+    "**/*.{css}": [
+      "npx prettier --write"
     ]
   }
 }

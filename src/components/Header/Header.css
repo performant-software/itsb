@@ -1,6 +1,11 @@
 /* header nav list */
+header nav {
+  height: 100%;
+}
+
 header nav ul {
   display: flex;
+  height: 100%;
   list-style: none;
   background-color: var(--navbar-bg);
   margin: 0;
@@ -14,7 +19,7 @@ header nav ul li a {
   background-color: var(--navbar-bg);
   color: var(--navbar-link);
   text-decoration: none;
-  height: 64px;
+  height: 100%;
   padding: 0 30px;
   cursor: pointer;
   white-space: nowrap;

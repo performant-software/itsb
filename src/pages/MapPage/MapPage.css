@@ -1,14 +1,16 @@
 aside#map-control {
-  width: 330px;
+  flex: 0 0 330px;
   padding: 20px 10px;
   background-color: var(--sidebar-bg);
-  height: calc(100% - 64px - 40px);
 }
 
 main#map {
-  position: absolute;
-  top: 64px;
-  right: 0;
-  bottom: 0;
-  left: 350px;
+  position: relative;
+  flex-grow: 1;
+}
+
+aside#intersection-details {
+  flex: 0 0 330px;
+  background-color: #fff;
+  overflow-y: scroll;
 }

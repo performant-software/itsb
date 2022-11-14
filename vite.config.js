@@ -12,9 +12,6 @@ export default defineConfig({
       'mapbox-gl': 'maplibre-gl',
     },
   },
-  optimizeDeps: {
-    exclude: ['@peripleo/peripleo'],
-  },
   server: {
     open: '/',
   },

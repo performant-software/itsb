@@ -9,12 +9,14 @@
     "plugin:react/jsx-runtime",
     "prettier"
   ],
+  
   "overrides": [],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
   "plugins": ["jsdoc", "react"],
+  "ignorePatterns": ["docs/**"],
   "rules": {
     "jsdoc/check-alignment": 1,
     "jsdoc/check-param-names": 1,

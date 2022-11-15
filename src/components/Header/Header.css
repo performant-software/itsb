@@ -2,7 +2,6 @@
 header nav {
   height: 100%;
 }
-
 header nav ul {
   display: flex;
   height: 100%;
@@ -31,12 +30,12 @@ header nav ul li a.active {
 
 /* home link */
 header nav ul li:first-child {
-  min-width: 350px;
   width: 350px;
 }
 header nav ul li a.home {
   background-color: var(--gold);
   color: var(--navbar-bg);
+  font-weight: 500;
 }
 header nav ul li a.home:hover {
   text-decoration: underline;
@@ -46,10 +45,10 @@ header nav ul li a.home::before {
   content: '';
   display: block;
   min-width: 24px;
-  width: 24px;
-  height: 24px;
+  width: 30px;
+  height: 30px;
   margin-right: 1rem;
   background: url('/img/itsb_icon.svg');
   background-repeat: no-repeat;
-  background-size: 24px 24px;
+  background-size: 30px 30px;
 }

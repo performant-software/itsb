@@ -5,6 +5,25 @@
   --sidebar-bg: #e4f3ff;
 }
 
+.btn {
+  align-items: center;
+  white-space: nowrap;
+  justify-content: center;
+  padding: 8px 20px;
+  margin-bottom: 1.5rem;
+  border-radius: 2px;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--navbar-link);
+  background-color: var(--navbar-bg);
+}
+
+.btn:hover,
+.btn:focus,
+.btn:active {
+  color: var(--gold);
+}
+
 html,
 body,
 #app {
@@ -30,12 +49,18 @@ body,
 }
 main:not(#map) {
   overflow-y: auto;
+  display: flex;
+  flex-direction: row;
   width: 100%;
+}
+main:not(#map) .flex-spacer {
+  width: 350px;
+  box-sizing: border-box;
 }
 main:not(#map) h1 {
   font-size: 2rem;
   margin-block-start: 1.5rem;
-  margin-block-end: 1.5rem;
+  margin-block-end: 1rem;
 }
 main:not(#map) h2 {
   font-size: 1.5rem;
@@ -45,20 +70,28 @@ main:not(#map) h2 {
 main:not(#map) h3 {
   font-size: 1.17rem;
 }
+main:not(#map) hr {
+  border-style: solid;
+  border-color: #525252;
+  border-width: 1px 0 0 0;
+  padding-bottom: 2em;
+}
+main:not(#map) section {
+  padding-bottom: 1.4em;
+}
 main:not(#map) > article,
 main#search > div {
-  padding: 30px 30px 30px 0;
-  width: 60ch;
-  max-width: 60ch;
-  margin: 0 0 0 350px;
-  line-height: 1.5;
-  overflow-y: auto;
+  padding: 30px 30px 80px 30px;
+  max-width: 980px;
+  line-height: 1.7;
 }
-/* center content layout on large displays */
-@media (min-width: 1660px) {
-  main:not(#map) > article,
-  main#search > div {
-    padding: 30px;
-    margin: 0 auto;
-  }
+
+main:not(#map) > article p {
+  padding: 1.2em 0;
+}
+
+main:not(#map) > article::after {
+  content: '';
+  display: block;
+  padding-bottom: 4em;
 }

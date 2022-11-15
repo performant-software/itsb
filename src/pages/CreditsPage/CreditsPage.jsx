@@ -8,6 +8,7 @@ import './CreditsPage.css';
 export function CreditsPage() {
   return (
     <main id="credits">
+      <div className="flex-spacer"></div>
       <article>
         <h1>Credits</h1>
         <section>

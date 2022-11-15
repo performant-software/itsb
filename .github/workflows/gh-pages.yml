@@ -1,0 +1,36 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout latest code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node/NPM
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Create env file with /itsb/ URL basename
+        run: |
+          touch .env.production
+          echo VITE_BASENAME="/itsb/" >> .env.production
+          cat .env.production
+
+      - name: Build/bundle with Vite
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist

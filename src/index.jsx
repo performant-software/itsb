@@ -15,38 +15,43 @@ const fetchMapData = async () =>
     fetchData('data/itineraries.json'),
   ]);
 
-const router = createBrowserRouter([
-  {
-    element: <Root />,
-    errorElement: <ErrorPage />,
-    id: 'root',
-    loader: fetchMapData,
-    path: '/',
-    children: [
-      { index: true, element: <HomePage /> },
-      {
-        path: 'credits',
-        element: <CreditsPage />,
-      },
-      {
-        path: 'instructions',
-        element: <InstructionsPage />,
-      },
-      {
-        path: 'intersections',
-        element: <MapPage />,
-      },
-      {
-        path: 'trajectories',
-        element: <MapPage />,
-      },
-      {
-        path: 'search',
-        element: <SearchPage />,
-      },
-    ],
-  },
-]);
+const router = createBrowserRouter(
+  [
+    {
+      element: <Root />,
+      errorElement: <ErrorPage />,
+      id: 'root',
+      loader: fetchMapData,
+      path: '/',
+      children: [
+        { index: true, element: <HomePage /> },
+        {
+          path: 'credits',
+          element: <CreditsPage />,
+        },
+        {
+          path: 'instructions',
+          element: <InstructionsPage />,
+        },
+        {
+          path: 'intersections',
+          element: <MapPage />,
+        },
+        {
+          path: 'trajectories',
+          element: <MapPage />,
+        },
+        {
+          path: 'search',
+          element: <SearchPage />,
+        },
+      ],
+    },
+  ],
+  // optionally configure a basename that is not the root URL, such as "/itsb/"
+  // see https://reactrouter.com/en/6.4.3/routers/create-browser-router#basename
+  { basename: import.meta.env.VITE_BASENAME || '' }
+);
 
 ReactDOM.createRoot(document.getElementById('app')).render(
   <React.StrictMode>

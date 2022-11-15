@@ -25,6 +25,9 @@ jobs:
           echo VITE_BASENAME="/itsb/" >> .env.production
           cat .env.production
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Build/bundle with Vite
         run: npm run build
 

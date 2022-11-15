@@ -9,25 +9,35 @@ import './HomePage.css';
 export function HomePage() {
   return (
     <main id="home">
+      <div className="flex-spacer"></div>
       <article>
         <h1>Welcome</h1>
         <aside>
-          <h2>Trajectories</h2>
-          <p>
-            This visualization presents an interactive narrative overview of one or more
-            individuals&apos; movements through space over time. The timeline function allows for
-            the researcher to consider specific periods or phases, individually or in comparison
-            with other figures.
-          </p>
-          <Link to="/trajectories">View trajectories</Link>
-          <h2>Intersections</h2>
-          <p>
-            This visualization presents an interactive snapshot overview of the world map that
-            reflects the presence of Afro-Atlantic figures in particular geographical locations at
-            particular points in time. Clicking on a given city which figures were present in that
-            place and when they were there.
-          </p>
-          <Link to="/intersections">View intersections</Link>
+          <section className="vis-info">
+            <h2>Trajectories</h2>
+            <p>
+              This visualization presents an interactive narrative overview of one or more
+              individuals&apos; movements through space over time. The timeline function allows for
+              the researcher to consider specific periods or phases, individually or in comparison
+              with other figures.
+            </p>
+            <Link className="btn" to="/trajectories">
+              View trajectories
+            </Link>
+          </section>
+
+          <section className="vis-info">
+            <h2>Intersections</h2>
+            <p>
+              This visualization presents an interactive snapshot overview of the world map that
+              reflects the presence of Afro-Atlantic figures in particular geographical locations at
+              particular points in time. Clicking on a given city which figures were present in that
+              place and when they were there.
+            </p>
+            <Link className="btn" to="/intersections">
+              View intersections
+            </Link>
+          </section>
         </aside>
         <p>
           <strong>In the Same Boats</strong> is a work of multimodal scholarship designed to
@@ -78,7 +88,9 @@ export function HomePage() {
           constitution of a 20th century Afro-Atlantic Republic of Arts and Letters.
         </p>
         <p>
-          <Link to="instructions">Learn how it works…</Link>
+          <Link className="btn" to="instructions">
+            Learn how it works…
+          </Link>
         </p>
       </article>
     </main>

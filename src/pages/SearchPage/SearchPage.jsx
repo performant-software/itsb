@@ -61,7 +61,8 @@ export function SearchPage() {
   return (
     loaded && (
       <main id="search">
-        <div>
+        <div className="flex-spacer"></div>
+        <section className="search-wrapper">
           <form action="#" name="search" onSubmit={(evt) => evt.preventDefault()}>
             <input
               type="text"
@@ -83,7 +84,7 @@ export function SearchPage() {
               </ul>
             )}
           </div>
-        </div>
+        </section>
       </main>
     )
   );

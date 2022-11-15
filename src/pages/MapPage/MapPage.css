@@ -14,3 +14,11 @@ aside#intersection-details {
   background-color: #fff;
   overflow-y: scroll;
 }
+
+aside#intersection-details h1 {
+  font-weight: 500;
+}
+
+aside#intersection-details p {
+  line-height: 1.6;
+}

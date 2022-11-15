@@ -52,8 +52,10 @@ input[type='month'] {
   text-align: center;
   font-size: 0.75rem;
   font-family: Courier, monospace;
-  height: 26px;
+  line-height: 30px;
   border: 1px solid gray;
+  border-radius: 2px;
+  font-family: 'DM Sans', Arial, Helvetica, sans-serif;
 }
 input[type='month']:first-of-type {
   margin: 0 5px 0 10px;

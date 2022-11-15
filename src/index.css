@@ -89,6 +89,13 @@ main#search > div {
 main:not(#map) > article p {
   padding: 1.2em 0;
 }
+main:not(#map) > article > p,
+main:not(#map) > article > section p {
+  max-width: 60ch;
+}
+main:not(#map) > article li {
+  max-width: 60ch;
+}
 
 main:not(#map) > article::after {
   content: '';

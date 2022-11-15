@@ -1,3 +1,5 @@
+import './InstructionsPage.css';
+
 /**
  * Instructions page for ITSB (static content)
  *

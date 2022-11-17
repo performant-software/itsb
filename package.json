@@ -13,7 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@peripleo/peripleo": "0.1.10",
+    "@peripleo/peripleo": "0.1.11",
     "d3-scale": "^4.0.2",
     "date-fns": "^2.29.3",
     "diacritics": "^1.3.0",

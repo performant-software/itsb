@@ -48,7 +48,7 @@ export function MapPage() {
             ]}
             layers={[layer]}
             tooltip={ITSBTooltip}
-            onClick={onClick}
+            onClick={isTrajectories ? null : onClick}
           />
 
           <Controls>

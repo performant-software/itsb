@@ -19,12 +19,6 @@ jobs:
         with:
           node-version: 16
 
-      - name: Create env file with /itsb/ URL basename
-        run: |
-          touch .env.production
-          echo VITE_BASENAME="/itsb/" >> .env.production
-          cat .env.production
-
       - name: Install dependencies
         run: npm install
 

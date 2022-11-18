@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createHashRouter, RouterProvider } from 'react-router-dom';
 import { CreditsPage, ErrorPage, HomePage, InstructionsPage, MapPage, SearchPage } from './pages';
 import { Root } from './Root';
 
@@ -15,7 +15,7 @@ const fetchMapData = async () =>
     fetchData('data/itineraries.json'),
   ]);
 
-const router = createBrowserRouter(
+const router = createHashRouter(
   [
     {
       element: <Root />,

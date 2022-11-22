@@ -96,6 +96,7 @@ header nav ul li a.active {
   color: var(--gold);
 }
 
+/* medium-sized displays and larger */
 @media (min-width: 640px) {
   header nav {
     flex-flow: row nowrap;

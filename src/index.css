@@ -54,7 +54,7 @@ main:not(#map) {
   width: 100%;
 }
 main:not(#map) .flex-spacer {
-  width: 350px;
+  width: 0px;
   box-sizing: border-box;
 }
 main:not(#map) h1 {
@@ -81,7 +81,7 @@ main:not(#map) section {
 }
 main:not(#map) > article,
 main#search > div {
-  padding: 30px 30px 80px 30px;
+  padding: 0 2rem;
   max-width: 980px;
   line-height: 1.7;
 }
@@ -100,5 +100,19 @@ main:not(#map) > article li {
 main:not(#map) > article::after {
   content: '';
   display: block;
-  padding-bottom: 4em;
+  padding-bottom: 1em;
+}
+
+/* medium-sized displays and larger */
+@media (min-width: 640px) {
+  main:not(#map) > article,
+  main#search > div {
+    padding: 30px 30px 80px 30px;
+  }
+  main:not(#map) .flex-spacer {
+    width: 350px;
+  }
+  main:not(#map) > article::after {
+    padding-bottom: 4em;
+  }
 }

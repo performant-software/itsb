@@ -1,8 +1,5 @@
 main#home aside {
-  float: right;
-  width: 30%;
   max-width: 235ch;
-  margin: 0.8rem 0 0 5rem;
 }
 main#home aside section.vis-info {
   margin-bottom: 3em;
@@ -20,4 +17,13 @@ main#home aside h2:first-child {
 }
 main#home aside p {
   margin: 0;
+}
+
+/* medium-sized displays and larger */
+@media (min-width: 640px) {
+  main#home aside {
+    float: right;
+    width: 30%;
+    margin: 0.8rem 0 0 5rem;
+  }
 }

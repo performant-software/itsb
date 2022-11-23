@@ -2,6 +2,12 @@ import { useState, useEffect } from 'react';
 import { GraphContext } from '@peripleo/peripleo';
 import { ITSBGraph } from './itsbGraph';
 
+/**
+ * The ITSBGraphProvider exposes the ITSB graph as global context.
+ *
+ * @param {*} props
+ * @returns {ReactElement}
+ */
 export const ITSBGraphProvider = (props) => {
   const [graph, setGraph] = useState();
 

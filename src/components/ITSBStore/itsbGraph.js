@@ -140,11 +140,11 @@ export class ITSBGraph {
    * @param {...string} arg one or multiple node ids
    * @returns {boolean} true if ALL of the given IDs exist
    */
-  exists() {
-    if (arguments.length > 0) {
-      return [...arguments].every((id) => this.getNode(id));
+  exists = (...args) => {
+    if (args.length > 0) {
+      return args.every((id) => this.getNode(id));
     }
-  }
+  };
 
   /**
    * Helper method that lists nodes that include a certain

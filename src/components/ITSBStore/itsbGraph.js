@@ -152,7 +152,7 @@ export class ITSBGraph {
    *
    * @param {string} key
    * @param {*} value
-   * @returns the list of nodes that match the criterion
+   * @returns {Array<*>} the list of nodes that match the criterion
    */
   listNodesWithProperty = (key, value) => {
     const nodes = [];
@@ -170,7 +170,7 @@ export class ITSBGraph {
    *
    * @param {string} nodeId
    * @param {*} relation
-   * @returns
+   * @returns {Array<*>} the list of links
    */
   getLinksOfType = (nodeId, relation) => {
     const links = [];
@@ -190,21 +190,21 @@ export class ITSBGraph {
    * Retrieves a node from the graph by its ID.
    *
    * @param {string} id
-   * @returns the Author, Place or Waypoint node, or null
+   * @returns {*} the Author, Place or Waypoint node, or undefined
    */
   getNode = (id) => this.graph.getNode(id)?.data;
 
   /**
    * Returns all Authors (nodes of `@type` = 'Person').
    *
-   * @returns the list of authors
+   * @returns {Array<*>} the list of authors
    */
   listAuthors = () => this.listNodesWithProperty('@type', 'Person');
 
   /**
    * Returns all Places (nodes of `type` = 'Feature').
    *
-   * @returns the list of Places
+   * @returns {Array<*>} the list of Places
    */
   listPlaces = () => this.listNodesWithProperty('type', 'Feature');
 
@@ -224,7 +224,7 @@ export class ITSBGraph {
    * }
    *
    * @param {[string, string]} dateRange
-   * @returns the list of itineraries
+   * @returns {Array<*>} the list of itineraries
    */
   listItineraries = (dateRange) => {
     const allWaypoints = this.listNodesWithProperty('type', 'waypoint');
@@ -243,7 +243,7 @@ export class ITSBGraph {
    * Returns the full itinerary for a given Author.
    *
    * @param {string} authorId the Author ID
-   * @returns the list of Waypoints
+   * @returns {Array<*>} the list of Waypoints
    */
   getItineraryForAuthor = (authorId) =>
     this.getLinksOfType(authorId, 'visitedBy').map((link) => this.getNode(link.fromId));
@@ -253,7 +253,7 @@ export class ITSBGraph {
    * at this place.
    *
    * @param {string} placeId the Place ID
-   * @returns the list of Waypoints at this place
+   * @returns {Array<*>} the list of Waypoints at this place
    */
   getWaypointsAt = (placeId) =>
     this.getLinksOfType(placeId, 'locatedAt').map((link) => this.getNode(link.fromId));
@@ -264,7 +264,7 @@ export class ITSBGraph {
    * is the last on the itinerary.
    *
    * @param {*} waypoint a Waypoint
-   * @returns the next Waypoint on the itinerary (or undefined)
+   * @returns {*} the next Waypoint on the itinerary (or undefined)
    */
   getNextWaypoint = (waypoint) => {
     const neighbours = this.getLinksOfType(waypoint.id, 'previous');
@@ -280,7 +280,7 @@ export class ITSBGraph {
    * is the first on the itinerary.
    *
    * @param {*} waypoint
-   * @returns the previous Waypoint on the itinerary (or undefined)
+   * @returns {*} the previous Waypoint on the itinerary (or undefined)
    */
   getPreviousWaypoint = (waypoint) => {
     const neighbours = this.getLinksOfType(waypoint.id, 'previous');
@@ -294,7 +294,7 @@ export class ITSBGraph {
    * Queries the Fuse.js index with the given search query
    *
    * @param {string} query
-   * @returns the list of nodes matching the query
+   * @returns {Array<*>} the list of nodes matching the query
    */
   search = (query) =>
     this.fulltextIndex.search(diacritics.remove(query)).map((result) => result.item);

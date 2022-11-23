@@ -69,12 +69,18 @@ export const estimateInterval = (waypoint, graph) => {
       return { waypoint, start, end, likelihood: 3 };
     }
   } else {
-    // Interval 'inference' (as described in the comment above) happens
-    // here - see method below
     return inferInterval(waypoint, graph);
   }
 };
 
+/**
+ * Helper method infer the waypoint time interval, as outlined in the
+ * documentation for `estimateInterval` (see above).
+ *
+ * @param {*} waypoint the Waypoint
+ * @param {*} graph the ITSBGraph
+ * @returns the inferred interval
+ */
 const inferInterval = (waypoint, graph) => {
   // Since this fn is internal, and only called from estimateTimeInterval,
   // we already know that max ONE of these is true!

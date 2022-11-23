@@ -34,7 +34,7 @@ export class Presence {
   }
 
   /**
-   * Ads one itinerary to this Presence object.
+   * Adds one itinerary to this Presence object.
    *
    * @param {string} author the author ID
    * @param {*} waypoints the itinerary Waypoints

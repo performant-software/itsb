@@ -38,6 +38,21 @@ import {
  * Likewise, if we have a known END DATE at the current waypoint (latest or departure), and a
  * known LATEST date at the previous waypoint, we assign the interval (LATEST previous, END DATE)
  * a likelihood of 1.
+ *
+ * ---
+ *
+ * The return type of the method is an object of the following shape:
+ *
+ * {
+ *   'waypoint': ... // the waypoint (for convenience)
+ *   'start': ... // Start (type = Date)
+ *   'end': ... // End (type = Date)
+ *   'likelihood': ... // The inferred likelihood (type = number, value = 1, 2 or 3)
+ * }
+ *
+ * @param {*} waypoint the Waypoint
+ * @param {*} graph the ITSBGraph
+ * @returns {*} the estimated interval
  */
 export const estimateInterval = (waypoint, graph) => {
   if (!waypoint.when?.timespans) return;
@@ -54,6 +69,8 @@ export const estimateInterval = (waypoint, graph) => {
       return { waypoint, start, end, likelihood: 3 };
     }
   } else {
+    // Interval 'inference' (as described in the comment above) happens
+    // here - see method below
     return inferInterval(waypoint, graph);
   }
 };
@@ -65,7 +82,6 @@ const inferInterval = (waypoint, graph) => {
   const thisEnd = getWaypointEndDate(waypoint);
 
   if (thisStart) {
-    // New York example: use next WP to infer time here
     const next = graph.getNextWaypoint(waypoint);
 
     if (next) {

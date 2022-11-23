@@ -11,7 +11,7 @@ import './SearchPage.css';
 /**
  * Search page for ITSB, using Peripleo search and filtering.
  *
- * @returns {React.Component} Search page React functional component
+ * @returns {ReactElement} Search page React functional component
  */
 export function SearchPage() {
   const { loaded } = useOutletContext();

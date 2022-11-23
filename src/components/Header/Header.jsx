@@ -5,7 +5,7 @@ import './Header.css';
 /**
  * Header component, containing navigation links to pages in the application.
  *
- * @returns {React.Component} Header React functional component
+ * @returns {ReactElement} Header React functional component
  */
 export function Header() {
   // hide mobile menu after navigating

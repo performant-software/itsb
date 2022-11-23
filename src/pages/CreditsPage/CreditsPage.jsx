@@ -3,7 +3,7 @@ import './CreditsPage.css';
 /**
  * Credits page for ITSB (static content)
  *
- * @returns {React.Component} Credits page React functional component
+ * @returns {ReactElement} Credits page React functional component
  */
 export function CreditsPage() {
   return (

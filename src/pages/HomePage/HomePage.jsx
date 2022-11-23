@@ -4,7 +4,7 @@ import './HomePage.css';
 /**
  * Home page for ITSB (static content)
  *
- * @returns {React.Component} Home page React functional component
+ * @returns {ReactElement} Home page React functional component
  */
 export function HomePage() {
   return (

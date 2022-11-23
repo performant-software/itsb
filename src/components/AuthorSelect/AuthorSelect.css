@@ -2,7 +2,9 @@ ul.author-select {
   list-style-type: none;
   padding: 0;
   margin: 0;
-  font-size: 17px; 
+  font-size: 0.75rem;
+  display: flex;
+  flex-flow: row wrap;
 }
 
 ul.author-select li {
@@ -13,4 +15,12 @@ ul.author-select li {
 ul.author-select li label {
   cursor: pointer;
   padding-left: 5px;
-} 
+}
+
+/* medium-sized displays and larger */
+@media (min-width: 640px) {
+  ul.author-select {
+    font-size: 17px;
+    display: block;
+  }
+}

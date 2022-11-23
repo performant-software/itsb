@@ -44,7 +44,7 @@ body,
   flex-grow: 1;
   position: relative;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   max-height: calc(100vh - 64px);
 }
 main:not(#map) {
@@ -105,6 +105,9 @@ main:not(#map) > article::after {
 
 /* medium-sized displays and larger */
 @media (min-width: 640px) {
+  #app > section#content-wrapper {
+    flex-direction: row;
+  }
   main:not(#map) > article,
   main#search > div {
     padding: 30px 30px 80px 30px;

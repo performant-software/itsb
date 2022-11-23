@@ -3,6 +3,9 @@ import { sortWaypointsByTime } from './waypointUtils';
 /**
  * Split one itinerary to n waypoint nodes. The method
  * also sorts waypoints by time, to ensure correct sequence.
+ *
+ * @param {*} it the Itinerary
+ * @returns {Array<*>} the list of Waypoints
  */
 export const splitItinerary = (it) => {
   const itineraryId = it.id;

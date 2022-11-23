@@ -33,6 +33,12 @@ export class Presence {
     itineraries.forEach(({ author, waypoints }) => this.addOneItinerary(author, waypoints));
   }
 
+  /**
+   * Adds one itinerary to this Presence object.
+   *
+   * @param {string} author the author ID
+   * @param {*} waypoints the itinerary Waypoints
+   */
   addOneItinerary = (author, waypoints) => {
     // Get months and likelihoods for this author
     // being in a given place
@@ -47,6 +53,14 @@ export class Presence {
     });
   };
 
+  /**
+   * Adds one set of 'presence records' to this Presence object.
+   *
+   * @param {string} place the place ID
+   * @param {string} author the author ID
+   * @param {string[]} months the list months for which there is presence
+   * @param {number} likelihood the likelihood for these months
+   */
   addToPresence = (place, author, months, likelihood) => {
     if (!this.presence[place]) this.presence[place] = {};
 

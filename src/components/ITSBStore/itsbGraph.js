@@ -50,6 +50,26 @@ export class ITSBGraph {
     });
   }
 
+  /**
+   * This method initialises the graph from the JSON data.
+   *
+   * Authors and Places are stored as nodes in the graph directly.
+   *
+   * Itineraries are pre-preprocessed: each itinerary is split into
+   * waypoints; and waypoints are sorted by time. The sorted waypoints
+   * are stored as nodes in the graph, and connected by edges in sequence.
+   *
+   * A verification step ensures that only connected waypoints are included
+   * in the graph. If a waypoint is not connected to an Author AND a Place,
+   * its import is skipped (and an error message is logged).
+   *
+   * All graph nodes (Authors, Places, Waypoints) are additionally stored
+   * in the Fuse.js fulltext index.
+   *
+   * @param {*} authors
+   * @param {*} places
+   * @param {*} itineraries
+   */
   init = (authors, places, itineraries) => {
     this.graph.clear();
 
@@ -110,8 +130,30 @@ export class ITSBGraph {
     this.graph.endUpdate();
   };
 
-  getNode = (id) => this.graph.getNode(id)?.data;
+  /**
+   * Checks if one or more nodes with the given ID(s)
+   * exist in the graph. The method accepts multiple arguments.
+   * You can check for a single ID by calling `exists('id1')`,
+   * or for multiple IDs by calling `exists('id1', 'id2', 'id3').
+   * The return value will be `true` if ALL IDs exist in the graph.
+   *
+   * @param {...string} arg one or multiple node ids
+   * @returns {boolean} true if ALL of the given IDs exist
+   */
+  exists = (...args) => {
+    if (args.length > 0) {
+      return args.every((id) => this.getNode(id));
+    }
+  };
 
+  /**
+   * Helper method that lists nodes that include a certain
+   * key-value pair (such as `type='Author'`).
+   *
+   * @param {string} key
+   * @param {*} value
+   * @returns {Array<*>} the list of nodes that match the criterion
+   */
   listNodesWithProperty = (key, value) => {
     const nodes = [];
 
@@ -122,6 +164,14 @@ export class ITSBGraph {
     return nodes;
   };
 
+  /**
+   * Helper method that returns the links from a specific node,
+   * of a specific type (such as: all `visitedBy` links on Author X).
+   *
+   * @param {string} nodeId
+   * @param {*} relation
+   * @returns {Array<*>} the list of links
+   */
   getLinksOfType = (nodeId, relation) => {
     const links = [];
 
@@ -136,10 +186,46 @@ export class ITSBGraph {
     return links;
   };
 
+  /**
+   * Retrieves a node from the graph by its ID.
+   *
+   * @param {string} id
+   * @returns {*} the Author, Place or Waypoint node, or undefined
+   */
+  getNode = (id) => this.graph.getNode(id)?.data;
+
+  /**
+   * Returns all Authors (nodes of `@type` = 'Person').
+   *
+   * @returns {Array<*>} the list of authors
+   */
   listAuthors = () => this.listNodesWithProperty('@type', 'Person');
 
+  /**
+   * Returns all Places (nodes of `type` = 'Feature').
+   *
+   * @returns {Array<*>} the list of Places
+   */
   listPlaces = () => this.listNodesWithProperty('type', 'Feature');
 
+  /**
+   * Returns all itineraries, optionally filtered by a date range.
+   * The date range format conforms to that used in the ITSBSearchHandler,
+   * and is an array of two ISO-formatted strings (start and end of the
+   * date range).
+   *
+   * The response format is an array of itinerary objects:
+   *
+   * {
+   *   'author': 'author-id',
+   *   'waypoints': [
+   *     //...list of waypoint nodes, sorted by time
+   *   ]
+   * }
+   *
+   * @param {[string, string]} dateRange
+   * @returns {Array<*>} the list of itineraries
+   */
   listItineraries = (dateRange) => {
     const allWaypoints = this.listNodesWithProperty('type', 'waypoint');
 
@@ -153,12 +239,33 @@ export class ITSBGraph {
     }));
   };
 
+  /**
+   * Returns the full itinerary for a given Author.
+   *
+   * @param {string} authorId the Author ID
+   * @returns {Array<*>} the list of Waypoints
+   */
   getItineraryForAuthor = (authorId) =>
     this.getLinksOfType(authorId, 'visitedBy').map((link) => this.getNode(link.fromId));
 
+  /**
+   * Returns the list of waypoints (from all authors!) located
+   * at this place.
+   *
+   * @param {string} placeId the Place ID
+   * @returns {Array<*>} the list of Waypoints at this place
+   */
   getWaypointsAt = (placeId) =>
     this.getLinksOfType(placeId, 'locatedAt').map((link) => this.getNode(link.fromId));
 
+  /**
+   * Given a waypoint, this method returns the next waypoint on the
+   * same itinerary. The method will return undefined, if the given waypoint
+   * is the last on the itinerary.
+   *
+   * @param {*} waypoint a Waypoint
+   * @returns {*} the next Waypoint on the itinerary (or undefined)
+   */
   getNextWaypoint = (waypoint) => {
     const neighbours = this.getLinksOfType(waypoint.id, 'previous');
 
@@ -167,6 +274,14 @@ export class ITSBGraph {
     return inbound && this.getNode(inbound.fromId);
   };
 
+  /**
+   * Given a waypoint, this method returns the previous waypoint on the
+   * same itinerary. The method will return undefined, if the given waypoint
+   * is the first on the itinerary.
+   *
+   * @param {*} waypoint
+   * @returns {*} the previous Waypoint on the itinerary (or undefined)
+   */
   getPreviousWaypoint = (waypoint) => {
     const neighbours = this.getLinksOfType(waypoint.id, 'previous');
 
@@ -175,12 +290,12 @@ export class ITSBGraph {
     return outbound && this.getNode(outbound.toId);
   };
 
-  exists() {
-    if (arguments.length > 0) {
-      return [...arguments].every((id) => this.getNode(id));
-    }
-  }
-
+  /**
+   * Queries the Fuse.js index with the given search query
+   *
+   * @param {string} query
+   * @returns {Array<*>} the list of nodes matching the query
+   */
   search = (query) =>
     this.fulltextIndex.search(diacritics.remove(query)).map((result) => result.item);
 }

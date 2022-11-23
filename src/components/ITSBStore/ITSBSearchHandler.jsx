@@ -2,8 +2,12 @@ import { useEffect } from 'react';
 import { SearchStatus, useGraph, useSearch } from '@peripleo/peripleo';
 
 /**
- * The SearchHandler handles one thing: translating a Search
- * into a list of results by querying the graph.
+ * The ITSBSearchHandler observes changes to the Peripleo search state,
+ * and executes searchs (using the graph) if the search changes to
+ * a PENDING state.
+ *
+ * @param {*} props
+ * @returns {ReactElement}
  */
 export const ITSBSearchHandler = (props) => {
   const { search, setSearchState } = useSearch();

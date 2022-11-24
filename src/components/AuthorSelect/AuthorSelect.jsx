@@ -30,7 +30,7 @@ export const AuthorSelect = () => {
           <label
             htmlFor={`${author.id}-checkbox`}
             style={{
-              color: `rgba(${author.color.join(',')})`,
+              '--color': `rgba(${author.color.join(',')})`,
             }}
           >
             {author.name}

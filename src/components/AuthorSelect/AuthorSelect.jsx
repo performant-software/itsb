@@ -29,9 +29,15 @@ export const AuthorSelect = () => {
   };
 
   return (
-    <div>
-      <button onClick={toggleAll}>All</button>
-      <ul className="author-select">
+    <div className="author-select">
+      <h2>
+        <span>Select Authors</span>
+        <button className="select-all" onClick={toggleAll}>
+          <span>Select all</span>
+        </button>
+      </h2>
+
+      <ul>
         {authors.map((author) => (
           <li key={author.id}>
             <input

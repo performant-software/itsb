@@ -33,7 +33,7 @@ export const AuthorSelect = () => {
       <h2>
         <span>Select Authors</span>
         <button className="select-all" onClick={toggleAll}>
-          <span>Select all</span>
+          {selected.length < authors.length ? <span>Select all</span> : <span>Deselect all</span>}
         </button>
       </h2>
 

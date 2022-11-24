@@ -15,28 +15,44 @@ export const AuthorSelect = () => {
     setFilter({ name: 'authors', values: updated });
   };
 
-  return (
-    <ul className="author-select">
-      {authors.map((author) => (
-        <li key={author.id}>
-          <input
-            type="checkbox"
-            id={`${author.id}-checkbox`}
-            name={author.id}
-            checked={selected.includes(author.id)}
-            onChange={toggleAuthor(author.id)}
-          />
+  /**
+   * Behavior: clicking the button will select ALL AUTHORS, unless
+   * all authors are already selected. If all are selected, this button
+   * deselects all.
+   */
+  const toggleAll = () => {
+    if (selected.length < authors.length) {
+      setFilter({ name: 'authors', values: authors.map((a) => a.id) });
+    } else {
+      setFilter({ name: 'authors', values: [] });
+    }
+  };
 
-          <label
-            htmlFor={`${author.id}-checkbox`}
-            style={{
-              '--color': `rgba(${author.color.join(',')})`,
-            }}
-          >
-            {author.name}
-          </label>
-        </li>
-      ))}
-    </ul>
+  return (
+    <div>
+      <button onClick={toggleAll}>All</button>
+      <ul className="author-select">
+        {authors.map((author) => (
+          <li key={author.id}>
+            <input
+              type="checkbox"
+              id={`${author.id}-checkbox`}
+              name={author.id}
+              checked={selected.includes(author.id)}
+              onChange={toggleAuthor(author.id)}
+            />
+
+            <label
+              htmlFor={`${author.id}-checkbox`}
+              style={{
+                '--color': `rgba(${author.color.join(',')})`,
+              }}
+            >
+              {author.name}
+            </label>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };

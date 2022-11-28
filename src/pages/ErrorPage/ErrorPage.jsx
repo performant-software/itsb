@@ -5,7 +5,7 @@ import { useRouteError } from 'react-router-dom';
  * Error page using React Router to handle known errors, with static defaults.
  * Will not render in <Outlet> so requires its own Header.
  *
- * @returns {React.Component} Error page React functional component
+ * @returns {ReactElement} Error page React functional component
  */
 export function ErrorPage() {
   const error = useRouteError();

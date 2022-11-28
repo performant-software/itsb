@@ -24,7 +24,9 @@
   list-style-type: none;
   padding: 0;
   margin: 0;
-  font-size: 17px;
+  font-size: 0.75rem;
+  display: flex;
+  flex-flow: row wrap;
 }
 
 .author-select li input {
@@ -59,4 +61,12 @@
 .author-select li {
   padding: 0;
   cursor: pointer;
+}
+
+/* medium-sized displays and larger */
+@media (min-width: 640px) {
+  ul.author-select {
+    font-size: 17px;
+    display: block;
+  }
 }

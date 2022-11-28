@@ -1,14 +1,82 @@
-/* header nav list */
+/* header nav */
 header nav {
   height: 100%;
-}
-header nav ul {
   display: flex;
+  flex-flow: row wrap;
+}
+/* home link */
+header nav div.home {
+  display: flex;
+  flex: 0 1 calc(100% - 64px);
+}
+header nav div.home a {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--gold);
+  color: var(--navbar-bg);
+  font-weight: 500;
+  text-decoration: none;
+  width: 100%;
   height: 100%;
+  padding: 0 30px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+header nav div.home a:hover {
+  text-decoration: underline;
+}
+/* home icon */
+header nav div.home a::before {
+  content: '';
+  display: block;
+  min-width: 24px;
+  width: 30px;
+  height: 30px;
+  margin-right: 1rem;
+  background: url('/img/itsb_icon.svg');
+  background-repeat: no-repeat;
+  background-size: 30px 30px;
+}
+/* mobile nav toggle */
+label[for='mobile-nav-toggle'] {
+  cursor: pointer;
+  display: flex;
+  width: 64px;
+  height: 64px;
+  overflow: visible;
+  font-size: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--navbar-bg);
+}
+label[for='mobile-nav-toggle'] svg {
+  width: 32px;
+  height: 32px;
+  fill: var(--navbar-link);
+}
+input#mobile-nav-toggle {
+  display: none;
+}
+header nav input#mobile-nav-toggle {
+  display: none;
+}
+/* nav link list */
+header nav ul {
+  display: none;
+  flex-basis: 100%;
   list-style: none;
   background-color: var(--navbar-bg);
   margin: 0;
   padding: 0;
+}
+header nav input#mobile-nav-toggle:checked ~ ul {
+  display: flex;
+  flex-flow: column;
+}
+header nav ul li {
+  min-height: 48px;
 }
 header nav ul li a {
   display: flex;
@@ -28,27 +96,22 @@ header nav ul li a.active {
   color: var(--gold);
 }
 
-/* home link */
-header nav ul li:first-child {
-  width: 350px;
-}
-header nav ul li a.home {
-  background-color: var(--gold);
-  color: var(--navbar-bg);
-  font-weight: 500;
-}
-header nav ul li a.home:hover {
-  text-decoration: underline;
-}
-/* home icon */
-header nav ul li a.home::before {
-  content: '';
-  display: block;
-  min-width: 24px;
-  width: 30px;
-  height: 30px;
-  margin-right: 1rem;
-  background: url('/img/itsb_icon.svg');
-  background-repeat: no-repeat;
-  background-size: 30px 30px;
+/* medium-sized displays and larger */
+@media (min-width: 640px) {
+  header nav {
+    flex-flow: row nowrap;
+  }
+  header nav div.home {
+    width: 350px;
+    flex: 1 0 350px;
+    font-size: 1rem;
+  }
+  label[for='mobile-nav-toggle'] {
+    display: none;
+  }
+  header nav ul {
+    display: flex;
+    flex-flow: row;
+    height: 100%;
+  }
 }

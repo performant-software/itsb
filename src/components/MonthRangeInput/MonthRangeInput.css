@@ -14,7 +14,7 @@ fieldset#month-range-input > div:first-child {
   align-items: center;
   margin: 0 0 10px;
 }
-fieldset#month-range-input span.error {
+fieldset#month-range-input p.error {
   color: red;
   font-size: 0.9rem;
 }

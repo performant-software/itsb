@@ -166,10 +166,10 @@ export const MonthRangeInput = () => {
       </div>
       <div>
         {(!isValid(monthInputValue.from) || !isValid(monthInputValue.to)) && (
-          <span className="error">Dates must be in the format YYYY-MM.</span>
+          <p className="error">Dates must be in the format YYYY-MM.</p>
         )}
         {!isRangeValid(monthInputValue.from, monthInputValue.to) && (
-          <span className="error">Start date must be before or equal to end date.</span>
+          <p className="error">Start date must be before or equal to end date.</p>
         )}
       </div>
     </fieldset>

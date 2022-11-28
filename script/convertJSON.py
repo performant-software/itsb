@@ -1,63 +1,16 @@
 # adapted from elotroalex/itsb
 
-import os
-import csv
 import codecs
-import json
+import csv
 import datetime
+import glob
+import json
+import os
+import pycountry
 import re
 from geopy import geocoders
-import pycountry
-
-
-class bcolors:
-    OKGREEN = "\033[92m"
-    WARNING = "\033[93m"
-    FAIL = "\033[91m"
-    ENDC = "\033[0m"
-
-
-# old color palette
-
-# author_colors = {
-#     "acesaire": [252, 176, 64, 166],    # FCB040
-#     "dali": [108, 60, 150, 166],        # 6C3C96
-#     "egrobeson": [254, 114, 52, 166],   # FE7234
-#     "kbrathwaite": [0, 216, 226, 166],  # 00D8E2
-#     "kdunham": [114, 193, 102, 166],    # 72C166
-#     "mconde": [117, 128, 58, 166],      # 75803A
-#     "wlam": [58, 95, 227, 166],         # 3A5FE3
-# }
-
-# new color palette generated with seaborn;
-# can use seaborn with larger n_colors when adding more people
-
-palette = [
-    [2, 62, 255, 195],
-    [255, 124, 0, 195],
-    [26, 201, 56, 195],
-    [232, 0, 11, 195],
-    [139, 43, 226, 195],
-    [159, 72, 0, 195],
-    [241, 76, 193, 195],
-    [163, 163, 163, 195],
-    [255, 196, 0, 195],
-    [0, 215, 255, 195],
-    [0, 28, 127, 195],
-    [177, 64, 13, 195],
-]
-
-## code provided here, uncomment if you want to add more / change palettes
-# from seaborn import color_palette
-# from math import ceil
-# palette = []
-# n_colors = 12
-# seaborn_palette_order = ["bright", "dark"]
-# for i in range(0, ceil(n_colors / 10)): # each seaborn palette has ~10 colors
-#     for (r,g,b) in color_palette(palette=seaborn_palettes[i], n_colors=10):
-#         palette.append([int(r*255), int(g*255), int(b*255), 195])
-#         if len(palette) == n_colors:
-#             break
+from math import ceil
+from seaborn import color_palette
 
 
 # ---------
@@ -77,6 +30,44 @@ PLACES_JSON = f"{project_dir}/public/data/places.json"
 LOGFILE = f"{cwd}/logs/process_log.txt"
 GEONAMES_USERNAME = "alyv"
 BASE_URI = "https://sameboats.org"
+
+
+# ---------
+# Colors
+# ---------
+
+# logging output colors
+class bcolors:
+    OKGREEN = "\033[92m"
+    WARNING = "\033[93m"
+    FAIL = "\033[91m"
+    ENDC = "\033[0m"
+
+
+# author/trajectory color palette generated with seaborn;
+# can use seaborn with larger n_colors when adding more people
+
+palette = []
+n_colors = len(glob.glob1(MOVEMENTS_CSV_LOCATION, "*.csv"))
+seaborn_palettes = ["bright", "dark"]
+for i in range(0, ceil(n_colors / 10)):  # each seaborn palette has ~10 colors
+    for (r, g, b) in color_palette(palette=seaborn_palettes[i], n_colors=10):
+        palette.append([int(r * 255), int(g * 255), int(b * 255), 195])
+        if len(palette) == n_colors:
+            break
+
+
+# old author/trajectory color palette
+
+# palette = [
+#     [252, 176, 64, 166],  # FCB040
+#     [108, 60, 150, 166],  # 6C3C96
+#     [254, 114, 52, 166],  # FE7234
+#     [0, 216, 226, 166],   # 00D8E2
+#     [114, 193, 102, 166], # 72C166
+#     [117, 128, 58, 166],  # 75803A
+#     [58, 95, 227, 166],   # 3A5FE3
+# ]
 
 # ---------
 # Logfile

@@ -4645,6 +4645,24 @@
             "type": "Feature"
         },
         {
+            "@id": "https://sameboats.org/places/rio_de_janeiro_brazil",
+            "geometry": {
+                "coordinates": [
+                    -43.209587,
+                    -22.903539
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "ccodes": [
+                    "BR"
+                ],
+                "timespans": [],
+                "title": "RIo de Janeiro, Brazil"
+            },
+            "type": "Feature"
+        },
+        {
             "@id": "https://sameboats.org/places/bucarest_romania",
             "geometry": {
                 "coordinates": [
@@ -8781,6 +8799,42 @@
                 ],
                 "timespans": [],
                 "title": "Portsmouth, England"
+            },
+            "type": "Feature"
+        },
+        {
+            "@id": "https://sameboats.org/places/sarajevo_bosnia_and_herzegovina",
+            "geometry": {
+                "coordinates": [
+                    18.413029,
+                    43.85643
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "ccodes": [
+                    "BA"
+                ],
+                "timespans": [],
+                "title": "Sarajevo, Bosnia and Herzegovina"
+            },
+            "type": "Feature"
+        },
+        {
+            "@id": "https://sameboats.org/places/ouagadougou_burkina_faso",
+            "geometry": {
+                "coordinates": [
+                    -1.5197,
+                    12.3714
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "ccodes": [
+                    "BF"
+                ],
+                "timespans": [],
+                "title": "Ouagadougou, Burkina Faso"
             },
             "type": "Feature"
         }

@@ -7,11 +7,11 @@
   box-sizing: border-box;
 }
 #search .flex-spacer {
-  flex-shrink: 16;
+  padding: 0;
 }
 #search section {
-  padding: 60px 10px;
-  width: 980px;
+  padding: 30px 30px;
+  width: 100%;
   box-sizing: border-box;
 }
 #search section form {
@@ -43,4 +43,15 @@
   padding: 0 0 2.2em 0;
   font-size: 0.9em;
   max-width: 60ch;
+}
+
+/* medium-sized displays and larger */
+@media (min-width: 640px) {
+  #search section {
+    padding: 60px 10px;
+    width: 980px;
+  }
+  #search .flex-spacer {
+    flex-shrink: 16;
+  }
 }

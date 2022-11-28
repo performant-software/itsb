@@ -44,7 +44,7 @@ body,
   flex-grow: 1;
   position: relative;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   max-height: calc(100vh - 64px);
 }
 main:not(#map) {
@@ -54,18 +54,18 @@ main:not(#map) {
   width: 100%;
 }
 main:not(#map) .flex-spacer {
-  width: 350px;
+  width: 0px;
   box-sizing: border-box;
 }
 main:not(#map) h1 {
   font-size: 2rem;
   margin-block-start: 1.5rem;
-  margin-block-end: 1rem;
+  margin-block-end: 0.5rem;
 }
 main:not(#map) h2 {
   font-size: 1.5rem;
-  margin-block-start: 0.83rem;
-  margin-block-end: 0.83rem;
+  margin-block-start: 0.5rem;
+  margin-block-end: 0.5rem;
 }
 main:not(#map) h3 {
   font-size: 1.17rem;
@@ -77,17 +77,17 @@ main:not(#map) hr {
   padding-bottom: 2em;
 }
 main:not(#map) section {
-  padding-bottom: 1.4em;
+  padding-bottom: 0.25em;
 }
 main:not(#map) > article,
 main#search > div {
-  padding: 30px 30px 80px 30px;
+  padding: 0 2rem;
   max-width: 980px;
   line-height: 1.7;
 }
 
 main:not(#map) > article p {
-  padding: 1.2em 0;
+  padding: 0;
 }
 main:not(#map) > article > p,
 main:not(#map) > article > section p {
@@ -100,5 +100,35 @@ main:not(#map) > article li {
 main:not(#map) > article::after {
   content: '';
   display: block;
-  padding-bottom: 4em;
+  padding-bottom: 1em;
+}
+
+/* medium-sized displays and larger */
+@media (min-width: 640px) {
+  #app > section#content-wrapper {
+    flex-direction: row;
+  }
+  main:not(#map) .flex-spacer {
+    width: 350px;
+  }
+  main:not(#map) > article,
+  main#search > div {
+    padding: 30px 30px 80px 30px;
+  }
+  main:not(#map) > article p {
+    padding: 1.2em 0;
+  }
+  main:not(#map) > article::after {
+    padding-bottom: 4em;
+  }
+  main:not(#map) h1 {
+    margin-block-end: 1rem;
+  }
+  main:not(#map) h2 {
+    margin-block-start: 0.83rem;
+    margin-block-end: 0.83rem;
+  }
+  main:not(#map) section {
+    padding-bottom: 1.4em;
+  }
 }

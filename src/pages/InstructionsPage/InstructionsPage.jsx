@@ -3,7 +3,7 @@ import './InstructionsPage.css';
 /**
  * Instructions page for ITSB (static content)
  *
- * @returns {React.Component} Instructions page React functional component
+ * @returns {ReactElement} Instructions page React functional component
  */
 export function InstructionsPage() {
   return (

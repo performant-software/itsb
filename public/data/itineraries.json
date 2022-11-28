@@ -1870,7 +1870,7 @@
                         }
                     ]
                 },
-                "created": "2022-10-28",
+                "created": "2022-11-28",
                 "id": "https://sameboats.org/authors/egrobeson/itineraries/1",
                 "motivation": "describing",
                 "target": [
@@ -2782,7 +2782,7 @@
                         }
                     ]
                 },
-                "created": "2022-10-28",
+                "created": "2022-11-28",
                 "id": "https://sameboats.org/authors/kbrathwaite/itineraries/1",
                 "motivation": "describing",
                 "target": [
@@ -7351,7 +7351,7 @@
                         }
                     ]
                 },
-                "created": "2022-10-28",
+                "created": "2022-11-28",
                 "id": "https://sameboats.org/authors/glamming/itineraries/1",
                 "motivation": "describing",
                 "target": [
@@ -10155,7 +10155,7 @@
                         }
                     ]
                 },
-                "created": "2022-10-28",
+                "created": "2022-11-28",
                 "creator": {
                     "name": "Alex Gil, Kora Véron-Leblé"
                 },
@@ -14026,7 +14026,7 @@
                         }
                     ]
                 },
-                "created": "2022-10-28",
+                "created": "2022-11-28",
                 "id": "https://sameboats.org/authors/kdunham/itineraries/1",
                 "motivation": "describing",
                 "target": [
@@ -14789,7 +14789,7 @@
                         }
                     ]
                 },
-                "created": "2022-10-28",
+                "created": "2022-11-28",
                 "id": "https://sameboats.org/authors/dali/itineraries/1",
                 "motivation": "describing",
                 "target": [
@@ -16808,7 +16808,7 @@
                         }
                     ]
                 },
-                "created": "2022-10-28",
+                "created": "2022-11-28",
                 "id": "https://sameboats.org/authors/cmckay/itineraries/1",
                 "motivation": "describing",
                 "target": [
@@ -18100,7 +18100,7 @@
                         }
                     ]
                 },
-                "created": "2022-10-28",
+                "created": "2022-11-28",
                 "creator": {
                     "name": "Tao Leigh Goffe"
                 },
@@ -21639,7 +21639,7 @@
                         }
                     ]
                 },
-                "created": "2022-10-28",
+                "created": "2022-11-28",
                 "creator": {
                     "name": "Amanda Perry"
                 },
@@ -23504,9 +23504,9 @@
                                     "label": "Depestre, Encore une mer"
                                 }
                             ],
-                            "id": "https://sameboats.org/places/ougadogou_burkina_faso",
+                            "id": "https://sameboats.org/places/ouagadougou_burkina_faso",
                             "relation": "waypoint",
-                            "title": "ougadogou_burkina_faso",
+                            "title": "Ouagadougou, Burkina Faso",
                             "when": {
                                 "timespans": [
                                     {
@@ -23715,7 +23715,7 @@
                         }
                     ]
                 },
-                "created": "2022-10-28",
+                "created": "2022-11-28",
                 "id": "https://sameboats.org/authors/rdepestre/itineraries/1",
                 "motivation": "describing",
                 "target": [
@@ -31143,7 +31143,7 @@
                         }
                     ]
                 },
-                "created": "2022-10-28",
+                "created": "2022-11-28",
                 "id": "https://sameboats.org/authors/webdubois/itineraries/1",
                 "motivation": "describing",
                 "target": [
@@ -31744,7 +31744,7 @@
                         }
                     ]
                 },
-                "created": "2022-10-28",
+                "created": "2022-11-28",
                 "creator": {
                     "name": "Soraya Limare"
                 },

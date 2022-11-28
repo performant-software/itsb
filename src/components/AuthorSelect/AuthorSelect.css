@@ -65,7 +65,7 @@
 
 /* medium-sized displays and larger */
 @media (min-width: 640px) {
-  ul.author-select {
+  .author-select ul {
     font-size: 17px;
     display: block;
   }

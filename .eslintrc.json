@@ -9,7 +9,7 @@
     "plugin:react/jsx-runtime",
     "prettier"
   ],
-  
+
   "overrides": [],
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -30,6 +30,7 @@
     "jsdoc/newline-after-description": 1,
     "jsdoc/no-multi-asterisks": 1,
     "jsdoc/require-jsdoc": 1,
+    "jsdoc/require-param": 1,
     "jsdoc/require-param-description": 1,
     "jsdoc/require-param-name": 1,
     "jsdoc/require-param-type": 1,

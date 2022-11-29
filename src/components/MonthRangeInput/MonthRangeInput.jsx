@@ -11,8 +11,9 @@ import {
 import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
 import { useSearch } from '@peripleo/peripleo';
 import './MonthRangeInput.css';
+import { useInterval } from './useInterval';
 
-// Shorthand
+// Utility string and helper functions
 const fmtString = 'yyyy-MM';
 const fmt = (date) => format(date, fmtString);
 const monthStart = (formattedDate) => startOfMonth(new Date(`${formattedDate}-02T00:00:00`));
@@ -24,7 +25,12 @@ const isRangeValid = (from, to) => isBefore(monthStart(from), monthEnd(to));
 const minDate = fmt(new Date(1850, 0, 1));
 const maxDate = fmt(endOfToday());
 
-export const MonthRangeInput = () => {
+/**
+ * Month range input controls for filtering the map visualizations.
+ *
+ * @returns {ReactElement} Functional component for date filter controls
+ */
+export function MonthRangeInput() {
   const { search, setFilter } = useSearch();
   const filterState = search.args.filters?.find((f) => f.name === 'daterange')?.range || [
     minDate,
@@ -37,7 +43,35 @@ export const MonthRangeInput = () => {
     to: filterState[1],
   });
 
-  /*
+  // Initialize delay and state for incrementing/decrementing month on mousedown
+  const [delay, setDelay] = useState(500);
+  const [incrementState, setIncrementState] = useState(null);
+
+  // Auto-increment the chosen date by current increment every "delay" milliseconds
+  useInterval(
+    () => {
+      if (incrementState) {
+        incrementDate(incrementState.chosenDate, incrementState.increment);
+      }
+    },
+    incrementState ? delay : null
+  );
+
+  /**
+   * "Accelerate" the input by dividing the delay once per second.
+   * Adapted from Dan Abramov's code here:
+   * https://overreacted.io/making-setinterval-declarative-with-react-hooks/#bonus-fun-demo
+   */
+  useInterval(
+    () => {
+      if (delay > 10 && incrementState) {
+        setDelay(delay / 2);
+      }
+    },
+    incrementState ? 1000 : null
+  );
+
+  /**
    * As a side effect, when monthInputValue changes, validate the input and if valid,
    * update the filter state.
    */
@@ -48,13 +82,13 @@ export const MonthRangeInput = () => {
     }
   }, [monthInputValue]);
 
-  /*
-   * Given a number, return a curried event handler function that will increment the
-   * targeted date by that number.
+  /**
+   * Increment the start or end date, depending on which name was passed, by the passed increment.
+   *
+   * @param {string} name Which date to increment (start or end).
+   * @param {number} inc Amount to increment by; in this case, -1 or 1.
    */
-  const increment = (inc) => (evt) => {
-    const { name } = evt.currentTarget;
-    // use target name to determine whether to increment start or end date
+  function incrementDate(name, inc) {
     if (name.startsWith('start')) {
       setMonthInputValue((prevState) => {
         const newFrom = addMonths(monthStart(prevState.from), inc);
@@ -72,19 +106,52 @@ export const MonthRangeInput = () => {
         };
       });
     }
-  };
+  }
 
-  const onKeyDown = (evt) => {
+  /**
+   * On mousedown targeting an increment/decrement control, perform the action once on the chosen
+   * target date, then set increment state so that the auto-incrementer can read them.
+   *
+   * @param {number} inc Amount to increment by; in this case, -1 or 1.
+   * @returns {Function} Curried event handler function that increments date and updates state.
+   */
+  function startIncrementing(inc) {
+    return (evt) => {
+      incrementDate(evt.currentTarget.name, inc);
+      setIncrementState({ chosenDate: evt.currentTarget.name, increment: inc });
+    };
+  }
+
+  /**
+   * On mouseup targeting an increment/decrement control, set the increment state to null
+   * so that the auto-incrementer will stop, and reset the delay back to its initial value (500ms).
+   */
+  function stopIncrementing() {
+    setIncrementState(null);
+    setDelay(500);
+  }
+
+  /**
+   * Event handler for up and down arrow control of the month range inputs.
+   *
+   * @param {KeyboardEvent} evt The keyboard event.
+   */
+  function onKeyDown(evt) {
     if (evt.currentTarget.type === 'text') {
       if (evt.key === 'ArrowUp') {
-        increment(1)(evt);
+        incrementDate(evt.currentTarget.name, 1);
       } else if (evt.key === 'ArrowDown') {
-        increment(-1)(evt);
+        incrementDate(evt.currentTarget.name, -1);
       }
     }
-  };
+  }
 
-  const onChangeDate = (evt) => {
+  /**
+   * When the date is changed in either of the date fields, update the date filter state.
+   *
+   * @param {ChangeEvent} evt Event triggered when the value in the field is changed.
+   */
+  function onChangeDate(evt) {
     const { name, value } = evt.target;
     if (name === 'start-date') {
       setMonthInputValue((prevState) => ({
@@ -97,7 +164,7 @@ export const MonthRangeInput = () => {
         to: value,
       }));
     }
-  };
+  }
 
   return (
     <fieldset id="month-range-input">
@@ -107,7 +174,8 @@ export const MonthRangeInput = () => {
             className="up"
             disabled={!isValid(monthInputValue.from)}
             name="start-up"
-            onClick={increment(1)}
+            onMouseDown={startIncrementing(1)}
+            onMouseUp={stopIncrementing}
           >
             <FaChevronUp />
           </button>
@@ -116,7 +184,8 @@ export const MonthRangeInput = () => {
             className="down"
             disabled={!isValid(monthInputValue.from)}
             name="start-down"
-            onClick={increment(-1)}
+            onMouseDown={startIncrementing(-1)}
+            onMouseUp={stopIncrementing}
           >
             <FaChevronDown />
           </button>
@@ -149,7 +218,8 @@ export const MonthRangeInput = () => {
             className="up"
             disabled={!isValid(monthInputValue.to)}
             name="end-up"
-            onClick={increment(1)}
+            onMouseDown={startIncrementing(1)}
+            onMouseUp={stopIncrementing}
           >
             <FaChevronUp />
           </button>
@@ -158,7 +228,8 @@ export const MonthRangeInput = () => {
             className="down"
             disabled={!isValid(monthInputValue.to)}
             name="end-down"
-            onClick={increment(-1)}
+            onMouseDown={startIncrementing(-1)}
+            onMouseUp={stopIncrementing}
           >
             <FaChevronDown />
           </button>
@@ -166,12 +237,12 @@ export const MonthRangeInput = () => {
       </div>
       <div>
         {(!isValid(monthInputValue.from) || !isValid(monthInputValue.to)) && (
-          <span className="error">Dates must be in the format YYYY-MM.</span>
+          <p className="error">Dates must be in the format YYYY-MM.</p>
         )}
         {!isRangeValid(monthInputValue.from, monthInputValue.to) && (
-          <span className="error">Start date must be before or equal to end date.</span>
+          <p className="error">Start date must be before or equal to end date.</p>
         )}
       </div>
     </fieldset>
   );
-};
+}

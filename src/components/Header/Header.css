@@ -98,6 +98,23 @@ header nav ul li a.active {
 
 /* medium-sized displays and larger */
 @media (min-width: 640px) {
+  label[for='mobile-nav-toggle'] {
+    flex: 1 0 auto;
+    justify-content: flex-end;
+    cursor: auto;
+  }
+  label[for='mobile-nav-toggle'] svg {
+    cursor: pointer;
+    margin-right: 16px;
+  }
+  header nav div.home {
+    width: 350px;
+    flex: 0 1 350px;
+    font-size: 1rem;
+  }
+}
+/* large displays */
+@media (min-width: 1024px) {
   header nav {
     flex-flow: row nowrap;
   }

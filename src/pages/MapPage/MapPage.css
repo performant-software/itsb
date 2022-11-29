@@ -1,5 +1,5 @@
 aside#map-control {
-  padding: 10px 0;
+  padding: 10px 0 0;
   background-color: var(--sidebar-bg);
 }
 
@@ -8,33 +8,10 @@ main#map {
   flex-grow: 1;
 }
 
-aside#intersection-details {
-  flex: 0 0 22%;
-  background-color: #fff;
-  overflow-y: scroll;
-  font-size: 0.85rem;
-}
-
-aside#intersection-details h1 {
-  font-weight: 500;
-}
-
-aside#intersection-details p {
-  line-height: 1.33;
-  margin-top: 0;
-}
-
 /* medium-sized displays and larger */
 @media (min-width: 640px) {
   aside#map-control {
     flex: 0 0 330px;
     padding: 20px 10px;
-  }
-  aside#intersection-details {
-    flex: 0 0 330px;
-    font-size: 1rem;
-  }
-  aside#intersection-details p {
-    line-height: 1.6;
   }
 }

@@ -1,10 +1,39 @@
+/*
+ * on mobile, overlay the checkbox label positioned absolutely so that one can
+ * click on the h2 to toggle list visibility
+ */
+.author-select {
+  position: relative;
+}
+.author-select #mobile-authorselect-toggle {
+  display: none;
+}
+.author-select label[for='mobile-authorselect-toggle'] {
+  position: absolute;
+  width: 50vw;
+  top: -4px;
+  left: 5px;
+}
+
+/* arrow label for mobile toggle checkbox */
+.author-select label[for='mobile-authorselect-toggle']::before {
+  content: '\25B8';
+  font-size: 1.33rem;
+  display: block;
+}
+.author-select
+  #mobile-authorselect-toggle:checked
+  ~ label[for='mobile-authorselect-toggle']::before {
+  content: '\25BE';
+}
+
 .author-select h2 {
   font-weight: 500;
-  font-size: 1.17em;
+  font-size: 1em;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 5px;
+  padding: 0 5px 0 25px;
 }
 
 .author-select button.select-all {
@@ -21,24 +50,32 @@
 }
 
 .author-select ul {
+  display: none;
   list-style-type: none;
   padding: 0;
   margin: 0;
   font-size: 0.75rem;
-  display: flex;
-  flex-flow: row wrap;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
+/* on mobile, only show the list if toggle is checked */
+#mobile-authorselect-toggle:checked ~ ul {
+  display: grid;
+  padding-bottom: 10px;
+}
+
+/*
+ * Unlike display: none, this keeps it on screen, and will keep input:focus
+ * + label working
+ */
 .author-select li input {
-  /** Unlike display: none, this keeps it on screen, **/
-  /** and will keep input:focus + label working      **/
   opacity: 0;
   position: absolute;
 }
 
 .author-select li label {
   display: block;
-  padding: 0 8px;
+  padding: 8px 5px;
   color: rgb(147, 147, 147);
   border-radius: 2px;
   cursor: pointer;
@@ -50,7 +87,6 @@
 }
 
 .author-select li input + label {
-  padding: 5px;
   color: #6a727c;
 }
 
@@ -66,8 +102,24 @@
 
 /* medium-sized displays and larger */
 @media (min-width: 640px) {
+  .author-select {
+    display: block;
+  }
   .author-select ul {
     font-size: 17px;
     display: block;
+  }
+  .author-select li input + label {
+    padding: 5px;
+  }
+  .author-select li label {
+    padding: 0 8px;
+  }
+  .author-select h2 {
+    font-size: 1.17em;
+    padding: 0 5px;
+  }
+  .author-select label[for='mobile-authorselect-toggle'] {
+    display: none;
   }
 }

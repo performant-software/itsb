@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import { useGraph, useSearch } from '@peripleo/peripleo';
 
 import './AuthorSelect.css';
 
 export const AuthorSelect = () => {
+  const [mobileVisibility, setMobileVisibility] = useState(false);
+
   const authors = useGraph().listAuthors();
 
   const { search, setFilter } = useSearch();
@@ -36,6 +39,18 @@ export const AuthorSelect = () => {
           {selected.length < authors.length ? <span>Select all</span> : <span>Deselect all</span>}
         </button>
       </h2>
+
+      <input
+        id="mobile-authorselect-toggle"
+        name="mobile-authorselect-toggle"
+        type="checkbox"
+        checked={mobileVisibility}
+        onChange={() => {
+          setMobileVisibility((prevState) => !prevState);
+        }}
+        aria-hidden="true"
+      />
+      <label htmlFor="mobile-authorselect-toggle" aria-hidden="true" />
 
       <ul>
         {authors.map((author) => (

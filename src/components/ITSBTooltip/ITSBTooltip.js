@@ -26,43 +26,41 @@ function fmt(date) {
  * @returns {string|undefined} The tooltip text, if possible
  */
 export function ITSBTooltip({ graph, object, search }) {
-  if (object) {
-    if (object.present) {
-      // present means this tooltip is for intersections; just use place name
-      return object.properties.title;
-    } else {
-      // for trajectories, show place name and labeled waypoints
-      const selected = [object.properties.title];
+  if (object?.present) {
+    // present means this tooltip is for intersections; just use place name
+    return object.properties?.title;
+  } else if (object) {
+    // for trajectories, show place name and labeled waypoints
+    const selected = [object.properties?.title || ''];
 
-      // Get all waypoints on this place
-      const waypointsAtThisPlace = search.result.items?.reduce((all, it) => {
-        const { waypoints } = it;
-        return [...all, ...waypoints.filter((wp) => wp.place === object.id)];
-      }, []);
-      // sort them by time
-      const sorted = waypointsAtThisPlace && sortWaypointsByTime(waypointsAtThisPlace);
-      const anyHasLabel = sorted.some((waypoint) => waypoint.relation.label);
-      sorted.forEach((waypoint) => {
-        const { author, relation, when } = waypoint;
-        // if this waypoint has relation.label or NONE on this place do, then
-        // add it to the tooltip.
-        // if some waypoint on this place has relation.label but this one does
-        // not, skip this waypoint.
-        if (relation.label || !anyHasLabel) {
-          const { name } = graph.getNode(author);
-          // format is "Name: Label (StartDate–EndDate)"
-          let label = relation.label ? `${name}: ${relation.label}` : name;
-          if (when.timespans.length) {
-            const { start, end } = when.timespans[0];
-            const startDate = start?.in || start?.earliest;
-            const endDate = end?.in || end?.latest;
-            label = `${label} (${fmt(startDate)}–${fmt(endDate)})`;
-          }
-          selected.push(label);
+    // Get all waypoints on this place
+    const waypointsAtThisPlace = search.result.items?.reduce((all, it) => {
+      const { waypoints } = it;
+      return [...all, ...waypoints.filter((wp) => wp.place === object.id)];
+    }, []);
+    // sort them by time
+    const sorted = waypointsAtThisPlace && sortWaypointsByTime(waypointsAtThisPlace);
+    const anyHasLabel = sorted.some((waypoint) => waypoint.relation?.label);
+    sorted.forEach((waypoint) => {
+      const { author, relation, when } = waypoint;
+      // if this waypoint has relation.label or NONE on this place do, then
+      // add it to the tooltip.
+      // if some waypoint on this place has relation.label but this one does
+      // not, skip this waypoint.
+      if (relation.label || !anyHasLabel) {
+        const { name } = graph.getNode(author);
+        // format is "Name: Label (StartDate–EndDate)"
+        let label = relation.label ? `${name}: ${relation.label}` : name;
+        if (when.timespans.length) {
+          const { start, end } = when.timespans[0];
+          const startDate = start?.in || start?.earliest;
+          const endDate = end?.in || end?.latest;
+          label = `${label} (${fmt(startDate)}–${fmt(endDate)})`;
         }
-      });
-      // since we can only use strings here, join by newline (will become <br>)
-      return selected.join('\n');
-    }
+        selected.push(label);
+      }
+    });
+    // since we can only use strings here, join by newline (will become <br>)
+    return selected.join('\n');
   }
 }

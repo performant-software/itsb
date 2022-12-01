@@ -16,7 +16,7 @@ function fmt(date) {
 }
 
 /**
- * Generate a tooltip string for a waypoint in an itinerary, or a place with
+ * Generate tooltip markup for a waypoint in an itinerary, or a place with
  * intersecitons.
  *
  * @param {*} props Arguments object to destructure
@@ -31,7 +31,7 @@ export function ITSBTooltip({ graph, object, search }) {
     return object.properties?.title;
   } else if (object) {
     // for trajectories, show place name and labeled waypoints
-    const selected = [object.properties?.title || ''];
+    const selected = [`<h2>${object.properties?.title || 'Place'}</h2>`, '<ul>'];
 
     // Get all waypoints on this place
     const waypointsAtThisPlace = search.result.items?.reduce((all, it) => {
@@ -57,10 +57,10 @@ export function ITSBTooltip({ graph, object, search }) {
           const endDate = end?.in || end?.latest;
           label = `${label} (${fmt(startDate)}–${fmt(endDate)})`;
         }
-        selected.push(label);
+        selected.push(`<li>${label}</li>`);
       }
     });
-    // since we can only use strings here, join by newline (will become <br>)
-    return selected.join('\n');
+    selected.push('</ul>');
+    return { html: selected.join('\n') };
   }
 }

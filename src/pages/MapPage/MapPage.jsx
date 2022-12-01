@@ -6,6 +6,7 @@ import {
   ItinerariesLayer,
   IntersectionDetails,
   IntersectionsLayer,
+  IntersectionsLegend,
   MonthRangeInput,
 } from '../../components';
 import { useMatch, useOutletContext } from 'react-router-dom';
@@ -57,9 +58,12 @@ export function MapPage() {
         </main>
 
         {!isTrajectories && (
-          <aside id="intersection-details">
-            <IntersectionDetails at={selectedIntersection} />
-          </aside>
+          <>
+            <aside id="intersection-details">
+              <IntersectionDetails at={selectedIntersection} />
+            </aside>
+            <IntersectionsLegend />
+          </>
         )}
       </>
     )

@@ -8,6 +8,11 @@ main#map {
   flex-grow: 1;
 }
 
+.deck-tooltip {
+  font-size: 0.8rem;
+  max-width: 450px;
+}
+
 /* medium-sized displays and larger */
 @media (min-width: 640px) {
   aside#map-control {

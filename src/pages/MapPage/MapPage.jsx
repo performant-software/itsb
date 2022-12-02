@@ -20,10 +20,13 @@ import './MapPage.css';
 export function MapPage() {
   const { loaded } = useOutletContext();
 
+  const [legendVisible, setLegendVisible] = useState(true);
+  const toggleLegend = () => {
+    setLegendVisible((prev) => !prev);
+  };
+
   const [selectedIntersection, setSelectedIntersection] = useState();
-
   const isTrajectories = useMatch('trajectories');
-
   const layer = isTrajectories
     ? ItinerariesLayer()
     : IntersectionsLayer({ selected: selectedIntersection });
@@ -62,7 +65,7 @@ export function MapPage() {
             <aside id="intersection-details">
               <IntersectionDetails at={selectedIntersection} />
             </aside>
-            <IntersectionsLegend />
+            <IntersectionsLegend onClick={toggleLegend} visible={legendVisible} />
           </>
         )}
       </>

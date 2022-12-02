@@ -20,9 +20,13 @@ import './MapPage.css';
 export function MapPage() {
   const { loaded } = useOutletContext();
 
-  const [legendVisible, setLegendVisible] = useState(true);
+  const storedHidden = localStorage.getItem('itsb-legend');
+  const [legendVisible, setLegendVisible] = useState(!storedHidden);
   const toggleLegend = () => {
     setLegendVisible((prev) => !prev);
+    if (!storedHidden) {
+      localStorage.setItem('itsb-legend', 'hidden');
+    }
   };
 
   const [selectedIntersection, setSelectedIntersection] = useState();

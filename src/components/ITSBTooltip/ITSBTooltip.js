@@ -1,4 +1,4 @@
-import { formatInterval, sortWaypointsByTime, waypointsAtPlace } from '../ITSBStore';
+import { formatInterval, groupBy, sortWaypointsByTime, waypointsAtPlace } from '../ITSBStore';
 
 /**
  * Generate tooltip markup for a waypoint in an itinerary, or a place with
@@ -20,13 +20,14 @@ export function ITSBTooltip({ graph, object, search }) {
 
     // Get all waypoints on this place, sort them by time
     const sorted = sortWaypointsByTime(waypointsAtPlace(search.result.items, object.id));
-    const anyHasLabel = sorted.some((waypoint) => waypoint.relation?.label);
+    const unlabeled = sorted.filter((waypoint) => !waypoint.relation?.label);
+    const anyHasLabel = unlabeled.length !== sorted.length;
     sorted.forEach((waypoint) => {
       const { author, relation, when } = waypoint;
       // if this waypoint has relation.label or NONE on this place do, then
       // add it to the tooltip.
       // if some waypoint on this place has relation.label but this one does
-      // not, skip this waypoint.
+      // not, skip this waypoint. (will group unlabeled waypoints later)
       if (relation.label || !anyHasLabel) {
         const { name } = graph.getNode(author);
         // format is "Name: Label (StartDate–EndDate)"
@@ -37,6 +38,17 @@ export function ITSBTooltip({ graph, object, search }) {
         selected.push(`<li>${label}</li>`);
       }
     });
+    // If some waypoints in this place/date range have labels, group all the unlabeled
+    // waypoints by author and append a count of each author's unlabeled visits.
+    if (anyHasLabel && unlabeled.length) {
+      const unlabeledByAuthor = groupBy(unlabeled, 'author');
+      Object.keys(unlabeledByAuthor).forEach((author) => {
+        const { name } = graph.getNode(author);
+        selected.push(
+          `<li>+ ${unlabeledByAuthor[author].length} additional visit(s) by ${name}</li>`
+        );
+      });
+    }
     selected.push('</ul>');
     return { html: selected.join('\n') };
   }

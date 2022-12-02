@@ -9,7 +9,7 @@ import './IntersectionsLegend.css';
 export function IntersectionsLegend() {
   const [visible, setVisible] = useState(true);
   return (
-    <legend id="interesction-legend" className={visible ? 'visible' : 'hidden'}>
+    <legend id="intersection-legend" className={visible ? 'visible' : 'hidden'}>
       <h2>Legend</h2>
       <button type="button" onClick={() => setVisible(false)} aria-hidden="true">
         (click to close)

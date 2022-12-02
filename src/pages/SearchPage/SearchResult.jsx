@@ -1,5 +1,14 @@
 import { formatInterval } from '../../components/ITSBStore/utils';
 
+/**
+ * A single search result in the the search results list.
+ *
+ * @typedef {object} Props
+ * @property {object} data the search result data
+ * @property {object} graph the ITSB graph
+ * @param {Props} props
+ * @returns {ReactElement}
+ */
 export const SearchResult = (props) => {
   const { data, graph } = props;
 

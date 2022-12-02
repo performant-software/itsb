@@ -7,6 +7,15 @@ import {
 
 import './IntersectionDetails.css';
 
+/**
+ * IntersectionDetails renders waypoint descriptions, to accompany the map.
+ * We are using this component in the sidebar of the "Intersections" page.
+ *
+ * @typedef {object} Props
+ * @property {object} at the current place (GeoJSON)
+ * @param {Props} props
+ * @returns {ReactElement}
+ */
 export const IntersectionDetails = (props) => {
   const { at } = props;
 

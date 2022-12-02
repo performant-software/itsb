@@ -10,7 +10,6 @@ import { SearchStatus, useGraph, useSearch } from '@peripleo/peripleo';
  * @property {ReactElement} children child components
  * @param {Props} props
  * @returns {ReactElement}
- * @property
  */
 export const ITSBSearchHandler = (props) => {
   const { search, setSearchState } = useSearch();

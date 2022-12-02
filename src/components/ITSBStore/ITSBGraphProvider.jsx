@@ -11,7 +11,6 @@ import { ITSBGraph } from './itsbGraph';
  * @property {object[]} itineraries the list of itineraries
  * @param {Props} props
  * @returns {ReactElement}
- * @property
  */
 export const ITSBGraphProvider = (props) => {
   const [graph, setGraph] = useState();

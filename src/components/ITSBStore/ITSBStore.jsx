@@ -20,7 +20,6 @@ import { ITSBGraphProvider } from './ITSBGraphProvider';
  * @property {ReactElement} children child components
  * @param {Props} props
  * @returns {ReactElement}
- * @property
  */
 export const ITSBStore = (props) => {
   return (

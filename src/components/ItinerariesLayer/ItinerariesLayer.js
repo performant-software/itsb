@@ -1,5 +1,8 @@
 import { ArcLayer, GeoJsonLayer } from '@peripleo/peripleo/deck.gl';
 
+const POINT_MIN_RADIUS = 6;
+const POINT_MAX_RADIUS = 22;
+
 const toArc = (waypoints, graph) => {
   const trajectory = [];
 
@@ -14,14 +17,23 @@ const toArc = (waypoints, graph) => {
 };
 
 /**
- * Convenience function to get unique places across the list of itineraries.
+ * Convenience function to get unique places across the list of
+ * itineraries and the waypoints on each place. Waypoint count is
+ * included in-line into the GeoJSON properties of the result set,
+ * so we can use it in `getPointRadius` function later.
+ *
+ * The function taks into account the current author list: only waypoints
+ * for the authors in the current result set are counted.
  *
  * @param {Array<object>} resultItems A list of itinerary objects (author, waypoints)
  * @param {ITSBGraph} graph The graph used to lookup place geometries
- * @returns {Array<object>} Array of unique GeoJSON Features
+ * @returns {Array<object>} Array of unique GeoJSON Features (with waypoint count included)
  */
 function getUniquePlaces(resultItems, graph) {
   const places = [];
+
+  // Unique authors in this result set
+  const authors = new Set(resultItems.map((it) => it.author));
 
   resultItems.forEach(({ waypoints }) => {
     waypoints.forEach((waypoint) => {
@@ -31,7 +43,21 @@ function getUniquePlaces(resultItems, graph) {
     });
   });
 
-  return places;
+  // Return each place, plus the number of waypoints here,
+  // using the current author list as a filter
+  return places.map((place) => {
+    const waypoints = graph.getWaypointsAt(place.id);
+
+    const filteredByAuthors = waypoints.filter((wp) => authors.has(wp.author));
+
+    return {
+      ...place,
+      properties: {
+        ...place.properties,
+        wpCount: filteredByAuthors.length,
+      },
+    };
+  });
 }
 
 /**
@@ -41,20 +67,33 @@ function getUniquePlaces(resultItems, graph) {
  * @returns {Array<Layer>} Array of DeckGL layers to map
  */
 export const ItinerariesLayer = () => (resultItems, graph) => {
+  const places = getUniquePlaces(resultItems, graph);
+
+  // The maximum number of waypoints at any place, for scaling
+  const maxWaypointCount = places.reduce((max, next) => {
+    const count = next.properties.wpCount;
+    return max < count ? count : max;
+  }, 0);
+
+  // Scaling factor
+  const k = (POINT_MAX_RADIUS - POINT_MIN_RADIUS) / (maxWaypointCount - 1);
+
   return [
     new GeoJsonLayer({
       id: 'trajectories-places',
-      data: getUniquePlaces(resultItems, graph),
+      data: places,
       pickable: true,
       filled: true,
       stroked: true,
-      lineWidthScale: 10,
-      lineWidthMinPixels: 2,
-      getLineColor: [252, 176, 64, 200],
-      getFillColor: [252, 176, 64, 100],
-      getPointRadius: 10000,
-      pointRadiusMinPixels: 6,
-      getLineWidth: 10,
+      lineWidthUnits: 'pixels',
+      getLineColor: [252, 176, 64, 220],
+      getFillColor: [252, 176, 64, 180],
+      getPointRadius: (d) => {
+        const { wpCount } = d.properties;
+        return k * (wpCount - 1) + POINT_MIN_RADIUS;
+      },
+      pointRadiusUnits: 'pixels',
+      getLineWidth: 2,
       pointType: 'circle',
     }),
     ...resultItems.map(({ author, waypoints }) => {

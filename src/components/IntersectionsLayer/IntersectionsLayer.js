@@ -2,7 +2,7 @@ import { ScatterplotLayer } from '@peripleo/peripleo/deck.gl';
 import { scaleLinear } from 'd3-scale';
 import { Presence } from './presence';
 
-export const intersectionsScale = scaleLinear().domain([0, 10]).range([0, 36]);
+export const intersectionsScale = scaleLinear().domain([0, 10]).range([6, 36]);
 
 const toMapData = (p, graph) => {
   const { presence } = p;
@@ -65,10 +65,8 @@ export const IntersectionsLayer =
           opacity: 0.8,
           stroked: true,
           filled: true,
-          radiusScale: 6,
-          radiusMinPixels: 4,
-          radiusMaxPixels: 2000,
-          lineWidthMinPixels: 1,
+          radiusUnits: 'pixels',
+          lineWidthUnits: 'pixels',
           getPosition: (d) => d.geometry.coordinates,
           getRadius: (d) => {
             // center circle = likelihood of 3
@@ -84,8 +82,7 @@ export const IntersectionsLayer =
               count += countPresent(d, 1);
             }
 
-            const radius = 1000;
-            return intersectionsScale(count) * radius;
+            return intersectionsScale(count);
           },
 
           getFillColor: (g) => {

@@ -17,14 +17,14 @@ export function IntersectionsLegend() {
       <p>Rings indicate possible intersections.</p>
       <svg viewBox="-1 -1 14 14" xmlns="http://www.w3.org/2000/svg">
         <title>A graphic of concentric rings representing possible intersections</title>
-        <ellipse className="outer" cx={6} cy={6} rx={6} ry={6}></ellipse>
-        <ellipse className="middle" cx={6} cy={6} rx={4} ry={4}></ellipse>
-        <ellipse className="inner" cx={6} cy={6} rx={2} ry={2}></ellipse>
+        <circle className="outer" cx={6} cy={6} r={6}></circle>
+        <circle className="middle" cx={6} cy={6} r={4}></circle>
+        <circle className="inner" cx={6} cy={6} r={2}></circle>
       </svg>
       <p>Solid circles indicate definite intersections.</p>
       <svg viewBox="-1 -1 14 14" xmlns="http://www.w3.org/2000/svg">
         <title>A graphic of a single solid circle representing a definite intersection</title>
-        <ellipse className="inner" cx={6} cy={6} rx={6} ry={6}></ellipse>
+        <circle className="inner" cx={6} cy={6} r={6}></circle>
       </svg>
     </legend>
   );

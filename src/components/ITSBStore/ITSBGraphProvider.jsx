@@ -5,8 +5,13 @@ import { ITSBGraph } from './itsbGraph';
 /**
  * The ITSBGraphProvider exposes the ITSB graph as global context.
  *
- * @param {*} props
+ * @typedef {object} Props
+ * @property {object[]} authors the list of authors
+ * @property {object[]} places the list of places
+ * @property {object[]} itineraries the list of itineraries
+ * @param {Props} props
  * @returns {ReactElement}
+ * @property
  */
 export const ITSBGraphProvider = (props) => {
   const [graph, setGraph] = useState();

@@ -16,8 +16,11 @@ import { ITSBGraphProvider } from './ITSBGraphProvider';
  *   is completely specific to ITSB) and the Peripleo search interface
  *   (which has a predefined, generic structure).
  *
- * @param {*} props
+ * @typedef {object} Props
+ * @property {ReactElement} children child components
+ * @param {Props} props
  * @returns {ReactElement}
+ * @property
  */
 export const ITSBStore = (props) => {
   return (

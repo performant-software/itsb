@@ -25,3 +25,18 @@ export const splitItinerary = (it) => {
 
   return sortWaypointsByTime(waypoints);
 };
+
+/**
+ * Given a list of itineraries, return all the waypoints
+ * at the passed place ID.
+ *
+ * @param {Array<*>|undefined} itineraries List of itineraries
+ * @param {string} place Place ID to match
+ * @returns {Array<*>} List of waypoints
+ */
+export const waypointsAtPlace = (itineraries, place) => {
+  return (itineraries || []).reduce((all, it) => {
+    const { waypoints } = it;
+    return [...all, ...waypoints.filter((wp) => wp.place === place)];
+  }, []);
+};

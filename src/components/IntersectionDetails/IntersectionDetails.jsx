@@ -3,6 +3,7 @@ import {
   estimateInterval,
   formatInterval,
   sortWaypointsByTime,
+  waypointsAtPlace,
 } from '../../components/ITSBStore/utils';
 
 import './IntersectionDetails.css';
@@ -17,13 +18,8 @@ export const IntersectionDetails = (props) => {
   // Itineraries in the current search (filtered by author and time)
   const itineraries = at ? search.result?.items : null;
 
-  // Get all waypoints on this place
-  const waypointsAtThisPlace = itineraries?.reduce((all, it) => {
-    const { waypoints } = it;
-    return [...all, ...waypoints.filter((wp) => wp.place === at.id)];
-  }, []);
-
-  const sorted = waypointsAtThisPlace && sortWaypointsByTime(waypointsAtThisPlace);
+  // Get all waypoints on this place, sort them by time
+  const sorted = sortWaypointsByTime(waypointsAtPlace(itineraries, at?.id));
 
   const getLikelihood = (waypoint) => estimateInterval(waypoint, graph)?.likelihood;
 

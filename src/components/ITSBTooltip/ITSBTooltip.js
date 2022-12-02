@@ -1,4 +1,4 @@
-import { formatInterval, sortWaypointsByTime } from '../ITSBStore';
+import { formatInterval, sortWaypointsByTime, waypointsAtPlace } from '../ITSBStore';
 
 /**
  * Generate tooltip markup for a waypoint in an itinerary, or a place with
@@ -18,13 +18,8 @@ export function ITSBTooltip({ graph, object, search }) {
     // for trajectories, show place name and labeled waypoints
     const selected = [`<h2>${object.properties?.title || 'Place'}</h2>`, '<ul>'];
 
-    // Get all waypoints on this place
-    const waypointsAtThisPlace = search.result.items?.reduce((all, it) => {
-      const { waypoints } = it;
-      return [...all, ...waypoints.filter((wp) => wp.place === object.id)];
-    }, []);
-    // sort them by time
-    const sorted = waypointsAtThisPlace && sortWaypointsByTime(waypointsAtThisPlace);
+    // Get all waypoints on this place, sort them by time
+    const sorted = sortWaypointsByTime(waypointsAtPlace(search.result.items, object.id));
     const anyHasLabel = sorted.some((waypoint) => waypoint.relation?.label);
     sorted.forEach((waypoint) => {
       const { author, relation, when } = waypoint;

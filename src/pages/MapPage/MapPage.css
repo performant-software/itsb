@@ -6,10 +6,17 @@ aside#map-control {
 main#map {
   position: relative;
   flex-grow: 1;
+
+  /** mobile only **/
+  margin-bottom: 22vh;
 }
 
 /* medium-sized displays and larger */
 @media (min-width: 640px) {
+  main#map {
+    margin-bottom: 0;
+  }
+
   aside#map-control {
     flex: 0 0 330px;
     padding: 20px 10px;

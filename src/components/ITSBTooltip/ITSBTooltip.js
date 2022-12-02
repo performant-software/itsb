@@ -1,19 +1,4 @@
-import { sortWaypointsByTime } from '../ITSBStore';
-
-/**
- * Format the date by moving the year to the end and changing dash delimiters
- * to slashes; or return a question mark if there is no date.
- *
- * @param {string} date The date as a string formatted YYYY-MM-DD.
- * @returns {string} Date formatted MM/DD/YYYY.
- */
-function fmt(date) {
-  const split = date?.split('-');
-  if (split?.length) {
-    split.push(split.shift());
-  }
-  return split?.join('/') || '?';
-}
+import { formatInterval, sortWaypointsByTime } from '../ITSBStore';
 
 /**
  * Generate tooltip markup for a waypoint in an itinerary, or a place with
@@ -52,10 +37,7 @@ export function ITSBTooltip({ graph, object, search }) {
         // format is "Name: Label (StartDate–EndDate)"
         let label = relation.label ? `${name}: ${relation.label}` : name;
         if (when.timespans.length) {
-          const { start, end } = when.timespans[0];
-          const startDate = start?.in || start?.earliest;
-          const endDate = end?.in || end?.latest;
-          label = `${label} (${fmt(startDate)}–${fmt(endDate)})`;
+          label = `${label} (${formatInterval(waypoint)})`;
         }
         selected.push(`<li>${label}</li>`);
       }

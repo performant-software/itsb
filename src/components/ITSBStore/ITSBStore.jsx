@@ -4,7 +4,7 @@ import { ITSBGraphProvider } from './ITSBGraphProvider';
 /**
  * @typedef {object} ITSBStoreProps
  * @property {ReactElement} children child components
- * 
+ *
  * The Store is a Peripleo-specific abstraction. It represents
  * the domain model of the application - in our case, a graph of
  * Authors, Places and Waypoints.

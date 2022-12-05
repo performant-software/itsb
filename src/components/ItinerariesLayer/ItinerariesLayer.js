@@ -3,6 +3,17 @@ import { ArcLayer, GeoJsonLayer } from '@peripleo/peripleo/deck.gl';
 const POINT_MIN_RADIUS = 6;
 const POINT_MAX_RADIUS = 22;
 
+/**
+ * @typedef {object} Arc
+ * @property {object} from GeoJSON geometry for the start point
+ * @property {object} to GeoJSON geometry for the end point
+ *
+ * Compute arcs for the itineraries/trajectories view, in a format readable by
+ * Deck.GL's ArcLayer.
+ * @param {Array<object>} waypoints An ordered list of waypoints to translate into arcs
+ * @param {ITSBGraph} graph The ITSB graph
+ * @returns {Array<Arc>} A list of Arcs (objects with "from" and "to" geometries)
+ */
 const toArc = (waypoints, graph) => {
   const trajectory = [];
 
@@ -88,6 +99,13 @@ export const ItinerariesLayer = () => (resultItems, graph) => {
       lineWidthUnits: 'pixels',
       getLineColor: [252, 176, 64, 220],
       getFillColor: [252, 176, 64, 180],
+      /**
+       * Scale the radius of a given point in the underlying GeoJSON layer
+       * by the number of waypoints at that place.
+       *
+       * @param {object} d A place in the trajectories visualization
+       * @returns {number} Radius of the place's point
+       */
       getPointRadius: (d) => {
         const { wpCount } = d.properties;
         return k * (wpCount - 1) + POINT_MIN_RADIUS;
@@ -99,6 +117,7 @@ export const ItinerariesLayer = () => (resultItems, graph) => {
     ...resultItems.map(({ author, waypoints }) => {
       const arc = toArc(waypoints, graph);
 
+      // Use the author color set in the Python convertJSON script
       const { color } = graph.getNode(author);
 
       return new ArcLayer({
@@ -110,7 +129,9 @@ export const ItinerariesLayer = () => (resultItems, graph) => {
         getHeight: 1,
         getTilt: 10,
         greatCircle: false,
+        // eslint-disable-next-line jsdoc/require-jsdoc
         getSourcePosition: (d) => d.from.coordinates,
+        // eslint-disable-next-line jsdoc/require-jsdoc
         getTargetPosition: (d) => d.to.coordinates,
         getSourceColor: color,
         getTargetColor: color,

@@ -24,6 +24,7 @@ import {
  * - waypoints are (directionally!) linked to waypoints
  */
 export class ITSBGraph {
+  // eslint-disable-next-line jsdoc/require-jsdoc
   constructor() {
     this.graph = createGraph();
 
@@ -38,6 +39,11 @@ export class ITSBGraph {
       ],
 
       // Remove diacritics for search
+      /**
+       *
+       * @param obj
+       * @param path
+       */
       getFn: (obj, path) => {
         const value = Fuse.config.getFn(obj, path);
 
@@ -138,6 +144,7 @@ export class ITSBGraph {
    * The return value will be `true` if ALL IDs exist in the graph.
    *
    * @param {...string} arg one or multiple node ids
+   * @param {...any} args
    * @returns {boolean} true if ALL of the given IDs exist
    */
   exists = (...args) => {

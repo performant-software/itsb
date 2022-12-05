@@ -29,7 +29,17 @@
     "jsdoc/multiline-blocks": 1,
     "jsdoc/newline-after-description": 1,
     "jsdoc/no-multi-asterisks": 1,
-    "jsdoc/require-jsdoc": 1,
+    "jsdoc/require-jsdoc": [
+      1,
+      {
+        "contexts": [
+          "ArrowFunctionExpression",
+          "FunctionDeclaration",
+          "FunctionExpression",
+          "MethodDefinition"
+        ]
+      }
+    ],
     "jsdoc/require-param": [
       "warn",
       { "unnamedRootBase": ["props", "args"], "checkDestructured": true }

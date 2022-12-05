@@ -20,6 +20,11 @@ export function SearchPage() {
 
   const [results, setResults] = useState([]);
 
+  /**
+   * Event handler for the search field text box.
+   *
+   * @param {ChangeEvent} evt Event triggered by a change in the search field
+   */
   const onChange = (evt) => {
     const { value } = evt.target;
 

@@ -13,12 +13,46 @@ import { useSearch } from '@peripleo/peripleo';
 import './MonthRangeInput.css';
 import { useInterval } from './useInterval';
 
-// Utility string and helper functions
 const fmtString = 'yyyy-MM';
+/**
+ * Format a date according to the above format (YYYY-MM).
+ *
+ * @param {Date} date A JavaScript Date object
+ * @returns {string} The formatted date
+ */
 const fmt = (date) => format(date, fmtString);
+
+/**
+ * Get the first day of the month for a given month.
+ *
+ * @param {string} formattedDate A month formatted as YYYY-MM
+ * @returns {Date} The first day of the month as a JavaScript Date object
+ */
 const monthStart = (formattedDate) => startOfMonth(new Date(`${formattedDate}-02T00:00:00`));
+
+/**
+ * Get the last day of the month for a given month.
+ *
+ * @param {string} formattedDate A month formatted as YYYY-MM
+ * @returns {Date} The last day of the month as a JavaScript Date object
+ */
 const monthEnd = (formattedDate) => endOfMonth(new Date(`${formattedDate}-02T00:00:00`));
+
+/**
+ * Check if a given string is a valid date according to the format YYYY-MM.
+ *
+ * @param {string} date A date formatted as a string
+ * @returns {boolean} True if valid, false if invalid
+ */
 const isValid = (date) => date.length === fmtString.length && isMatch(date, fmtString);
+
+/**
+ * Check if a range of two dates is valid, i.e. the first month is before the second month.
+ *
+ * @param {Date} from The earlier date to compare
+ * @param {Date} to The later date to compare
+ * @returns {boolean} True if the earlier date is before the later date, false if not
+ */
 const isRangeValid = (from, to) => isBefore(monthStart(from), monthEnd(to));
 
 // TODO lookup min date from graph!

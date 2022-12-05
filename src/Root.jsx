@@ -3,7 +3,12 @@ import { Header, ITSBStore } from './components';
 import Peripleo from '@peripleo/peripleo';
 
 /**
+ * The root component of the application, defining the components that wrap (or appear
+ * adjacent to) all subpage components.
+ * The Outlet component will be replaced by subpage components as defined by
+ * React Router routes.
  *
+ * @returns {React.ReactElement} Root component of the application
  */
 export function Root() {
   const [authors, places, itineraries] = useLoaderData();

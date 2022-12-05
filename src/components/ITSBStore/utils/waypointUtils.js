@@ -35,7 +35,7 @@ export const sortWaypointsByTime = (waypoints) => {
  * Sorts waypoints in the sequence represented in the graph.
  *
  * @param {Array<*>} waypoints the Waypoints
- * @param {*} graph the ITSBGraph
+ * @param {ITSBGraph} graph the ITSBGraph
  * @returns {Array<*>} the Waypoints, sorted by sequence
  */
 export const sortWaypointsBySequence = (waypoints, graph) => {
@@ -59,6 +59,11 @@ export const sortWaypointsBySequence = (waypoints, graph) => {
     return !previous || !ids.has(previous);
   });
 
+  /**
+   *
+   * @param waypoint
+   * @param sorted
+   */
   const traverseItinerary = (waypoint, sorted = [waypoint]) => {
     let nextNode;
 
@@ -105,6 +110,7 @@ const isTimespanInRange = (timespan, dateRange) => {
     const date = new Date(timespan.end.latest || timespan.end.in);
     return date >= new Date(startDate) && date <= new Date(endDate);
   }
+  return false;
 };
 
 /**
@@ -133,12 +139,12 @@ export const filterWaypointsByTime = (waypoints, dateRange) => {
  *
  * @param {*} waypoint the Waypoint
  * @param {string} qualifier an optional qualifier
- * @returns {string} the start date, or undefined
+ * @returns {string | null} the start date, or null
  */
 export const getWaypointStartValue = (waypoint, qualifier = null) => {
-  if (!waypoint.when?.timespans) return;
+  if (!waypoint.when?.timespans) return null;
 
-  if (waypoint.when.timespans.length === 0) return;
+  if (waypoint.when.timespans.length === 0) return null;
 
   const startSpan = waypoint.when.timespans.find((t) => t.start)?.start;
   return startSpan

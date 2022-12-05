@@ -20,8 +20,13 @@ import './MapPage.css';
 export function MapPage() {
   const { loaded } = useOutletContext();
 
+  // if there is no entry in localStorage, show legend by default; otherwise hide
   const storedHidden = localStorage.getItem('itsb-legend');
   const [legendVisible, setLegendVisible] = useState(!storedHidden);
+  /**
+   * Set the react state to show or hide the legend. In addition, if there is
+   * no entry in localStorage for the legend, create one.
+   */
   const toggleLegend = () => {
     setLegendVisible((prev) => !prev);
     if (!storedHidden) {
@@ -35,6 +40,13 @@ export function MapPage() {
     ? ItinerariesLayer()
     : IntersectionsLayer({ selected: selectedIntersection });
 
+  /**
+   * Event handler for clicking a city on the map
+   *
+   * @param {object} props destructured props parameter
+   * @param {object} props.object The clicked city on the map
+   * @returns {void}
+   */
   const onClick = ({ object }) => setSelectedIntersection(object);
 
   return (

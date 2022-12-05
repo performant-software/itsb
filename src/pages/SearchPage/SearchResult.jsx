@@ -3,7 +3,7 @@ import { formatInterval } from '../../components/ITSBStore/utils';
 /**
  * @typedef {object} SearchResultProps
  * @property {object} data the search result data
- * @property {object} graph the ITSB graph
+ * @property {ITSBGraph} graph the ITSB graph
  *
  * A single search result in the the search results list.
  * @param {SearchResultProps} props the component props

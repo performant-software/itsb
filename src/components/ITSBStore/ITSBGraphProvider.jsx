@@ -3,10 +3,14 @@ import { GraphContext } from '@peripleo/peripleo';
 import { ITSBGraph } from './itsbGraph';
 
 /**
- * The ITSBGraphProvider exposes the ITSB graph as global context.
+ * @typedef {object} ITSBGraphProviderProps
+ * @property {object[]} authors the list of authors
+ * @property {object[]} places this list of places
+ * @property {object[]} itineraries the list of itineraries
  *
- * @param {*} props
- * @returns {ReactElement}
+ * The ITSBGraphProvider exposes the ITSB graph as global context.
+ * @param {ITSBGraphProviderProps} props the component props
+ * @returns {ReactElement} the React element
  */
 export const ITSBGraphProvider = (props) => {
   const [graph, setGraph] = useState();

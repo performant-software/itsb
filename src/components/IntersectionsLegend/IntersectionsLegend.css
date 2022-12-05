@@ -1,0 +1,78 @@
+legend#intersection-legend {
+  display: none; /* hide entirely on mobile */
+  position: absolute;
+  row-gap: 0.5rem;
+  width: 280px;
+  bottom: 1rem;
+  left: 0;
+  right: 0;
+  grid-template-columns: 5fr 1fr;
+  padding: 0.5rem 1rem;
+  margin: 0 auto;
+  align-items: center;
+  background-color: white;
+  border: 2px solid var(--gold);
+  transition: opacity 0.5s;
+  opacity: 1;
+}
+legend#intersection-legend.hidden {
+  opacity: 0%;
+  pointer-events: none;
+}
+legend#intersection-legend h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+legend#intersection-legend p {
+  margin: 0;
+  font-size: 0.83rem;
+}
+
+/* circle/ring inline svgs */
+legend#intersection-legend svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0 0 0 auto;
+}
+legend#intersection-legend svg circle {
+  stroke: rgb(200, 100, 0);
+  fill: rgb(252, 176, 64);
+  stroke-width: 0.25px;
+}
+legend#intersection-legend svg circle.middle {
+  fill: rgba(252, 176, 64, 0.5);
+}
+legend#intersection-legend svg circle.outer {
+  fill: rgb(252, 176, 64, 0.25);
+}
+
+/* close button */
+legend#intersection-legend button {
+  background-color: transparent;
+  border: none;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  cursor: pointer;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0 0 0 auto;
+}
+/* expand/collapse button, still visible when collapsed */
+button#expand-legend {
+  display: none; /* hide on mobile */
+  position: absolute;
+  bottom: 1rem;
+  left: calc(350px + 1.5rem);
+}
+
+/* medium-sized displays and larger */
+@media (min-width: 640px) {
+  legend#intersection-legend {
+    display: grid;
+  }
+  button#expand-legend {
+    display: flex;
+  }
+}

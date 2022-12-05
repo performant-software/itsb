@@ -2,6 +2,7 @@ export * from './AuthorSelect';
 export * from './Header';
 export * from './IntersectionDetails';
 export * from './IntersectionsLayer';
+export * from './IntersectionsLegend';
 export * from './ItinerariesLayer';
 export * from './ITSBStore';
 export * from './ITSBTooltip';

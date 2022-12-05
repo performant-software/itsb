@@ -6,6 +6,7 @@ import {
   ItinerariesLayer,
   IntersectionDetails,
   IntersectionsLayer,
+  IntersectionsLegend,
   MonthRangeInput,
 } from '../../components';
 import { useMatch, useOutletContext } from 'react-router-dom';
@@ -19,10 +20,17 @@ import './MapPage.css';
 export function MapPage() {
   const { loaded } = useOutletContext();
 
+  const storedHidden = localStorage.getItem('itsb-legend');
+  const [legendVisible, setLegendVisible] = useState(!storedHidden);
+  const toggleLegend = () => {
+    setLegendVisible((prev) => !prev);
+    if (!storedHidden) {
+      localStorage.setItem('itsb-legend', 'hidden');
+    }
+  };
+
   const [selectedIntersection, setSelectedIntersection] = useState();
-
   const isTrajectories = useMatch('trajectories');
-
   const layer = isTrajectories
     ? ItinerariesLayer()
     : IntersectionsLayer({ selected: selectedIntersection });
@@ -57,9 +65,12 @@ export function MapPage() {
         </main>
 
         {!isTrajectories && (
-          <aside id="intersection-details">
-            <IntersectionDetails at={selectedIntersection} />
-          </aside>
+          <>
+            <aside id="intersection-details">
+              <IntersectionDetails at={selectedIntersection} />
+            </aside>
+            <IntersectionsLegend onClick={toggleLegend} visible={legendVisible} />
+          </>
         )}
       </>
     )

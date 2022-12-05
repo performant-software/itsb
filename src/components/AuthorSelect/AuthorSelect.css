@@ -87,7 +87,7 @@
 }
 
 .author-select li input + label {
-  color: #6a727c;
+  color: var(--dimmed-text);
 }
 
 .author-select li input:checked + label {

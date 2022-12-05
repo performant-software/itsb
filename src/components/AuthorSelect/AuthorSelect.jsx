@@ -6,7 +6,7 @@ import './AuthorSelect.css';
 /**
  * A React component for selecting and deselecting authors to show in map visualizations.
  *
- * @returns {React.ReactElemtn} A React functional component for selecting authors
+ * @returns {React.ReactElement} A React functional component for selecting authors
  */
 export const AuthorSelect = () => {
   const [mobileVisibility, setMobileVisibility] = useState(false);

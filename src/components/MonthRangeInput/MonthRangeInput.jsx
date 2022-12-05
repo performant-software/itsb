@@ -28,7 +28,7 @@ const maxDate = fmt(endOfToday());
 /**
  * Month range input controls for filtering the map visualizations.
  *
- * @returns {ReactElement} Functional component for date filter controls
+ * @returns {React.ReactElement} Functional component for date filter controls
  */
 export function MonthRangeInput() {
   const { search, setFilter } = useSearch();

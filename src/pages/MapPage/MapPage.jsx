@@ -15,7 +15,7 @@ import './MapPage.css';
 /**
  * The page component for the map visualizations.
  *
- * @returns {ReactElement} React map functional component
+ * @returns {React.ReactElement} React map functional component
  */
 export function MapPage() {
   const { loaded } = useOutletContext();

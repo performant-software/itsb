@@ -3,13 +3,13 @@ import { SearchStatus, useGraph, useSearch } from '@peripleo/peripleo';
 
 /**
  * @typedef {object} ITSBSearchHandlerProps
- * @property {ReactElement} children child components
+ * @property {React.ReactElement} children child components
  *
  * The ITSBSearchHandler observes changes to the Peripleo search state,
  * and executes searchs (using the graph) if the search changes to
  * a PENDING state.
  * @param {ITSBSearchHandlerProps} props the component props
- * @returns {ReactElement} the React element
+ * @returns {React.ReactElement} the React element
  */
 export const ITSBSearchHandler = (props) => {
   const { search, setSearchState } = useSearch();

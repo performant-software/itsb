@@ -2,8 +2,8 @@
  * The method sorts waypoints according to the time
  * given in the `when` element.
  *
- * @param {Array<*>} waypoints the Waypoints (unsorted)
- * @returns {Array<*>} the Waypoints, sorted by time
+ * @param {Array<object>} waypoints the Waypoints (unsorted)
+ * @returns {Array<object>} the Waypoints, sorted by time
  */
 export const sortWaypointsByTime = (waypoints) => {
   const sorted = [...waypoints];
@@ -34,9 +34,9 @@ export const sortWaypointsByTime = (waypoints) => {
 /**
  * Sorts waypoints in the sequence represented in the graph.
  *
- * @param {Array<*>} waypoints the Waypoints
+ * @param {Array<object>} waypoints the Waypoints
  * @param {ITSBGraph} graph the ITSBGraph
- * @returns {Array<*>} the Waypoints, sorted by sequence
+ * @returns {Array<object>} the Waypoints, sorted by sequence
  */
 export const sortWaypointsBySequence = (waypoints, graph) => {
   const ids = new Set(waypoints.map((wp) => wp.id));
@@ -60,9 +60,12 @@ export const sortWaypointsBySequence = (waypoints, graph) => {
   });
 
   /**
+   * Traverse an itinerary in order from a starting waypoint by following links
+   * in the graph.
    *
-   * @param waypoint
-   * @param sorted
+   * @param {object} waypoint Starting waypoint
+   * @param {Array<object>} sorted Sorted waypoints so far
+   * @returns {Array<object>} Sorted waypoints
    */
   const traverseItinerary = (waypoint, sorted = [waypoint]) => {
     let nextNode;
@@ -93,7 +96,7 @@ export const sortWaypointsBySequence = (waypoints, graph) => {
  * - If the timespan has ONLY a start OR end date, the method returns true
  *   if the defined start or end date is inside the given date range.
  *
- * @param {*} timespan the timespan, in LinkedPlaces 'when' format
+ * @param {object} timespan the timespan, in LinkedPlaces 'when' format
  * @param {[string, string]} dateRange the date range, ISO-formatted start and end
  * @returns {boolean} true if the timespan is in the given date range
  */
@@ -117,9 +120,9 @@ const isTimespanInRange = (timespan, dateRange) => {
  * Filters the list of waypoints by the given date range, using the
  * method `isTimespanInRange` above.
  *
- * @param {Array<*>} waypoints the Waypoints
+ * @param {Array<object>} waypoints the Waypoints
  * @param {[string, string]} dateRange the date range
- * @returns {Array<*>} the list of Waypoints inside the given time interval
+ * @returns {Array<object>} the list of Waypoints inside the given time interval
  */
 export const filterWaypointsByTime = (waypoints, dateRange) => {
   return waypoints.filter((waypoint) =>
@@ -137,7 +140,7 @@ export const filterWaypointsByTime = (waypoints, dateRange) => {
  * In this case, the method will return the value for this specific qualifier
  * if it exists, or undefined otherwise.
  *
- * @param {*} waypoint the Waypoint
+ * @param {object} waypoint the Waypoint
  * @param {string} qualifier an optional qualifier
  * @returns {string | null} the start date, or null
  */
@@ -164,14 +167,14 @@ export const getWaypointStartValue = (waypoint, qualifier = null) => {
  * In this case, the method will return the value for this specific qualifier
  * if it exists, or undefined otherwise.
  *
- * @param {*} waypoint the Waypoint
+ * @param {object} waypoint the Waypoint
  * @param {string} qualifier an optional qualifier
- * @returns {string} the end date, or undefined
+ * @returns {string | null} the end date, or undefined
  */
 export const getWaypointEndValue = (waypoint, qualifier = null) => {
-  if (!waypoint.when?.timespans) return;
+  if (!waypoint.when?.timespans) return null;
 
-  if (waypoint.when.timespans.length === 0) return;
+  if (waypoint.when.timespans.length === 0) return null;
 
   const endSpan = waypoint.when.timespans.find((t) => t.end)?.end;
 
@@ -186,7 +189,7 @@ export const getWaypointEndValue = (waypoint, qualifier = null) => {
  * Returns the start of this waypoint as a Date object. Note that this
  * method will return undefined if the waypoint has no start specified.
  *
- * @param {*} waypoint the Waypoint
+ * @param {object} waypoint the Waypoint
  * @returns {Date} the start date, or undefined
  */
 export const getWaypointStartDate = (waypoint) => {
@@ -198,7 +201,7 @@ export const getWaypointStartDate = (waypoint) => {
  * Returns the end date of this waypoint as a Date object. Note that this
  * method will return undefined, if the waypoint has no end specified.
  *
- * @param {*} waypoint
+ * @param {object} waypoint A waypoint
  * @returns {Date} the end date, or undefined
  */
 export const getWaypointEndDate = (waypoint) => {
@@ -216,8 +219,8 @@ export const getWaypointEndDate = (waypoint) => {
  *
  * The method returns undefined if the waypoint has neither start nor end.
  *
- * @param {*} waypoint the Waypoint
- * @returns {[Date, Date]} a valid start/end interval or undefined
+ * @param {object} waypoint the Waypoint
+ * @returns {Array<Date> | void} a valid start/end interval or undefined
  */
 export const getWaypointInterval = (waypoint) => {
   const start = getWaypointStartDate(waypoint);
@@ -235,8 +238,8 @@ export const getWaypointInterval = (waypoint) => {
  * Returns a formatted string representation of the time
  * interval of this waypoint.
  *
- * @param {*} waypoint the Waypoint
- * @returns {string} formatted string representation
+ * @param {object} waypoint the Waypoint
+ * @returns {string | void} formatted string representation
  */
 export const formatInterval = (waypoint) => {
   const startVal = getWaypointStartValue(waypoint);

@@ -15,7 +15,7 @@ import './IntersectionDetails.css';
  * IntersectionDetails renders waypoint descriptions, to accompany the map.
  * We are using this component in the sidebar of the "Intersections" page.
  * @param {IntersectionDetailProps} props the component props
- * @returns {ReactElement} the React element
+ * @returns {React.ReactElement} the React element
  */
 export const IntersectionDetails = (props) => {
   const { at } = props;
@@ -30,6 +30,12 @@ export const IntersectionDetails = (props) => {
   // Get all waypoints on this place, sort them by time
   const sorted = sortWaypointsByTime(waypointsAtPlace(itineraries, at?.id));
 
+  /**
+   * Helper method to get the likelihood of presence for a waypoint.
+   *
+   * @param {object} waypoint A waypoint
+   * @returns {number} Likelihood as a number between 1 and 3
+   */
   const getLikelihood = (waypoint) => estimateInterval(waypoint, graph)?.likelihood;
 
   return (

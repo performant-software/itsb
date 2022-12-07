@@ -11,7 +11,7 @@ import './SearchPage.css';
 /**
  * Search page for ITSB, using Peripleo search and filtering.
  *
- * @returns {ReactElement} Search page React functional component
+ * @returns {React.ReactElement} Search page React functional component
  */
 export function SearchPage() {
   const { loaded } = useOutletContext();
@@ -20,6 +20,11 @@ export function SearchPage() {
 
   const [results, setResults] = useState([]);
 
+  /**
+   * Event handler for the search field text box.
+   *
+   * @param {ChangeEvent} evt Event triggered by a change in the search field
+   */
   const onChange = (evt) => {
     const { value } = evt.target;
 

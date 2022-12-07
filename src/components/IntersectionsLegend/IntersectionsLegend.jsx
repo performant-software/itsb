@@ -2,14 +2,16 @@ import { BsInfoLg, BsX } from 'react-icons/bs';
 import './IntersectionsLegend.css';
 
 /**
- * A legend for the intersections visualization, adapted from the original ITSB project.
+ * @typedef {object} IntersectionsLegendProps
+ * @property {Function} onClick Event handler to toggle the legend expanded/collapsed
+ * @property {boolean} visible Visible state boolean for the legend
  *
- * @param {React.ComponentProps} props React component props
- * @param {Function} props.onClick Event handler to toggle the legend expanded/collapsed
- * @param {boolean} props.visible Visible state boolean for the legend
+ * A legend for the intersections visualization, adapted from the original ITSB project.
+ * @param {IntersectionsLegendProps} props React component props
  * @returns {React.ReactElement} Legend React functional component
  */
-export function IntersectionsLegend({ onClick, visible }) {
+export function IntersectionsLegend(props) {
+  const { onClick, visible } = props;
   return (
     <>
       <legend id="intersection-legend" className={visible ? 'visible' : 'hidden'}>

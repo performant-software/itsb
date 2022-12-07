@@ -3,6 +3,11 @@ import { useGraph, useSearch } from '@peripleo/peripleo';
 
 import './AuthorSelect.css';
 
+/**
+ * A React component for selecting and deselecting authors to show in map visualizations.
+ *
+ * @returns {React.ReactElement} A React functional component for selecting authors
+ */
 export const AuthorSelect = () => {
   const [mobileVisibility, setMobileVisibility] = useState(false);
 
@@ -12,6 +17,12 @@ export const AuthorSelect = () => {
 
   const selected = search.args.filters?.find((f) => f.name === 'authors')?.values || [];
 
+  /**
+   * Toggle an author selected or deselected by id.
+   *
+   * @param {string} id The author id to toggle.
+   * @returns {void}
+   */
   const toggleAuthor = (id) => () => {
     const updated = selected.includes(id) ? selected.filter((i) => i !== id) : [...selected, id];
 

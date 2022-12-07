@@ -10,7 +10,7 @@ import { ITSBGraph } from './itsbGraph';
  *
  * The ITSBGraphProvider exposes the ITSB graph as global context.
  * @param {ITSBGraphProviderProps} props the component props
- * @returns {ReactElement} the React element
+ * @returns {React.ReactElement} the React element
  */
 export const ITSBGraphProvider = (props) => {
   const [graph, setGraph] = useState();

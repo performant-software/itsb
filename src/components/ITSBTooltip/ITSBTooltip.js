@@ -4,11 +4,11 @@ import { formatInterval, groupBy, sortWaypointsByTime, waypointsAtPlace } from '
  * Generate tooltip markup for a waypoint in an itinerary, or a place with
  * intersecitons.
  *
- * @param {*} props Arguments object to destructure
- * @param {*} props.graph The ITSB graph context provider
- * @param {*} props.object The currently selected waypoint
- * @param {*} props.search The ITSB search context provider
- * @returns {string|undefined} The tooltip text, if possible
+ * @param {object} props Arguments object to destructure
+ * @param {ITSBGraph} props.graph The ITSB graph context provider
+ * @param {object} props.object The currently selected waypoint
+ * @param {SearchState} props.search The ITSB search context provider
+ * @returns {string | object | void} The tooltip text, if possible
  */
 export function ITSBTooltip({ graph, object, search }) {
   if (object?.present) {

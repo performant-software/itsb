@@ -3,11 +3,11 @@ import { formatInterval } from '../../components/ITSBStore/utils';
 /**
  * @typedef {object} SearchResultProps
  * @property {object} data the search result data
- * @property {object} graph the ITSB graph
+ * @property {ITSBGraph} graph the ITSB graph
  *
  * A single search result in the the search results list.
  * @param {SearchResultProps} props the component props
- * @returns {ReactElement} the React element
+ * @returns {React.ReactElement} the React element
  */
 export const SearchResult = (props) => {
   const { data, graph } = props;

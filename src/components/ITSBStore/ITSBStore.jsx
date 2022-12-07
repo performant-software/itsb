@@ -3,7 +3,7 @@ import { ITSBGraphProvider } from './ITSBGraphProvider';
 
 /**
  * @typedef {object} ITSBStoreProps
- * @property {ReactElement} children child components
+ * @property {React.ReactElement} children child components
  *
  * The Store is a Peripleo-specific abstraction. It represents
  * the domain model of the application - in our case, a graph of
@@ -19,7 +19,7 @@ import { ITSBGraphProvider } from './ITSBGraphProvider';
  *   is completely specific to ITSB) and the Peripleo search interface
  *   (which has a predefined, generic structure).
  * @param {ITSBStoreProps} props the component props
- * @returns {ReactElement} the React element
+ * @returns {React.ReactElement} the React element
  */
 export const ITSBStore = (props) => {
   return (

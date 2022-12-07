@@ -5,6 +5,7 @@ import authors from '../../../public/data/authors.json';
 import places from '../../../public/data/places.json';
 import itineraries from '../../../public/data/itineraries.json';
 
+// eslint-disable-next-line jsdoc/require-jsdoc
 const initGraph = (authors, places, itineraries) => {
   const graph = new ITSBGraph();
   graph.init(authors, places, itineraries);

@@ -25,6 +25,12 @@ import { estimateInterval } from '../ITSBStore';
  * }
  */
 export class Presence {
+  /**
+   * Create a new Presence instance.
+   *
+   * @param {Array<object>} itineraries A list of itineraries (author and waypoints)
+   * @param {ITSBGraph} graph The ITSB graph
+   */
   constructor(itineraries, graph) {
     this.graph = graph;
 
@@ -37,7 +43,7 @@ export class Presence {
    * Adds one itinerary to this Presence object.
    *
    * @param {string} author the author ID
-   * @param {*} waypoints the itinerary Waypoints
+   * @param {Array<object>} waypoints the itinerary Waypoints
    */
   addOneItinerary = (author, waypoints) => {
     // Get months and likelihoods for this author

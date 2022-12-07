@@ -50,9 +50,9 @@ import {
  *   'likelihood': ... // The inferred likelihood (type = number, value = 1, 2 or 3)
  * }
  *
- * @param {*} waypoint the Waypoint
- * @param {*} graph the ITSBGraph
- * @returns {*} the estimated interval
+ * @param {object} waypoint the Waypoint
+ * @param {ITSBGraph} graph the ITSBGraph
+ * @returns {object | void} the estimated interval, or undefined if not possible
  */
 export const estimateInterval = (waypoint, graph) => {
   if (!waypoint.when?.timespans) return;
@@ -74,12 +74,12 @@ export const estimateInterval = (waypoint, graph) => {
 };
 
 /**
- * Helper method infer the waypoint time interval, as outlined in the
+ * Helper method to infer the waypoint time interval, as outlined in the
  * documentation for `estimateInterval` (see above).
  *
- * @param {*} waypoint the Waypoint
- * @param {*} graph the ITSBGraph
- * @returns the inferred interval
+ * @param {object} waypoint the Waypoint
+ * @param {ITSBGraph} graph the ITSBGraph
+ * @returns {object | void} the inferred interval, or undefined if not possible
  */
 const inferInterval = (waypoint, graph) => {
   // Since this fn is internal, and only called from estimateTimeInterval,

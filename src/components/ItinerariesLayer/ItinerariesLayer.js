@@ -65,6 +65,7 @@ function getUniquePlaces(resultItems, graph) {
       ...place,
       properties: {
         ...place.properties,
+        // Waypoint count, used for size of the circles in the visualization        
         wpCount: filteredByAuthors.length,
       },
     };

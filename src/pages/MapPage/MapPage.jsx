@@ -60,7 +60,7 @@ export function MapPage() {
         <main id="map">
           <Map.MapLibreDeckGL
             key={isTrajectories ? 'trajectories' : 'intersections'}
-            mapStyle="https://api.maptiler.com/maps/streets-v2-light/style.json?key=cqqmcLw28krG9Fl7V3kg"
+            mapStyle="https://api.maptiler.com/maps/streets-v2-light/style.json?key=ivsJw9naVbzcCpzJQ7HN"
             defaultBounds={[
               // [[minLon, minLat], [maxLon, maxLat]
               [-142, -52],
